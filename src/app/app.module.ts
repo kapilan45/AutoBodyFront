@@ -10,6 +10,7 @@ import { FormsModule } from '@angular/forms';
 import { CarsComponent } from './cars/cars.component';
 import { GalleryModule } from '@ngx-gallery/core';
 import { AnnoncesComponent } from './annonces/annonces.component';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -25,6 +26,7 @@ import { AnnoncesComponent } from './annonces/annonces.component';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    HttpClientModule,
     GalleryModule
   ],
   providers: [],
