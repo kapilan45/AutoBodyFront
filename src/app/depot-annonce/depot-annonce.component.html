@@ -1,14 +1,13 @@
 <div class="container">
   <h1>Annonces</h1>
 
-  <div *ngFor="let annonce of annonces">
     <div class='row border border-secondary' style="margin-bottom: 20px">
       <div class="col-md-3 border border-secondary">
         <img src="{{annonce.image}}" alt="" width="100%" height="80%">
         <!--<img src="https://www.automobile-propre.com/wp-content/uploads/2020/01/sony-vision-s-01.jpg" alt="" width="100%" height="80%"> --->
       </div>
       <div class="col-md-4 border border-secondary">
-        <p>Marque : {{annonce.marque}}</p>
+        <p>Marque : {{annonce.marque}} <input type="text" id="{{annonce.marque}}"> </p>
         <p>Modèle : {{annonce.modele}}</p>
         <p>Catégorie : {{annonce.categorie}}</p>
         <p>Energie : {{annonce.energie}}</p>
@@ -23,10 +22,5 @@
         <p class="text-justify-right"><strong> {{annonce.prix}} € </strong> </p>
       </div>
     </div>
-
-  </div>
-
-
-
 
 </div>

@@ -11,6 +11,8 @@ import { CarsComponent } from './cars/cars.component';
 import { GalleryModule } from '@ngx-gallery/core';
 import { AnnoncesComponent } from './annonces/annonces.component';
 import { HttpClientModule } from '@angular/common/http';
+import { DepotAnnonceComponent } from './depot-annonce/depot-annonce.component';
+import { AnnonceFormComponent } from './annonce-form/annonce-form.component';
 
 
 @NgModule({
@@ -21,6 +23,8 @@ import { HttpClientModule } from '@angular/common/http';
     RegisterComponent,
     CarsComponent,
     AnnoncesComponent,
+    DepotAnnonceComponent,
+    AnnonceFormComponent,
   ],
   imports: [
     BrowserModule,

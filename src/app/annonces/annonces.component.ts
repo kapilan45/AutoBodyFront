@@ -48,7 +48,7 @@ export class AnnoncesComponent implements OnInit {
   ];
 
   constructor(httpClient: HttpClient) {
-    httpClient.get<any[]>('http://localhost:8080/annonces').subscribe(value => {
+    httpClient.get<any[]>('http://localhost:8080/api/annonce').subscribe(value => {
       this.annonces = value;
       console.dir(value);
     }, error => {
