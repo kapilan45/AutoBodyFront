@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {Annonce} from '../annonce';
+import {AnnonceService} from '../annonce.service';
 
 @Component({
   selector: 'app-annonce-form',
@@ -7,9 +9,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AnnonceFormComponent implements OnInit {
 
-  constructor() { }
+  annonce: Annonce;
+  annonceService: AnnonceService;
+
+  constructor() {
+    this.annonce = new Annonce();
+  }
 
   ngOnInit() {
+  }
+
+  onSubmit() {
+    this.annonceService.save(this.annonce).subscribe(result => {
+      // TODO
+    });
   }
 
 }
