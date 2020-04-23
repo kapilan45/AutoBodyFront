@@ -9,7 +9,8 @@ import {Annonce} from './annonce';
 export class AnnonceService {
 
   private baseUrl: string;
-  constructor(private httpClient: HttpClient) {
+  private httpClient: HttpClient;
+  constructor() {
     this.baseUrl = 'http://localhost:4200/api/annonce';
   }
 
@@ -17,8 +18,8 @@ export class AnnonceService {
     return this.httpClient.get<Annonce[]>(this.baseUrl);
   }
 
-  public save(annonce: Annonce){
-    return this.httpClient.post<Annonce>(this.baseUrl, annonce);
+  public save(annonce: Annonce) {
+   //TODO return this.httpClient.post<Annonce>(this.baseUrl, annonce);
   }
 }
 

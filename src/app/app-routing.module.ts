@@ -4,7 +4,7 @@ import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './register/register.component';
 import { CarsComponent } from './cars/cars.component';
 import { AnnoncesComponent } from './annonces/annonces.component';
-import {AnnonceFormComponent} from './annonce-formdd/annonce-form.component';
+import {AnnonceFormComponent} from './annonce-form/annonce-form.component';
 
 
 //const routes: Routes = [];

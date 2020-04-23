@@ -1,19 +1,60 @@
 <div class="container">
-  <h1>Dépot d'annonces</h1>
+  <h1>Dépot d'annonce</h1>
 
   <form (ngSubmit)="onSubmit()" >
-    <div class="form-group">
-      <label>Marque</label>
-      <input type="text" [(ngModel)]="annonce.marque">
-    </div>
-    <div class="form-group">
-      <label>Modele</label>
-      <input type="text" [(ngModel)]="annonce.modele">
-    </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>Marque</label>
+            <input type="text" [class.form-control]="annonce" [(ngModel)]="annonce.marque" name="marque">
+          </div>
+          <div class="form-group">
+            <label>Modèle</label>
+            <input type="text" [class.form-control]="annonce" [(ngModel)]="annonce.modele" name="modele">
+          </div>
+          <div class="form-group">
+            <label>Catégorie</label>
+            <input type="text" [class.form-control]="annonce" [(ngModel)]="annonce.categorie" name="categorie">
+          </div>
+          <div class="form-group">
+            <label>Energie</label>
+            <input type="text" [class.form-control]="annonce" [(ngModel)]="annonce.energie" name="energie">
+          </div>
+          <div class="form-group">
+            <label>Année</label>
+            <input type="text" [class.form-control]="annonce" [(ngModel)]="annonce.annee" name="anne">
+          </div>
+          <div class="form-group">
+            <label>Kilométrage</label>
+            <input type="text" [class.form-control]="annonce" [(ngModel)]="annonce.kilometrage" name="kilometrage">
+          </div>
+          <div class="form-group">
+            <label>Localisation</label>
+            <input type="text" [class.form-control]="annonce" [(ngModel)]="annonce.localisation" name="localisation">
+          </div>
+          <div class="form-group">
+            <label>Stage</label>
+            <input type="number" [class.form-control]="annonce" [(ngModel)]="annonce.stage" [max]="3" [min]="0" name="stage">
+          </div>
+          <div class="form-group">
+            <label>Prix</label>
+            <input type="text" [class.form-control]="annonce" [(ngModel)]="annonce.prix" name="prix">
+          </div>
 
-    <div class="form-group">
-      <button class="btn btn-primary" type="submit">Postuler</button>
-    </div>
+
+          <div class="form-group">
+            <button class="btn btn-primary" type="submit">Postuler</button>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <h1>Images</h1>
+        </div>
+
+      </div>
+      </div>
+
   </form>
 
 </div>

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Annonce} from '../annonce';
 import {AnnonceService} from '../annonce.service';
+import {HttpClient} from "@angular/common/http";
 
 @Component({
   selector: 'app-annonce-form',
@@ -14,15 +15,22 @@ export class AnnonceFormComponent implements OnInit {
 
   constructor() {
     this.annonce = new Annonce();
+    this.annonceService = new AnnonceService();
   }
 
   ngOnInit() {
   }
 
   onSubmit() {
-    this.annonceService.save(this.annonce).subscribe(result => {
-      // TODO
-    });
+    this.annonceService.save(this.annonce);
+  }
+
+  onDrop() {
+    // TODO
+  }
+
+  onDrag(){
+    // TODO
   }
 
 }

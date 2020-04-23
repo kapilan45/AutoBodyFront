@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {Annonce} from "../annonce";
 
 @Component({
   selector: 'app-annonces',
@@ -8,7 +9,8 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 })
 export class AnnoncesComponent implements OnInit {
 
-  annonces = [
+  annonces: Annonce;
+ /* annonces = [
     {
       prix: 400,
       stage: 2,
@@ -45,10 +47,10 @@ export class AnnoncesComponent implements OnInit {
       localisation: 'paris',
       image: 'https://www.automobile-propre.com/wp-content/uploads/2020/01/sony-vision-s-01.jpg'
     }
-  ];
+  ];*/
 
   constructor(httpClient: HttpClient) {
-    httpClient.get<any[]>('http://localhost:8080/api/annonce').subscribe(value => {
+    httpClient.get<Annonce>('http://localhost:8080/api/annonce').subscribe(value => {
       this.annonces = value;
       console.dir(value);
     }, error => {
