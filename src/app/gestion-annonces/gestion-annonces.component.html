@@ -1,0 +1,30 @@
+<div class="container">
+  <h1>Gestion des annonces</h1>
+
+  <div *ngFor="let annonce of annonces">
+    <div class='row border border-secondary' style="margin-bottom: 20px">
+      <div class="col-md-2 border border-secondary">
+        <img src="{{annonce.image}}" alt="" width="100%" height="100%">
+      </div>
+      <div class="col-md-3 border border-secondary">
+        <p>Marque : {{annonce.marque}}</p>
+        <p>Modèle : {{annonce.modele}}</p>
+        <p>Immatriculé : {{annonce.annee}}</p>
+
+      </div>
+      <div class="col-md-2">
+        <p>Stage : {{annonce.stage}}</p>
+        <p class="text-justify-right"><strong>{{annonce.prix}} € </strong> </p>
+      </div>
+
+      <div class="col-md-2">
+        <button class="form-control btn btn-link" [value]="annonce.id">Voir Détail</button>
+      </div>
+      <div class="col-md-2">
+        <button class="form-control btn-danger" (click)="supprimer(annonce)" [value]="annonce.id">Supprimer</button>
+        <button class="form-control btn-primary" (click)="modifier(annonce)">Modifier</button>
+      </div>
+    </div>
+
+  </div>
+</div>
