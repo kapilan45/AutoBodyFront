@@ -5,15 +5,19 @@ import { RegisterComponent } from './register/register.component';
 import { CarsComponent } from './cars/cars.component';
 import { AnnoncesComponent } from './annonces/annonces.component';
 import {AnnonceFormComponent} from './annonce-form/annonce-form.component';
+import {GestionAnnoncesComponent} from './gestion-annonces/gestion-annonces.component';
+import {LogFormComponent} from './log-form/log-form.component';
 
 
-//const routes: Routes = [];
+// const routes: Routes = [];
 const routes: Routes = [
   {path: '', component: HomeComponent},
   {path: 'register', component: RegisterComponent},
+  {path: 'login', component: LogFormComponent},
   {path: 'cars', component: CarsComponent},
   {path: 'annonces', component: AnnoncesComponent },
   {path: 'form', component: AnnonceFormComponent },
+  {path: 'ga', component: GestionAnnoncesComponent },
   ];
 
 @NgModule({

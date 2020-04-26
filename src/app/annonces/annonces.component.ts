@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Annonce} from "../annonce";
+import {Annonce} from '../Annonce/annonce';
+import {GlobalConfig} from '../global-config';
 
 @Component({
   selector: 'app-annonces',
@@ -49,15 +50,16 @@ export class AnnoncesComponent implements OnInit {
     }
   ];*/
 
-  constructor(httpClient: HttpClient) {
-    httpClient.get<Annonce>('http://localhost:8080/api/annonce').subscribe(value => {
+  constructor(private httpClient: HttpClient) {
+    httpClient.get<Annonce>(GlobalConfig.getAnnoncesApiUrl).subscribe(value => {
       this.annonces = value;
-      console.dir(value);
     }, error => {
       console.log('Erreur : ' + error); });
   }
 
   ngOnInit() {
   }
+
+  onSelectOffre(annonceId: Int32Array) {}
 
 }

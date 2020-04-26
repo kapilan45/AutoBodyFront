@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {Annonce} from '../annonce';
-import {AnnonceService} from '../annonce.service';
-import {HttpClient} from "@angular/common/http";
+import {Annonce} from '../Annonce/annonce';
+import {AnnonceService} from '../Annonce/annonce.service';
+import {FormBuilder, FormGroup} from "@angular/forms";
+import {Image} from "../Annonce/image";
 
 @Component({
   selector: 'app-annonce-form',
@@ -10,19 +11,39 @@ import {HttpClient} from "@angular/common/http";
 })
 export class AnnonceFormComponent implements OnInit {
 
-  annonce: Annonce;
+  annonceForm: FormGroup;
+  energies = [];
   annonceService: AnnonceService;
-
-  constructor() {
-    this.annonce = new Annonce();
-    this.annonceService = new AnnonceService();
+  constructor(private formBuilder: FormBuilder, annonceService: AnnonceService) {
+    this.annonceService = annonceService;
   }
 
   ngOnInit() {
+    this.annonceForm = this.formBuilder.group({
+      prix: [],
+      stage: [],
+      marque: [],
+      image: ['https://cdn.motor1.com/images/mgl/AM0WL/s1/audi-s3-2020-pre-drive.jpg'],
+      modele: [],
+      annee: [],
+      kilometrage: [],
+      categorie: [],
+      energies: [],
+      localisation: [],
+    });
+
+    this.energies = this.getEnergies();
   }
 
-  onSubmit() {
-    this.annonceService.save(this.annonce);
+  deposerAnnonce() {
+    this.annonceService.saveAnnonce(this.annonceForm.value);
+  }
+
+  getEnergies() {
+    return [
+      { energie: 'Diesel' },
+      { energie: 'Essence' },
+    ];
   }
 
   onDrop() {

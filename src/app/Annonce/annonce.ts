@@ -1,4 +1,7 @@
+import {Image} from './image';
+
 export class Annonce {
+  id: Int32Array;
       prix: Int32Array;
       stage: Int8Array;
       marque: string;
@@ -8,12 +11,5 @@ export class Annonce {
       categorie: string;
       energie: string;
       localisation: string;
-      image: [{
-        image1: string,
-        image2: string,
-        image3: string,
-        image4: string,
-        image5: string,
-        image6: string,
-      }];
+      image: Image;
 }
