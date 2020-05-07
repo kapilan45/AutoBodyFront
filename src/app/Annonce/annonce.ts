@@ -1,13 +1,13 @@
 import {Image} from './image';
 
 export class Annonce {
-  id: Int32Array;
-      prix: Int32Array;
-      stage: Int8Array;
+      id: number;
+      prix: number;
+      stage: number;
       marque: string;
       modele: string;
-      annee: Int16Array;
-      kilometrage: bigint;
+      annee: number;
+      kilometrage: number;
       categorie: string;
       energie: string;
       localisation: string;

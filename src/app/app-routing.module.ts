@@ -4,9 +4,10 @@ import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './register/register.component';
 import { CarsComponent } from './cars/cars.component';
 import { AnnoncesComponent } from './annonces/annonces.component';
-import {AnnonceFormComponent} from './annonce-form/annonce-form.component';
 import {GestionAnnoncesComponent} from './gestion-annonces/gestion-annonces.component';
 import {LogFormComponent} from './log-form/log-form.component';
+import {DepotAnnoncesComponent} from './depot-annonces/depot-annonces.component';
+import {ModificationAnnoncesComponent} from './modification-annonces/modification-annonces.component';
 
 
 // const routes: Routes = [];
@@ -16,8 +17,9 @@ const routes: Routes = [
   {path: 'login', component: LogFormComponent},
   {path: 'cars', component: CarsComponent},
   {path: 'annonces', component: AnnoncesComponent },
-  {path: 'form', component: AnnonceFormComponent },
+  {path: 'form', component: DepotAnnoncesComponent },
   {path: 'ga', component: GestionAnnoncesComponent },
+  {path: 'modify', component: ModificationAnnoncesComponent },
   ];
 
 @NgModule({

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup} from "@angular/forms";
-import {AuthentificationService} from "../authentification.service";
+import {FormBuilder, FormGroup} from '@angular/forms';
+import {AuthentificationService} from '../Annonce/authentification.service';
 
 @Component({
   selector: 'app-register',

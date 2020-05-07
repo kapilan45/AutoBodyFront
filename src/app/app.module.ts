@@ -11,11 +11,11 @@ import { CarsComponent } from './cars/cars.component';
 import { GalleryModule } from '@ngx-gallery/core';
 import { AnnoncesComponent } from './annonces/annonces.component';
 import { HttpClientModule } from '@angular/common/http';
-import { DepotAnnonceComponent } from './depot-annonce/depot-annonce.component';
-import {AnnonceFormComponent} from './annonce-form/annonce-form.component';
 import {LogFormComponent} from './log-form/log-form.component';
 import { GestionAnnoncesComponent } from './gestion-annonces/gestion-annonces.component';
 import { ModalConfirmComponent } from './modal-confirm/modal-confirm.component';
+import { DepotAnnoncesComponent } from './depot-annonces/depot-annonces.component';
+import { ModificationAnnoncesComponent } from './modification-annonces/modification-annonces.component';
 
 @NgModule({
   declarations: [
@@ -25,11 +25,11 @@ import { ModalConfirmComponent } from './modal-confirm/modal-confirm.component';
     RegisterComponent,
     CarsComponent,
     AnnoncesComponent,
-    DepotAnnonceComponent,
-    AnnonceFormComponent,
     LogFormComponent,
     GestionAnnoncesComponent,
     ModalConfirmComponent,
+    DepotAnnoncesComponent,
+    ModificationAnnoncesComponent,
   ],
   imports: [
     BrowserModule,

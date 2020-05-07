@@ -1,25 +1,22 @@
-<!-- Main jumbotron for a primary marketing message or call to action -->
-<div class="jumbotron">
-    <div class="container">
-        <h1 >Register Form</h1>
-        <form [formGroup]="registerForm" (ngSubmit)="register()">
-            <div class="form-group">
-              <label>Usernanme</label>
-              <input type="input" class="form-control" formControlName="username">
-            </div>
-
-          <div class="form-group">
-            <label for="exampleInputEmail1">Email address</label>
-            <input type="email" class="form-control" formControlName="mail" id="exampleInputEmail1" aria-describedby="emailHelp">
-            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-          </div>
-            <div class="form-group">
-              <label>Password</label>
-              <input type="password" class="form-control" formControlName="password">
-            </div>
-
-            <button type="submit" class="btn btn-primary">Submit</button>
-          </form>
+<form [formGroup]="registerForm" (ngSubmit)="register()" class="col-md-6 align-self-center" id="form_login">
+  <div class="form-group">
+    <label for="exampleInputEmail1">Email</label>
+    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" formControlName="mail" placeholder="Enter email">
   </div>
-</div>
+  <div class="form-group" >
+    <label for="exampleInputUsername1">Mail</label>
+    <input type="text" class="form-control" id="exampleInputUsername1" formControlName="username">
+  </div>
+  <div class="form-group">
+    <label for="exampleInputPassword1">Mot de passe</label>
+    <input type="password" class="form-control" id="exampleInputPassword1" formControlName="password">
+  </div>
+  <div class="form-check">
+    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+    <label class="form-check-label" for="exampleCheck1">Me Souvenir</label>
+  </div>
+  <div class="form-group ">
+    <button type="submit" class="btn btn-primary col-md-8 justify-content-center">S'enregistrer</button>
+  </div>
 
+</form>

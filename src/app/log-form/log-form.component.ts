@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
-import {AuthentificationService} from '../authentification.service';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {AuthentificationService} from '../Annonce/authentification.service';
+import {ValidationService} from "../Annonce/validation-service";
 
 @Component({
   selector: 'app-log-form',
@@ -13,13 +14,14 @@ export class LogFormComponent implements OnInit {
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
-      username: [],
-      password: [],
+      username: ['', [Validators.required, ValidationService.emailValidator]],
+      password: ['', Validators.required],
+      remember: [Validators.required],
     });
   }
 
   login() {
-    // traitement
+    // traitement dd
     this.authentificationService.login(this.loginForm);
   }
 
