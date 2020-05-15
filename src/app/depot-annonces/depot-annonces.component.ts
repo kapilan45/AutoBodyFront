@@ -1,6 +1,10 @@
 import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {AnnonceService} from '../Annonce/annonce.service';
+import {Image} from "../Annonce/image";
+import {of} from "rxjs";
+import {Annonce} from "../Annonce/annonce";
+import {ENABLE_DISABLE_REGEX} from "tslint";
 
 @Component({
   selector: 'app-depot-annonces',
@@ -11,32 +15,69 @@ export class DepotAnnoncesComponent implements OnInit {
 
   annonceForm: FormGroup;
   energies = [];
-  images = { }
+  images = {};
+  pjs = [
+    {name: 'tele1.pdf'},
+    {name: 'tele2.pdf'},
+    {name: 'tele3.pdf'},
+    ];
+  makeslist = [];
   //images: string | ArrayBuffer;
   constructor(private formBuilder: FormBuilder, private annonceService: AnnonceService, private cd: ChangeDetectorRef) { }
 
   ngOnInit() {
 
     this.annonceForm = this.formBuilder.group({
-    prix: [],
-    stage: [],
-    marque: [],
-    image: ['https://cdn.motor1.com/images/mgl/AM0WL/s1/audi-s3-2020-pre-drive.jpg'],
-    modele: [],
-    annee: [],
-    kilometrage: [],
-    categorie: [],
-    energies: [],
-    localisation: [],
+      placeNumber: [],
+      maxSpeed: [],
+      reinforcedCluth: [],
+      horsePower: [],
+      fiscalHorsePower: [],
+      prix: [],
+      stage: [],
+      make: [],
+      modele: [],
+      annee: [],
+      kilometrage: [],
+      category: [],
+      energies: [''],
+      localisation: [],
   });
 
+
     this.energies = this.getEnergies();
+
+    of(this.getEnergies()).subscribe(energies => {
+      this.energies = energies;
+    });
+
+    of(this.getMake()).subscribe(make => {
+      this.makeslist = make;
+    });
+
+
   }
 
   getEnergies() {
     return [
-      { energie: 'Diesel' },
-      { energie: 'Essence' },
+      { value: 'Diesel' },
+      { value: 'Essence' },
+    ];
+  }
+
+  getMake() {
+    return [
+      {make: 'bmw'},
+      {make: 'audi'}
+    ];
+  }
+
+  getModele(annonceForm: FormGroup) {
+    console.dir(annonceForm);
+    console.dir(annonceForm.get(this.makeslist));
+    return [
+      {make: 'bmw'},
+      {make: 'audi'}
     ];
   }
 
@@ -44,8 +85,10 @@ export class DepotAnnoncesComponent implements OnInit {
     this.annonceService.saveAnnonce(this.annonceForm.value);
   }
 
+
   chargerImage(event) {
 
+    //let tr = this.annonceService.upload(event);
     const reader = new FileReader();
     if (event.target.files && event.target.files.length) {
       const [file] = event.target.files;
@@ -58,8 +101,6 @@ export class DepotAnnoncesComponent implements OnInit {
             break;
           }
         }
-
-        console.dir(reader.result);
 
        // need to run CD since file load runs outside of zone
         this.cd.markForCheck();

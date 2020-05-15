@@ -21,12 +21,12 @@ export class ModificationAnnoncesComponent implements OnInit {
   this.annonceForm = this.formBuilder.group({
       prix: [annonce.prix],
       stage: [annonce.stage],
-      marque: [annonce.marque],
+      make: [annonce.make],
       image: [annonce.image],
       modele: [annonce.modele],
       annee: [annonce.modele],
       kilometrage: [annonce.kilometrage],
-      categorie: [annonce.categorie],
+      category: [annonce.category],
       energies: [annonce.energie],
       localisation: [annonce.localisation],
     });

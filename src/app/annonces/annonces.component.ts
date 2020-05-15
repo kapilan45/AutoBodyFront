@@ -52,6 +52,7 @@ export class AnnoncesComponent implements OnInit {
 
   constructor(private httpClient: HttpClient) {
     httpClient.get<Annonce>(GlobalConfig.getAnnoncesApiUrl).subscribe(value => {
+      console.dir(value);
       this.annonces = value;
     }, error => {
       console.log('Erreur : ' + error); });

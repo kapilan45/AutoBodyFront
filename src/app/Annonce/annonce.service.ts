@@ -27,6 +27,8 @@ export class AnnonceService {
   constructor(private httpClient: HttpClient) {}
 
   public saveAnnonce(annonce: FormGroup) {
+
+    console.dir(annonce);
     this.httpClient
       .post(GlobalConfig.saveAnnonceApiUrl, annonce)
       .subscribe(
@@ -63,6 +65,34 @@ export class AnnonceService {
         }
       );
   }
+
+  upload(event) {
+      const uploadImageData = new FormData();
+      uploadImageData.append('image', event.target.file[0]);
+
+      this.httpClient.post('http://localhost:8080/api/image', uploadImageData, { observe: 'response' })
+      .subscribe((response) => {
+        if (response.status === 200) {
+          console.log('Image uploaded successfully');
+        } else {
+          console.log('Image not uploaded successfully');
+        }
+      });
+  }
+
+  /*
+  getImage() {
+    //Make a call to Sprinf Boot to get the Image Bytes.
+    this.httpClient.get('http://localhost:8080/api/image/')
+      .subscribe(
+        res => {
+          this.retrieveResonse = res;
+          this.base64Data = this.retrieveResonse.picByte;
+          this.retrievedImage = 'data:image/jpeg;base64,' + this.base64Data;
+        }
+      );
+  }
+  */
 }
 
 

@@ -1,47 +1,79 @@
 <form [formGroup]="annonceForm" (ngSubmit)="deposerAnnonce()" >
   <div class="container">
     <div class="row">
-      <div class="col-md-6">
-        <div class="form-group">
-          <label>Marque</label>
-          <input type="text" class="form-control" formControlName="marque">
+      <div class="col-md-6 col-12">
+        <div class="form-group row">
+          <div class="col-12">
+            <label>Marque</label>
+            <input type="text" class="form-control" formControlName="make" list="makes_list">
+              <datalist id="makes_list">
+                <option *ngFor="let makelist of makeslist; let i = index" [value]="makeslist[i].make" >
+              </datalist>
+          </div>
         </div>
-        <div class="form-group">
-          <label>Modèle</label>
-          <input type="text" class="form-control" formControlName="modele">
-        </div>
-        <div class="form-group">
-          <label>Catégorie</label>
-          <input type="text" class="form-control" formControlName="categorie">
-        </div>
-        <div class="form-group">
-          <label>Energie</label>
-          <select formControlName="energies" class="form-control">
-            <option *ngFor="let energie of energies">{{energie.energie}}</option>
-          </select>
-        </div>
-
-        <div class="form-group">
-          <label>Année</label>
-          <input type="text" class="form-control" formControlName="annee">
-        </div>
-        <div class="form-group">
-          <label>Kilométrage</label>
-          <input type="text" class="form-control" formControlName="kilometrage">
-        </div>
-        <div class="form-group">
-          <label>Localisation</label>
-          <input type="text" class="form-control" formControlName="localisation">
-        </div>
-        <div class="form-group">
-          <label>Stage</label>
-          <input type="number"  class="form-control" formControlName="stage" [min]="0" [max]="3">
-        </div>
-        <div class="form-group">
-          <label>Prix</label>
-          <input type="text" class="form-control" formControlName="prix">
+        <div class="form-group row ">
+          <div class="col-md-6 col-12">
+            <label>Modèle</label>
+            <input type="text" class="form-control" formControlName="modele">
+          </div>
+          <div class="col-md-6 col-12">
+            <label>Catégorie</label>
+            <input type="text" class="form-control" formControlName="category">
+          </div>
         </div>
 
+
+        <div class="form-group row ">
+          <div class="col-md-6 col-12">
+            <label>Année</label>
+            <input type="number" class="form-control" formControlName="annee" [max]="2020">
+          </div>
+
+          <div class="col-md-6 col-12">
+            <label>Energie</label>
+            <select formControlName="energies" class="form-control">
+              <option *ngFor="let energie of energies; let i = index" [value]="energies[i].value">{{energies[i].value}}</option>
+            </select>
+         </div>
+      </div>
+
+        <div class="form-group row ">
+          <div class="col-md-3 col-4">
+            <label>Nb place</label>
+            <input type="number" class="form-control" formControlName="placeNumber" [max]="7">
+          </div>
+          <div class="col-md-3 col-4">
+            <label>PV</label>
+            <input type="number" class="form-control" formControlName="horsePower">
+          </div>
+          <div class="col-md-3 col-4">
+            <label>CV</label>
+            <input type="number" class="form-control" formControlName="fiscalHorsePower">
+          </div>
+
+        </div>
+
+        <div class="form-group row ">
+          <div class="col-md-6 col-12">
+            <label>Kilométrage</label>
+            <input type="number" class="form-control" formControlName="kilometrage">
+          </div>
+          <div class="col-md-6 col-12">
+            <label>Localisation</label>
+            <input type="text" class="form-control" formControlName="localisation">
+          </div>
+        </div>
+
+        <div class="form-group row ">
+          <div class="col-md-3 col-4">
+            <label>Stage</label>
+            <input type="number"  class="form-control" formControlName="stage" [min]="0" [max]="3">
+          </div>
+          <div class="col-md-6 col-6">
+            <label>Prix</label>
+            <input type="number" class="form-control" formControlName="prix">
+          </div>
+        </div>
 
         <div class="form-group">
           <button class="btn btn-primary form-control" type="submit">Déposer</button>
@@ -61,54 +93,8 @@
                 <i class="material-icons">add_a_photo</i>
               </i>
               <input type="file" (change)="chargerImage($event)" multiple />
-            <!-- <img src="https://img4.autodeclics.com/photo_article/89163/24938/1200-L-audi-a3-sportback.jpg" class="upload-image" />
-            -->
 
           </div>
-
-<!--          <div class="col-4 image-upload border pt-2 pb-2">-->
-<!--              <div class="image-preview mb-3" *ngIf="images[0]">-->
-<!--                <img [src]="images[0]" class="upload-image" />-->
-<!--              </div>-->
-
-<!--              <i *ngIf="!images[0]">-->
-<!--                <i class="material-icons">add_a_photo</i>-->
-<!--              </i>-->
-<!--              <input type="file" (change)="chargerImage($event)" multiple />-->
-<!--            &lt;!&ndash; <img src="https://img4.autodeclics.com/photo_article/89163/24938/1200-L-audi-a3-sportback.jpg" class="upload-image" />-->
-<!--            &ndash;&gt;-->
-
-<!--          </div>-->
-
-<!--          <div class="col-4 image-upload border pt-2 pb-2">-->
-<!--              <div class="image-preview mb-3" *ngIf="images[1]">-->
-<!--                <img [src]="images[1]" class="upload-image" />-->
-<!--              </div>-->
-
-<!--              <i *ngIf="!images[1]">-->
-<!--                <i class="material-icons">add_a_photo</i>-->
-<!--              </i>-->
-<!--              <input type="file" (change)="chargerImage($event)" multiple />-->
-<!--            &lt;!&ndash; <img src="https://img4.autodeclics.com/photo_article/89163/24938/1200-L-audi-a3-sportback.jpg" class="upload-image" />-->
-<!--            &ndash;&gt;-->
-
-<!--          </div>-->
-
-<!--          <div class="col-4 image-upload border pt-2 pb-2">-->
-<!--              <div class="image-preview mb-3" *ngIf="images[2]">-->
-<!--                <img [src]="images[2]" class="upload-image" />-->
-<!--              </div>-->
-
-<!--              <i *ngIf="!images[2]">-->
-<!--                <i class="material-icons">add_a_photo</i>-->
-<!--              </i>-->
-<!--              <input type="file" (change)="chargerImage($event)" multiple />-->
-<!--            &lt;!&ndash; <img src="https://img4.autodeclics.com/photo_article/89163/24938/1200-L-audi-a3-sportback.jpg" class="upload-image" />-->
-<!--            &ndash;&gt;-->
-
-<!--          </div>-->
-
-
         </div>
 
         <div class="row mb-4">
@@ -122,33 +108,17 @@
               <i class="material-icons">add_a_photo</i>
             </i>
             <input type="file" (change)="chargerImage($event)" multiple />
-            <!-- <img src="https://img4.autodeclics.com/photo_article/89163/24938/1200-L-audi-a3-sportback.jpg" class="upload-image" />
-            -->
-
           </div>
 
-         <!-- <div class="col-4 image-upload border">
-            <i>
-              <i class="material-icons">add_a_photo</i>
-            </i>
-            <input type="file" (change)="chargerImage($event)" multiple />
-          </div>
-          <div class="col-4 image-upload border">
-            <i>
-              <i class="material-icons">add_a_photo</i>
-            </i>
-            <input type="file" (change)="chargerImage($event)" multiple />
-          </div>
-
-          <div class="col-4 image-upload border">
-            <i>
-              <i class="material-icons">add_a_photo</i>
-            </i>
-            <input type="file" (change)="chargerImage($event)" multiple />
-          </div> -->
         </div>
 
         <div class="row">
+
+          <div>
+            Les factures <br>
+            Les fichiers joignables *
+          </div>
+
           <div class="col-md-12">
             <div class="input-group mb-3">
               <div class="custom-file">
@@ -157,6 +127,14 @@
               </div>
             </div>
           </div>
+
+
+          <div class="col-12">
+            <label class="col-12" *ngFor="let pj of pjs">{{pj.name}}</label>
+          </div>
+
+
+          <div class="border mt-3">Les fichiers possible : <br>entreien, changement des melement, factures des materiel </div>
 
           <!-- les fichiers chargés -->
         </div>
