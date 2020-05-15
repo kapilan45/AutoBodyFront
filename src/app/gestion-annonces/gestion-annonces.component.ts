@@ -3,8 +3,11 @@ import {Annonce} from '../Annonce/annonce';
 import {HttpClient} from '@angular/common/http';
 import {GlobalConfig} from '../global-config';
 import {ModalConfirmComponent} from '../modal-confirm/modal-confirm.component';
+<<<<<<< HEAD
 import {Router} from '@angular/router';
 import {AnnonceService} from '../Annonce/annonce.service';
+=======
+>>>>>>> origin/master
 
 @Component({
   selector: 'app-gestion-annonces',
@@ -13,6 +16,7 @@ import {AnnonceService} from '../Annonce/annonce.service';
 })
 export class GestionAnnoncesComponent implements OnInit {
 
+<<<<<<< HEAD
  // annonces: Annonce;
    annonces = [
     {
@@ -57,10 +61,24 @@ export class GestionAnnoncesComponent implements OnInit {
 
   ngOnInit() {
     this.annonceService.getAnnonces();
+=======
+  annonces: Annonce;
+  constructor(private httpClient: HttpClient) { }
+
+  ngOnInit() {
+    this.httpClient.get<Annonce>(GlobalConfig.getAnnoncesApiUrl).subscribe(value => {
+      this.annonces = value;
+      console.dir(value);
+      console.dir(this.annonces);
+    }, error => {
+      console.log('Erreur' + error);
+    });
+>>>>>>> origin/master
   }
 
   modifier(annonce: Annonce) {
   // TODO
+<<<<<<< HEAD
     this.annonceService.annonces = annonce;
     console.dir(annonce);
     console.log(annonce.id);
@@ -76,6 +94,16 @@ export class GestionAnnoncesComponent implements OnInit {
       console.log('erreur de suppression');
     });
     // this.modal.open(ModalConfirmComponent);
+=======
+    console.dir(annonce);
+    console.log(annonce.id);
+  }
+
+  supprimer(annonce: Annonce) {
+    // TODO
+    console.dir(annonce);
+    //this.modal.open(ModalConfirmComponent);
+>>>>>>> origin/master
   }
 
 }
