@@ -2,11 +2,11 @@
   <h1>Gestion des annonces</h1>
 
   <div *ngFor="let annonce of annonces">
-    <div class='row border border-secondary' style="margin-bottom: 20px">
-      <div class="col-md-2 border border-secondary">
+    <div class='row border' style="margin-bottom: 20px">
+      <div class="col-md-2">
         <img src="{{annonce.image}}" alt="" width="100%" height="100%">
       </div>
-      <div class="col-md-3 border border-secondary">
+      <div class="col-md-3">
         <p>Marque : {{annonce.marque}}</p>
         <p>Modèle : {{annonce.modele}}</p>
         <p>Immatriculé : {{annonce.annee}}</p>
@@ -21,10 +21,31 @@
         <button class="form-control btn btn-link" [value]="annonce.id">Voir Détail</button>
       </div>
       <div class="col-md-2">
-        <button class="form-control btn-danger" (click)="supprimer(annonce)" [value]="annonce.id">Supprimer</button>
+        <button class="form-control btn-danger" (click)="supprimer(content, annonce)" [value]="annonce.id">Supprimer</button>
         <button class="form-control btn-primary" (click)="modifier(annonce)">Modifier</button>
       </div>
     </div>
 
   </div>
 </div>
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h3>Comfirmation</h3>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="form-group">
+        <label>Souhaitez-vous vraiment supprimer votre annonce ?</label>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-danger" (click)="confirmSuppression(selected_annonce)" >Supprimer</button>
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close()">Annuler</button>
+  </div>
+</ng-template>
+

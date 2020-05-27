@@ -1,22 +1,24 @@
-import { Component } from '@angular/core';
+import { Injectable } from '@angular/core';
 import {ModalDismissReasons, NgbModal} from "@ng-bootstrap/ng-bootstrap";
 
-@Component({
-  selector: 'app-modal-confirm',
-  templateUrl: './modal-confirm.component.html',
-  styleUrls: ['./modal-confirm.component.scss']
+@Injectable({
+  providedIn: 'root'
 })
-export class ModalConfirmComponent {
+export class ModalService {
 
   closeResult = '';
-  constructor(private modalService: NgbModal) { }
+  constructor(private modal: NgbModal) { }
 
   open(content){
-    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+    this.modal.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
+  }
+
+  close(){
+    this.modal.dismissAll();
   }
 
   private getDismissReason(reason: any): string {

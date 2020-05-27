@@ -1,8 +1,5 @@
 export class Image {
-  image1: string;
-  image2: string;
-  image3: string;
-  image4: string;
-  image5: string;
-  imaeg6: string;
+  constructor(result: string | ArrayBuffer, id: number) {}
+  id: number;
+  path: string;
 }

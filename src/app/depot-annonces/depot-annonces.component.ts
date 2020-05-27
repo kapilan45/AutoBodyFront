@@ -1,10 +1,7 @@
 import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AnnonceService} from '../Annonce/annonce.service';
-import {Image} from "../Annonce/image";
 import {of} from "rxjs";
-import {Annonce} from "../Annonce/annonce";
-import {ENABLE_DISABLE_REGEX} from "tslint";
 
 @Component({
   selector: 'app-depot-annonces',
@@ -14,15 +11,24 @@ import {ENABLE_DISABLE_REGEX} from "tslint";
 export class DepotAnnoncesComponent implements OnInit {
 
   annonceForm: FormGroup;
+  isMake = true;
+  isModele = true;
+  isCategory = true;
   energies = [];
-  images = {};
+  images = [];
   pjs = [
     {name: 'tele1.pdf'},
     {name: 'tele2.pdf'},
     {name: 'tele3.pdf'},
     ];
+
   makeslist = [];
-  //images: string | ArrayBuffer;
+  categorieslist = [];
+  modeleslist = [];
+  // Reader read uploaded file
+  reader = new FileReader();
+
+  // images: string | ArrayBuffer;
   constructor(private formBuilder: FormBuilder, private annonceService: AnnonceService, private cd: ChangeDetectorRef) { }
 
   ngOnInit() {
@@ -51,11 +57,69 @@ export class DepotAnnoncesComponent implements OnInit {
       this.energies = energies;
     });
 
-    of(this.getMake()).subscribe(make => {
-      this.makeslist = make;
+    of(this.getMakes()).subscribe(makes => {
+      this.makeslist = makes;
     });
 
+   /* of(this.getModeles(this.annonceForm)).subscribe(modeles => {
+      this.modeleslist = modeles;
+    }); */
 
+    /* of(this.getCategories(this.annonceForm)).subscribe(categories => {
+      this.categorieslist = categories;
+    }); */
+  }
+
+  uploadFichier(event) {
+    if(event.target.files) {
+      const [file] = event.target.files;
+      this.reader.readAsDataURL(file);
+
+      let uploadStat: any = this.annonceService.upload(file);
+
+      if(!uploadStat) {
+        let index = this.pjs.length;
+
+        // TODO
+        this.pjs[index] = {name : file.name};
+      }
+    }
+  }
+
+  uploadImage(event) {
+    const reader = new FileReader();
+    if (event.target.files && event.target.files.length) {
+      const [file] = event.target.files;
+      reader.readAsDataURL(file);
+
+      // TODO erreur to upload
+      let uploadStat:boolean = this.annonceService.upload(file);
+
+      if(uploadStat){
+        reader.onload = () => {
+          let index = this.images.length;
+          if (this.images.length != 6){
+            this.images[index] = reader.result;
+            /* for (let i = 0; i < 6; i++){
+              if (this.images[i] == null){
+                this.images[i] = reader.result;
+                break;
+              }
+            }*/
+          } else {
+            for (let i = 0; i < 5; i++){
+              this.images[i] = this.images[i + 1];
+            }
+            this.images[5] = reader.result;
+          }
+
+          // need to run CD since file load runs outside of zone
+          this.cd.markForCheck();
+        };
+      }
+
+
+    }
   }
 
   getEnergies() {
@@ -65,47 +129,49 @@ export class DepotAnnoncesComponent implements OnInit {
     ];
   }
 
-  getMake() {
+  getMakes() {
     return [
       {make: 'bmw'},
       {make: 'audi'}
     ];
   }
 
-  getModele(annonceForm: FormGroup) {
-    console.dir(annonceForm);
-    console.dir(annonceForm.get(this.makeslist));
+  getModeles(annonceForm: FormGroup) {
     return [
-      {make: 'bmw'},
-      {make: 'audi'}
+      {modele: 'x4'},
+      {modele: 'x5'}
+    ];
+  }
+
+  getCategories(annonceForm: FormGroup) {
+    return [
+      {category: 'break'},
+      {category: 'citadin'}
     ];
   }
 
   deposerAnnonce() {
+    console.dir(this.annonceForm)
     this.annonceService.saveAnnonce(this.annonceForm.value);
   }
 
+  activateChamp(e: string) {
 
-  chargerImage(event) {
-
-    //let tr = this.annonceService.upload(event);
-    const reader = new FileReader();
-    if (event.target.files && event.target.files.length) {
-      const [file] = event.target.files;
-      reader.readAsDataURL(file);
-
-      reader.onload = () => {
-        for (let i = 0; i < 6; i++){
-          if (this.images[i] == null){
-            this.images[i] = reader.result;
-            break;
-          }
-        }
-
-       // need to run CD since file load runs outside of zone
-        this.cd.markForCheck();
-      };
+    if (e == 'make'){
+      of(this.getModeles(this.annonceForm)).subscribe(modeles => {
+        this.modeleslist = modeles;
+      });
+      this.isMake = false;
+    } else  if (e == 'modele'){
+      of(this.getCategories(this.annonceForm)).subscribe(categories => {
+        this.categorieslist = categories;
+      });
+      this.isModele = false;
+    } else if (e == 'category'){
+      this.isCategory = false;
     }
+
   }
+
 
 }

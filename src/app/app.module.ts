@@ -16,6 +16,7 @@ import { GestionAnnoncesComponent } from './gestion-annonces/gestion-annonces.co
 import { ModalConfirmComponent } from './modal-confirm/modal-confirm.component';
 import { DepotAnnoncesComponent } from './depot-annonces/depot-annonces.component';
 import { ModificationAnnoncesComponent } from './modification-annonces/modification-annonces.component';
+import {NgbDatepickerModule} from "@ng-bootstrap/ng-bootstrap";
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { ModificationAnnoncesComponent } from './modification-annonces/modificat
     HttpClientModule,
     GalleryModule,
     ReactiveFormsModule,
+    NgbDatepickerModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

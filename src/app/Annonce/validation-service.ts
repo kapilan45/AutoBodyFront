@@ -15,14 +15,16 @@ export class ValidationService {
 
   static emailValidator(control) {
     // RFC 2822 compliant regex
-    console.log(control.status);
+    //console.log(control.status);
     if (
       control.value.match(
         /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/
       )
     ) {
+      console.log("math")
       return null;
     } else {
+      console.log("not match")
       return { invalidEmailAddress: true };
     }
   }

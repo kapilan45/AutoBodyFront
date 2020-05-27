@@ -2,20 +2,28 @@ import {Image} from './image';
 
 export class Annonce {
       id: number;
+      make: {
+        make: string;
+      };
       placeNumber: number;
       maxSpeed: number;
       reinforcedCluth: boolean;
       horsePower: number;
       fiscalHorsePower: number;
-      prix: number;
+      price: number;
       stage: number;
-      make: string;
-      modele: string;
+      model: {
+        model: string;
+      };
       annee: number;
       kilometrage: number;
-      category: string;
+      category: {
+        category: string;
+      };
       energie: string;
-      localisation: string;
+      localisation: {
+        city: string;
+      };
       image: Image;
 }
 

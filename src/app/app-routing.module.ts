@@ -8,6 +8,7 @@ import {GestionAnnoncesComponent} from './gestion-annonces/gestion-annonces.comp
 import {LogFormComponent} from './log-form/log-form.component';
 import {DepotAnnoncesComponent} from './depot-annonces/depot-annonces.component';
 import {ModificationAnnoncesComponent} from './modification-annonces/modification-annonces.component';
+import {ModalConfirmComponent} from "./modal-confirm/modal-confirm.component";
 
 
 // const routes: Routes = [];
@@ -20,6 +21,7 @@ const routes: Routes = [
   {path: 'form', component: DepotAnnoncesComponent },
   {path: 'ga', component: GestionAnnoncesComponent },
   {path: 'modify', component: ModificationAnnoncesComponent },
+  {path: 'modal', component: ModalConfirmComponent },
   ];
 
 @NgModule({

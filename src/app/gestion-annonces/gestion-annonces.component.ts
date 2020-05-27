@@ -5,6 +5,7 @@ import {GlobalConfig} from '../global-config';
 import {ModalConfirmComponent} from '../modal-confirm/modal-confirm.component';
 import {Router} from '@angular/router';
 import {AnnonceService} from '../Annonce/annonce.service';
+import {ModalService} from "../modal.service";
 
 @Component({
   selector: 'app-gestion-annonces',
@@ -12,6 +13,9 @@ import {AnnonceService} from '../Annonce/annonce.service';
   styleUrls: ['./gestion-annonces.component.scss']
 })
 export class GestionAnnoncesComponent implements OnInit {
+
+  // annonce à supprimer
+  selected_annonce;
 
  // annonces: Annonce;
    annonces = [
@@ -53,7 +57,7 @@ export class GestionAnnoncesComponent implements OnInit {
     }
   ];
 
-  constructor(private httpClient: HttpClient, private annonceService: AnnonceService, private router: Router) { }
+  constructor(private httpClient: HttpClient, private annonceService: AnnonceService, private router: Router, private modalService: ModalService) { }
 
   ngOnInit() {
     this.annonceService.getAnnonces();
@@ -67,17 +71,32 @@ export class GestionAnnoncesComponent implements OnInit {
     this.router.navigate(['/modify']);
   }
 
-  supprimer(annonce: Annonce) {
+  supprimer(content, annonce) {
     // TODO affichage de modal de confirmation
-    console.dir(annonce);
-    this.httpClient.post(GlobalConfig.supprimerAnnonceApiUrl, annonce).subscribe(() => {
-      console.log('suppression réussi');
-    }, error => {
-      console.log('erreur de suppression');
-    });
-    // this.modal.open(ModalConfirmComponent);
-    console.dir(annonce);
-    console.log(annonce.id);
+    this.selected_annonce = annonce;
+    this.modalService.open(content);
+
+
   }
 
+  confirmSuppression(selected_annonce: any) {
+
+    console.log(selected_annonce.id);
+    console.log(selected_annonce.marque);
+    console.log(selected_annonce.prix);
+
+    // TODO delete annonce in server
+    /*    console.dir(annonce);
+        this.httpClient.post(GlobalConfig.supprimerAnnonceApiUrl, annonce).subscribe(() => {
+          console.log('suppression réussi');
+        }, error => {
+          console.log('erreur de suppression');
+        });
+        // this.modal.open(ModalConfirmComponent);
+        console.dir(annonce);
+        console.log(annonce.id); */
+
+    // close modal
+    this.modalService.close();
+  }
 }

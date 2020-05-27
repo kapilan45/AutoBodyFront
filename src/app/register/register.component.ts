@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AuthentificationService} from '../Annonce/authentification.service';
+import {ValidationService} from "../Annonce/validation-service";
 
 @Component({
   selector: 'app-register',
@@ -21,6 +22,7 @@ export class RegisterComponent implements OnInit {
   }
 
   register(){
+    console.dir(this.registerForm.value);
     this.authentificationService.register(this.registerForm);
   }
 }

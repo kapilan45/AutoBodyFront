@@ -22,10 +22,10 @@ export class AuthentificationService {
   // log user after check id in database
   login(loginForm: FormGroup) {
     console.dir(loginForm.value);
-    this.httpClient.post(GlobalConfig.loginApiUrl, loginForm.value).subscribe(() => {
-
+    this.httpClient.post(GlobalConfig.loginApiUrl, loginForm.value).subscribe((response) => {
+      console.log("log success");
     }, error => {
-
+      console.log("erreur to log");
     });
   }
 }

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Annonce} from './annonce';
 import {FormGroup} from '@angular/forms';
@@ -23,6 +23,7 @@ export class AnnonceService {
         localisation: 'paris',
         image: 'https://images.caradisiac.com/images/1/5/9/4/181594/S0-retrouvez-nous-jeudi-27-fevrier-pour-decouvrir-en-live-l-audi-a5-restylee-2020-621692.jpg'
       }; */
+  makeList = [];
 
   constructor(private httpClient: HttpClient) {}
 
@@ -66,19 +67,25 @@ export class AnnonceService {
       );
   }
 
-  upload(event) {
-      const uploadImageData = new FormData();
-      uploadImageData.append('image', event.target.file[0]);
+  upload(image) : any {
+    const uploadImage = new FormData();
+    uploadImage.append('image', image, image.name);
 
-      this.httpClient.post('http://localhost:8080/api/image', uploadImageData, { observe: 'response' })
-      .subscribe((response) => {
-        if (response.status === 200) {
-          console.log('Image uploaded successfully');
-        } else {
-          console.log('Image not uploaded successfully');
-        }
-      });
+
+    this.httpClient.post('http://localhost:8080/api/image', uploadImage)
+    .subscribe((value) => {
+      if (value != null) {
+        console.log('Image uploaded successfully');
+        return value;
+      } else {
+        console.log('Image not uploaded successfully');
+        return null;
+      }
+    });
+
+    return null;
   }
+
 
   /*
   getImage() {
@@ -93,6 +100,26 @@ export class AnnonceService {
       );
   }
   */
+  getMakeList() {
+
+    return this.httpClient.get(GlobalConfig.getMakeListApi).subscribe(value => {
+
+    });
+
+    return [
+      {make: 'bmw'},
+      {make: 'audi'}
+    ];
+  }
+
+  filter(id: any, value: any) {
+
+    let params = new HttpParams().set("id",id).set("value", value);
+
+    this.httpClient.get(GlobalConfig.getAnnonceFiltred, {params: params}).subscribe(response => {
+      console.log("reception ok");
+    });
+  }
 }
 
 

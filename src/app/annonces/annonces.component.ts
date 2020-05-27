@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Annonce} from '../Annonce/annonce';
 import {GlobalConfig} from '../global-config';
+import {AnnonceService} from "../Annonce/annonce.service";
 
 @Component({
   selector: 'app-annonces',
@@ -10,50 +11,63 @@ import {GlobalConfig} from '../global-config';
 })
 export class AnnoncesComponent implements OnInit {
 
-  annonces: Annonce;
- /* annonces = [
+  //annonces: Annonce[];
+   annonces = [
     {
-      prix: 400,
+      id: 1,
+      prix: 1100,
       stage: 2,
-      marque: 'BMW',
-      modele: 'X5',
+      make: { make : 'BMW'},
+      model: {model : 'X5'},
       annee: 2005,
       kilometrage: 14000,
-      categorie: 'break',
+      categories: {category: 'break'},
       energie: 'essence',
       localisation: 'paris',
       image: 'https://www.automobile-propre.com/wp-content/uploads/2020/01/sony-vision-s-01.jpg'
-    },
-    {
-      prix: 880,
+    },{
+      id: 2,
+      prix: 400,
       stage: 2,
-      marque: 'BMW',
-      modele: 'X2',
-      annee: 2050,
-      kilometrage: 100,
-      categorie: 'break',
+      make: { make : 'BMW'},
+      model: {model : 'X5'},
+      annee: 2005,
+      kilometrage: 14000,
+      categories: {category: 'break'},
       energie: 'essence',
       localisation: 'paris',
       image: 'https://www.automobile-propre.com/wp-content/uploads/2020/01/sony-vision-s-01.jpg'
-    },
-    {
-      prix: 40,
+    },{
+      id: 3,
+      prix: 900,
       stage: 2,
-      marque: 'BMW',
-      modele: 'X2',
-      annee: 2105,
-      kilometrage: 10,
-      categorie: 'break',
+      make: { make : 'BMW'},
+      model: {model : 'X5'},
+      annee: 2005,
+      kilometrage: 14000,
+      categories: {category: 'break'},
+      energie: 'essence',
+      localisation: 'paris',
+      image: 'https://www.automobile-propre.com/wp-content/uploads/2020/01/sony-vision-s-01.jpg'
+    },{
+      id: 4,
+      prix: 600,
+      stage: 2,
+      make: { make : 'BMW'},
+      model: {model : 'X5'},
+      annee: 2005,
+      kilometrage: 14000,
+      categories: {category: 'break'},
       energie: 'essence',
       localisation: 'paris',
       image: 'https://www.automobile-propre.com/wp-content/uploads/2020/01/sony-vision-s-01.jpg'
     }
-  ];*/
+  ];
 
-  constructor(private httpClient: HttpClient) {
-    httpClient.get<Annonce>(GlobalConfig.getAnnoncesApiUrl).subscribe(value => {
+  constructor(private httpClient: HttpClient, private annonceService: AnnonceService) {
+    httpClient.get<Annonce[]>(GlobalConfig.getAnnoncesApiUrl).subscribe(value => {
       console.dir(value);
-      this.annonces = value;
+      //this.annonces = value;
     }, error => {
       console.log('Erreur : ' + error); });
   }
@@ -63,4 +77,15 @@ export class AnnoncesComponent implements OnInit {
 
   onSelectOffre(annonceId: Int32Array) {}
 
+  onSelectFilter(event: any) {
+
+    //let val = event.target.id;
+    let val = event.target.id;
+    console.dir(event);
+    console.dir(event.target);
+    console.dir(event.target.id);
+    console.dir(event.target.value);
+
+    this.annonceService.filter(event.target.id, event.target.value);
+  }
 }

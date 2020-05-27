@@ -23,7 +23,6 @@ export class LogFormComponent implements OnInit {
   }
 
   login() {
-
     this.authentificationService.login(this.loginForm);
   }
 

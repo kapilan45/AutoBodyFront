@@ -19,12 +19,12 @@ export class ModificationAnnoncesComponent implements OnInit {
   const annonce = this.annonceService.annonces;
 
   this.annonceForm = this.formBuilder.group({
-      prix: [annonce.prix],
+      prix: [annonce.price],
       stage: [annonce.stage],
       make: [annonce.make],
       image: [annonce.image],
-      modele: [annonce.modele],
-      annee: [annonce.modele],
+      modele: [annonce.model],
+      annee: [annonce.annee],
       kilometrage: [annonce.kilometrage],
       category: [annonce.category],
       energies: [annonce.energie],
