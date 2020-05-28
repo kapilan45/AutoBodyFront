@@ -16,11 +16,7 @@ export class DepotAnnoncesComponent implements OnInit {
   isCategory = true;
   energies = [];
   images = [];
-  pjs = [
-    {name: 'tele1.pdf'},
-    {name: 'tele2.pdf'},
-    {name: 'tele3.pdf'},
-    ];
+  pjs = [];
 
   makeslist = [];
   categorieslist = [];
@@ -32,6 +28,14 @@ export class DepotAnnoncesComponent implements OnInit {
   constructor(private formBuilder: FormBuilder, private annonceService: AnnonceService, private cd: ChangeDetectorRef) { }
 
   ngOnInit() {
+
+    of(this.getEnergies()).subscribe(energies => {
+      this.energies = energies;
+    });
+
+    of(this.getMakes()).subscribe(makes => {
+      this.makeslist = makes;
+    });
 
     this.annonceForm = this.formBuilder.group({
       placeNumber: [],
@@ -48,26 +52,17 @@ export class DepotAnnoncesComponent implements OnInit {
       category: [],
       energies: [''],
       localisation: [],
+      numberOfOwner: [],
+      numberOfDoor: [],
+      numberOfPlace: [],
+      inSideColor: [],
+      outSideColor: [],
+      euroNorme: [],
+      co2: [],
+      firstHand: [],
+      description: [],
   });
 
-
-    this.energies = this.getEnergies();
-
-    of(this.getEnergies()).subscribe(energies => {
-      this.energies = energies;
-    });
-
-    of(this.getMakes()).subscribe(makes => {
-      this.makeslist = makes;
-    });
-
-   /* of(this.getModeles(this.annonceForm)).subscribe(modeles => {
-      this.modeleslist = modeles;
-    }); */
-
-    /* of(this.getCategories(this.annonceForm)).subscribe(categories => {
-      this.categorieslist = categories;
-    }); */
   }
 
   uploadFichier(event) {
@@ -131,8 +126,8 @@ export class DepotAnnoncesComponent implements OnInit {
 
   getMakes() {
     return [
-      {make: 'bmw'},
-      {make: 'audi'}
+      {marque: 'bmw'},
+      {marque: 'audi'}
     ];
   }
 

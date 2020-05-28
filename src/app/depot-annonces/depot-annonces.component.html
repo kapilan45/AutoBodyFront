@@ -1,3 +1,10 @@
+
+<div class="row">
+  <div class="col-6 mb-2">
+    <h1>Dépôt d'annonce</h1>
+  </div>
+</div>
+
 <form [formGroup]="annonceForm" (ngSubmit)="deposerAnnonce()" >
   <div class="container">
     <div class="row">
@@ -7,7 +14,7 @@
             <label>Marque</label>
             <input type="text" class="form-control" formControlName="make" list="makes_list" (change)="activateChamp('make')">
               <datalist id="makes_list">
-                <option *ngFor="let makelist of makeslist; let i = index" [value]="makeslist[i].make" >
+                <option *ngFor="let makelist of makeslist; let i = index" [value]="makeslist[i].marque">
               </datalist>
           </div>
         </div>
@@ -51,22 +58,46 @@
         <div class="form-group row ">
           <div class="col-md-3 col-6">
             <label>Nb place</label>
-            <input type="number" class="form-control" formControlName="placeNumber" [max]="7">
+            <input type="number" class="form-control" formControlName="numberOfPlace" [max]="7">
           </div>
           <div class="col-md-3 col-6">
-            <label>PV</label>
+            <label>Nb porte</label>
+            <input type="number" class="form-control" formControlName="numberOfDoor" [max]="7">
+          </div>
+          <div class="col-md-3 col-6">
+            <label>CH</label>
             <input type="number" class="form-control" formControlName="horsePower">
           </div>
           <div class="col-md-3 col-6">
             <label>CV</label>
             <input type="number" class="form-control" formControlName="fiscalHorsePower">
           </div>
-          <div class="col-md-3 col-6">
-          <label>Stage</label>
-          <input type="number"  class="form-control" formControlName="stage" [min]="0" [max]="3">
         </div>
 
+        <div class="form-group row ">
+          <div class="col-md-6 col-12">
+            <label>Date d'immatriculation</label>
+            <input type="date" class="form-control" formControlName="annee">
+          </div>
+          <div class="col-md-3 col-12">
+            <label>Norme Euro</label>
+            <select class="form-control" formControlName="euroNorme">
+              <option value="euro1">Euro 1</option>
+              <option value="euro2">Euro 2</option>
+              <option value="euro3">Euro 3</option>
+              <option value="euro4">Euro 4</option>
+              <option value="euro5">Euro 5</option>
+              <option value="euro6b">Euro 6b</option>
+              <option value="euro6c">Euro 6c</option>
+            </select>
+          </div>
+
+          <div class="col-md-3 col-12">
+            <label>CO2</label>
+            <input type="number" class="form-control" formControlName="co2">
+          </div>
         </div>
+
 
         <div class="form-group row ">
           <div class="col-md-6 col-12">
@@ -80,15 +111,50 @@
         </div>
 
         <div class="form-group row ">
-          <div class="form-check col-md-6 col-12">
-            <input type="checkbox" class="form-check-input" formControlName="reinforcedCluth" id="exampleCheck1">
-            <label class="form-check-label"  for="exampleCheck1">Embrayage renforcé</label>
+          <div class="col-md-6 col-12">
+            <label>Couleur intérieure</label>
+            <input type="text" class="form-control" formControlName="inSideColor">
           </div>
+          <div class="col-md-6 col-6">
+          <label>Couleur extérieure</label>
+          <input type="text" class="form-control" formControlName="outSideColor">
+          </div>
+        </div>
+
+        <div class="form-group row ">
           <div class="col-md-6 col-12">
             <label>Localisation</label>
             <input type="text" class="form-control" formControlName="localisation">
           </div>
+          <div class="col-md-3 col-12">
+            <label>Nb owner</label>
+            <input type="number" class="form-control" formControlName="numberOfOwner">
+          </div>
+          <div class="col-md-3 col-6">
+            <label>Stage</label>
+            <input type="number"  class="form-control" formControlName="stage" [min]="0" [max]="3">
+          </div>
 
+        </div>
+
+
+
+        <div class="form-group row ">
+          <div class="form-check col-md-6 col-12">
+            <input type="checkbox" class="form-check-input" formControlName="reinforcedCluth" id="firstHand">
+            <label class="form-check-label"  for="firstHand">Premier main déclaratif </label>
+          </div>
+          <div class="form-check col-md-6 col-12">
+            <input type="checkbox" class="form-check-input" formControlName="reinforcedCluth" id="exampleCheck1">
+            <label class="form-check-label"  for="exampleCheck1">Embrayage renforcé</label>
+          </div>
+        </div>
+
+        <div class="form-group row ">
+          <div class="col-12">
+            <label>Description (Information complémentaire) </label>
+            <textarea class="form-control" formControlName="description"></textarea>
+          </div>
         </div>
 
         <div class="form-group">

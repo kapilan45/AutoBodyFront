@@ -1,5 +1,7 @@
 export class User {
 
-  username;
-  password;
+  private mail: string;
+  private username: string;
+  private password: string;
+  private stat: boolean;
 }

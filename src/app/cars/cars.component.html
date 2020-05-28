@@ -1,16 +1,35 @@
-<div class="container">
-    <h1>CARS</h1>
+
+<div class="row">
+  <div class='col-md-8'>
+    <gallery [items]="images"></gallery>
+  </div>
 
 
 
-    <div class='container-fluid'>
-        <div class='col-md-8'>
-            <gallery [items]="images"></gallery>
-        </div>
-        <div class='col-md-4'>
-            Nom voiture
-            </div>
+  <div class="col-12 mb-1 mt-4">
+    <p>Marque modele finition (nom complet) ex : AUDI A3 III SPORTBACK 1.4 TFSI E-TRON 204 AMBITION LUXE S TRONIC</p>
+  </div>
+  <div class="col-3">
+    <p>Année :  <strong>{{annonce.annee}}</strong> </p>
+    <p>Mise en circulation :  <strong>{{annonce.annee}}</strong></p>
+    <p>Control technique :  <strong>{{annonce.annee}}</strong></p>
+    <p>Kilométrage au compteur :  <strong>{{annonce.kilometrage}}</strong> </p>
+    <p>Energie : <strong>{{annonce.energie}}</strong></p>
+    <p>Boîte de vitesse : <strong>{{annonce.gearbox}}</strong> </p>
+    <p>Nombre de portes : <strong>{{annonce.numberOfDoor}}</strong> </p>
+    <p>Couleur extérieure :  <strong>{{annonce.outSideColor}}</strong></p>
 
-    </div>git
+  </div>
+
+  <div class="col-6">
+    <p>Puissance fiscale : <strong>{{annonce.fiscalHorsePower}} CV</strong></p>
+    <p>Puissance din : <strong>{{annonce.horsePower}} CH</strong></p>
+    <p>Première main (déclaratif) : <strong>{{annonce.firstHand}}</strong></p>
+    <p>Nombre de propriétaire : <strong>{{annonce.numberOfOwner}}</strong></p>
+    <p>Norme Euro : <strong>{{annonce.euroNorme}}</strong></p>
+    <p>Émissions de CO2 : <strong>{{annonce.co2}} g/km CH</strong></p>
+    <p>Nombre de places : <strong>{{annonce.numberOfPlaces}}</strong></p>
+    <p>Couleur intérieure : <strong>{{annonce.inSideColor}}</strong></p>
+  </div>
 
 </div>

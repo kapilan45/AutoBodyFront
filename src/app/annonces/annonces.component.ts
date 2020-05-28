@@ -3,6 +3,9 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Annonce} from '../Annonce/annonce';
 import {GlobalConfig} from '../global-config';
 import {AnnonceService} from "../Annonce/annonce.service";
+import {of} from "rxjs";
+import {FormGroup} from "@angular/forms";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-annonces',
@@ -63,8 +66,9 @@ export class AnnoncesComponent implements OnInit {
       image: 'https://www.automobile-propre.com/wp-content/uploads/2020/01/sony-vision-s-01.jpg'
     }
   ];
+   energies = [];
 
-  constructor(private httpClient: HttpClient, private annonceService: AnnonceService) {
+  constructor(private httpClient: HttpClient, private annonceService: AnnonceService, private route: Router) {
     httpClient.get<Annonce[]>(GlobalConfig.getAnnoncesApiUrl).subscribe(value => {
       console.dir(value);
       //this.annonces = value;
@@ -73,6 +77,9 @@ export class AnnoncesComponent implements OnInit {
   }
 
   ngOnInit() {
+    of(this.getEnergies()).subscribe(energies => {
+      this.energies = energies;
+    });
   }
 
   onSelectOffre(annonceId: Int32Array) {}
@@ -87,5 +94,38 @@ export class AnnoncesComponent implements OnInit {
     console.dir(event.target.value);
 
     this.annonceService.filter(event.target.id, event.target.value);
+  }
+
+  getEnergies() {
+    return [
+      { value: 'Diesel' },
+      { value: 'Essence' },
+    ];
+  }
+
+  getMakes() {
+    return [
+      {make: 'bmw'},
+      {make: 'audi'}
+    ];
+  }
+
+  getModeles(annonceForm: FormGroup) {
+    return [
+      {modele: 'x4'},
+      {modele: 'x5'}
+    ];
+  }
+
+  getCategories(annonceForm: FormGroup) {
+    return [
+      {category: 'break'},
+      {category: 'citadin'}
+    ];
+  }
+
+  showCompletDetail(id: number) {
+    // redirect to new routes
+    this.route.navigate(["/cars/3"]);
   }
 }

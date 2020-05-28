@@ -12,6 +12,7 @@ export class AuthentificationService {
 
   // Create user in database
   register(registerForm: FormGroup) {
+    console.dir(registerForm.value);
     this.httpClient.post(GlobalConfig.registerApiUrl, registerForm.value).subscribe(() => {
       console.log('registered');
     }, error => {

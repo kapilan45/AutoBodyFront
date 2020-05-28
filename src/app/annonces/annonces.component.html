@@ -4,10 +4,10 @@
 
   <div class="row">
     <!-- Corps de l'annonce -->
-    <div class="col-9 border border-primary">
+    <div class="col-9">
       <div *ngFor="let annonce of annonces" (click)="onSelectOffre(annonce.id)">
 
-        <div class='row border' style="margin-bottom: 20px">
+        <div class='row border' style="margin-bottom: 20px" (click)="showCompletDetail(annonce.id)">
 
           <div class="col-md-3 p-0 imageCadrage">
             <img src="{{annonce.image}}" alt="" width="100%" height="100%">
@@ -36,17 +36,20 @@
     </div>
 
     <!-- Corps de filtrage -->
-    <div class="col-3 border border-danger">
+    <div class="col-3">
       <div class="input-group mb-3 mt-2">
       <select class="custom-select" id="tri" (change)="onSelectFilter($event)">
-        <option selected>Tri...</option>
-        <option value="1">One</option>
-        <option value="2">Two</option>
-        <option value="3">Three</option>
+        <option value="recentes" selected>Plus récentes</option>
+        <option value="anciennes">Plus anciennes</option>
+        <option value="croissant">Prix croissant</option>
+        <option value="decroissant">Prix décroissant</option>
+
       </select>
     </div>
+      <hr>
       <div class="input-group mb-3">
         <select class="custom-select" id="make" (change)="onSelectFilter($event)">
+
           <option selected>Marque...</option>
           <option value="1">One</option>
           <option value="2">Two</option>
@@ -73,10 +76,8 @@
 
       <div class="input-group mb-3">
         <select class="custom-select" id="energie" (change)="onSelectFilter($event)">
-          <option selected>Carburant...</option>
-          <option value="1">One</option>
-          <option value="2">Two</option>
-          <option value="3">Three</option>
+          <option selected>Carburant</option>
+          <option *ngFor="let energie of energies; let i = index" [value]="energies[i].value">{{energies[i].value}}</option>
         </select>
       </div>
 
@@ -85,9 +86,12 @@
         <input type="number" class="form-control" placeholder="Prix max" aria-label="maxPrix" aria-describedby="basic-addon1">
       </div>
       <div class="input-group mb-3">
-
+        <input type="number" class="form-control" placeholder="Année" aria-label="annee" aria-describedby="basic-addon1">
       </div>
-
+      <div class="input-group mb-3">
+        <input type="number" class="form-control" placeholder="PV" aria-label="pv" aria-describedby="basic-addon1">
+        <input type="number" class="form-control" placeholder="CV" aria-label="cv" aria-describedby="basic-addon1">
+      </div>
       <div class="input-group mb-3">
         <button class="form-control btn btn-primary">Filtrer</button>
       </div>

@@ -16,7 +16,7 @@ const routes: Routes = [
   {path: '', component: HomeComponent},
   {path: 'register', component: RegisterComponent},
   {path: 'login', component: LogFormComponent},
-  {path: 'cars', component: CarsComponent},
+  {path: 'cars/:annonceId', component: CarsComponent},
   {path: 'annonces', component: AnnoncesComponent },
   {path: 'form', component: DepotAnnoncesComponent },
   {path: 'ga', component: GestionAnnoncesComponent },

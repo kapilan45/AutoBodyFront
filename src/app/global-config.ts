@@ -1,7 +1,7 @@
 export class GlobalConfig {
 
   // User connecté Identifiant
-  userConnected;
+  private userConnected = true;
 
   public static apiUrl = 'http://loacalhost:8080/api';
   public static getAnnoncesApiUrl = 'http://localhost:8080/final/annonce';
@@ -15,8 +15,8 @@ export class GlobalConfig {
   public static getAnnonceFiltred = 'http://loacalhost:8080/api/getAnnonceFiltre';
   // TODO
 
-  public static getConnectedUser() : string {
-    return null;
+  public static getConnectedUser() : boolean {
+    return false;
   }
 
 }

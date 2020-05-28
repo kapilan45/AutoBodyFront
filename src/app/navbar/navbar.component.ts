@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {User} from "../Annonce/user";
+import {GlobalConfig} from "../global-config";
 
 @Component({
   selector: 'app-navbar',
@@ -7,7 +9,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavbarComponent implements OnInit {
 
-  constructor() { }
+  userconnected: boolean;
+  constructor() {
+    this.userconnected = GlobalConfig.getConnectedUser();
+  }
 
   ngOnInit() {
   }
