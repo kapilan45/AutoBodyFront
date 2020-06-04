@@ -22,7 +22,7 @@
           <div class="col-md-6 col-12">
             <label>Modèle</label>
             <fieldset [disabled]="isMake">
-            <input type="text" class="form-control" formControlName="modele" list="modeles_list" (change)="activateChamp('modele')">
+            <input type="text" class="form-control" formControlName="model" list="modeles_list" (change)="activateChamp('modele')">
               <datalist id="modeles_list">
                 <option *ngFor="let modelelist of modeleslist; let m = index" [value]="modeleslist[m].modele" >
               </datalist>
@@ -44,12 +44,12 @@
         <div class="form-group row ">
           <div class="col-md-6 col-12">
             <label>Année</label>
-            <input type="number" class="form-control" formControlName="annee" [max]="2020">
+            <input type="number" class="form-control" formControlName="year" [max]="2020">
           </div>
 
           <div class="col-md-6 col-12">
             <label>Energie</label>
-            <select formControlName="energies" class="form-control">
+            <select formControlName="energy" class="form-control">
               <option *ngFor="let energie of energies; let i = index" [value]="energies[i].value">{{energies[i].value}}</option>
             </select>
          </div>
@@ -58,7 +58,7 @@
         <div class="form-group row ">
           <div class="col-md-3 col-6">
             <label>Nb place</label>
-            <input type="number" class="form-control" formControlName="numberOfPlace" [max]="7">
+            <input type="number" class="form-control" formControlName="numberOfSeats" [max]="7">
           </div>
           <div class="col-md-3 col-6">
             <label>Nb porte</label>
@@ -77,7 +77,7 @@
         <div class="form-group row ">
           <div class="col-md-6 col-12">
             <label>Date d'immatriculation</label>
-            <input type="date" class="form-control" formControlName="annee">
+            <input type="date" class="form-control" formControlName="year">
           </div>
           <div class="col-md-3 col-12">
             <label>Norme Euro</label>
@@ -102,11 +102,11 @@
         <div class="form-group row ">
           <div class="col-md-6 col-12">
             <label>Kilométrage</label>
-            <input type="number" class="form-control" formControlName="kilometrage">
+            <input type="number" class="form-control" formControlName="mileage">
           </div>
           <div class="col-md-6 col-6">
           <label>Prix</label>
-          <input type="number" class="form-control" formControlName="prix">
+          <input type="number" class="form-control" formControlName="price">
         </div>
         </div>
 
@@ -127,8 +127,8 @@
             <input type="text" class="form-control" formControlName="localisation">
           </div>
           <div class="col-md-3 col-12">
-            <label>Nb owner</label>
-            <input type="number" class="form-control" formControlName="numberOfOwner">
+            <label>Couple moteur</label>
+            <input type="number" class="form-control" formControlName="driveType">
           </div>
           <div class="col-md-3 col-6">
             <label>Stage</label>

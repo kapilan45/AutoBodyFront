@@ -43,7 +43,7 @@ export class AnnonceService {
       );
   }
 
-  public getAnnonces() {
+  public getUserAnnonces() {
     this.httpClient.get<Annonce>(GlobalConfig.getAnnoncesApiUrl).subscribe(value => {
       // this.annonces = value;
       console.dir(value);
@@ -118,6 +118,7 @@ export class AnnonceService {
 
     this.httpClient.get(GlobalConfig.getAnnonceFiltred, {params: params}).subscribe(response => {
       console.log("reception ok");
+      console.dir(response);
     });
   }
 }

@@ -19,6 +19,7 @@ const routes: Routes = [
   {path: 'cars/:annonceId', component: CarsComponent},
   {path: 'annonces', component: AnnoncesComponent },
   {path: 'form', component: DepotAnnoncesComponent },
+  {path: 'form/:id', component: DepotAnnoncesComponent },
   {path: 'ga', component: GestionAnnoncesComponent },
   {path: 'modify', component: ModificationAnnoncesComponent },
   {path: 'modal', component: ModalConfirmComponent },

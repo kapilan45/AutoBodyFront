@@ -2,6 +2,9 @@ import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AnnonceService} from '../Annonce/annonce.service';
 import {of} from "rxjs";
+import {Annonce} from "../Annonce/annonce";
+import {Image} from "../Annonce/image";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-depot-annonces',
@@ -25,9 +28,66 @@ export class DepotAnnoncesComponent implements OnInit {
   reader = new FileReader();
 
   // images: string | ArrayBuffer;
-  constructor(private formBuilder: FormBuilder, private annonceService: AnnonceService, private cd: ChangeDetectorRef) { }
+  constructor(private formBuilder: FormBuilder, private annonceService: AnnonceService, private cd: ChangeDetectorRef, private  route: ActivatedRoute) { }
 
   ngOnInit() {
+    let annonce: Annonce = new Annonce();
+    let annonceId = this.route.snapshot.params['id'];
+    console.log("annonce Id : " + annonceId);
+
+    if(annonceId != null){
+      annonce = this.annonceService.annonces;
+      this.isMake = false;
+      this.isModele = false;
+      this.isCategory = false;
+    }
+
+    console.dir(annonce);
+    this.annonceForm = this.formBuilder.group({
+      id: [annonce.id],
+      make: [annonce.make],
+      numberOfSeats: [annonce.numberOfSeats],
+      maxSpeed: [],
+      gearbox: [],
+      numberOfDoor: [],
+      numberOfPlaces: [],
+      reinforcedCluth: [],
+      horsePower: [],
+      horsePowerSinceTheLatestModification: [],
+      fiscalHorsePower: [],
+      price: [annonce.price],
+      stage: [annonce.stage],
+      model: [annonce.model],
+      year: [annonce.year],
+      mileage: [annonce.year],
+      mileageSince1stModification: [],
+      category: [annonce.category],
+      energy: [annonce.energy],
+      fuelEconomy: [],
+      fuelEconomySinceTheLatestModification: [],
+      localisation: [],
+      outSideColor: [],
+      firstHand: [],
+      euroNorme: [],
+      co2: [],
+      inSideColor : [],
+      intercooler: [],
+      highPerformanceTuningCompany: [],
+      publishedDate: [],
+      airfilter: [],
+      trim: [],
+      driveType: [],
+      torque: [],
+      torqueSinceTheLatestModification: [],
+      exaust: [],
+      turbo: [],
+      airAdmission: [],
+      dumpValve: [],
+      airFilter: [],
+      options: [],
+      description: [],
+      image: []
+    });
 
     of(this.getEnergies()).subscribe(energies => {
       this.energies = energies;
@@ -37,7 +97,7 @@ export class DepotAnnoncesComponent implements OnInit {
       this.makeslist = makes;
     });
 
-    this.annonceForm = this.formBuilder.group({
+   /* this.annonceForm = this.formBuilder.group({
       placeNumber: [],
       maxSpeed: [],
       reinforcedCluth: [],
@@ -61,7 +121,7 @@ export class DepotAnnoncesComponent implements OnInit {
       co2: [],
       firstHand: [],
       description: [],
-  });
+  }); */
 
   }
 

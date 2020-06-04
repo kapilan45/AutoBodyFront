@@ -24,10 +24,10 @@ export class ModificationAnnoncesComponent implements OnInit {
       make: [annonce.make],
       image: [annonce.image],
       modele: [annonce.model],
-      annee: [annonce.annee],
-      kilometrage: [annonce.kilometrage],
+      annee: [annonce.year],
+      kilometrage: [annonce.make],
       category: [annonce.category],
-      energies: [annonce.energie],
+      energies: [annonce.energy],
       localisation: [annonce.localisation],
     });
   this.energies = this.getEnergies();

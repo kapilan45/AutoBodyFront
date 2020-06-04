@@ -67,6 +67,9 @@ export class AnnoncesComponent implements OnInit {
     }
   ];
    energies = [];
+   makesList = [];
+   modelList = [];
+   categoryList = [];
 
   constructor(private httpClient: HttpClient, private annonceService: AnnonceService, private route: Router) {
     httpClient.get<Annonce[]>(GlobalConfig.getAnnoncesApiUrl).subscribe(value => {
@@ -80,17 +83,25 @@ export class AnnoncesComponent implements OnInit {
     of(this.getEnergies()).subscribe(energies => {
       this.energies = energies;
     });
-  }
 
-  onSelectOffre(annonceId: Int32Array) {}
+    of(this.getMakes()).subscribe(makes => {
+      this.makesList = makes;
+    });
+
+    of(this.getModeles(null)).subscribe(models => {
+      this.modelList = models;
+    });
+
+    of(this.getCategories(null)).subscribe(categories => {
+      this.categoryList = categories;
+    });
+
+  }
 
   onSelectFilter(event: any) {
 
     //let val = event.target.id;
-    let val = event.target.id;
-    console.dir(event);
-    console.dir(event.target);
-    console.dir(event.target.id);
+    let val = event.target.value;
     console.dir(event.target.value);
 
     this.annonceService.filter(event.target.id, event.target.value);
@@ -112,8 +123,8 @@ export class AnnoncesComponent implements OnInit {
 
   getModeles(annonceForm: FormGroup) {
     return [
-      {modele: 'x4'},
-      {modele: 'x5'}
+      {model: 'x4'},
+      {model: 'x5'}
     ];
   }
 

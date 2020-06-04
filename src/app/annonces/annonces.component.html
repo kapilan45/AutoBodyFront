@@ -48,37 +48,42 @@
     </div>
       <hr>
       <div class="input-group mb-3">
-        <select class="custom-select" id="make" (change)="onSelectFilter($event)">
+        <input type="text" class="form-control" list="makes_list" placeholder="Marque">
+        <datalist id="makes_list">
+          <option *ngFor="let make_list of makesList; let m = index" [value]="makesList[m].make" >
+        </datalist>
+      </div>
+      <div class="input-group mb-3">
+        <input type="text" class="form-control" list="models_list" placeholder="Modèle">
+        <datalist id="models_list">
+          <option *ngFor="let model of modelList; let mod = index" [value]="modelList[mod].model" >
+        </datalist>
+      </div>
+      <div class="input-group mb-3">
+        <input type="text" class="form-control" list="categories_list" placeholder="Catégorie">
+        <datalist id="categories_list">
+          <option *ngFor="let category of categoryList; let c = index" [value]="categoryList[c].category" >
+        </datalist>
 
-          <option selected>Marque...</option>
-          <option value="1">One</option>
-          <option value="2">Two</option>
-          <option value="3">Three</option>
-        </select>
-      </div>
-      <div class="input-group mb-3">
-        <select class="custom-select" id="model" (change)="onSelectFilter($event)">
-          <option selected>Model...</option>
-          <option value="1">One</option>
-          <option value="2">Two</option>
-          <option value="3">Three</option>
-        </select>
-      </div>
-      <div class="input-group mb-3">
-        <select class="custom-select" id="category" (change)="onSelectFilter($event)">
+        <!-- <select class="custom-select" id="category">
           <option selected>Category...</option>
           <option value="1">One</option>
           <option value="2">Two</option>
           <option value="3">Three</option>
-        </select>
+        </select> -->
       </div>
 
 
       <div class="input-group mb-3">
-        <select class="custom-select" id="energie" (change)="onSelectFilter($event)">
+        <input type="text" class="form-control" list="energies_list" placeholder="Carburant">
+        <datalist id="energies_list">
+          <option *ngFor="let energy of energies; let e = index" [value]="energies[e].value" >
+        </datalist>
+
+        <!-- <select class="custom-select" id="energie">
           <option selected>Carburant</option>
           <option *ngFor="let energie of energies; let i = index" [value]="energies[i].value">{{energies[i].value}}</option>
-        </select>
+        </select> -->
       </div>
 
       <div class="input-group mb-3">
@@ -89,7 +94,7 @@
         <input type="number" class="form-control" placeholder="Année" aria-label="annee" aria-describedby="basic-addon1">
       </div>
       <div class="input-group mb-3">
-        <input type="number" class="form-control" placeholder="PV" aria-label="pv" aria-describedby="basic-addon1">
+        <input type="number" class="form-control" placeholder="CH" aria-label="pv" aria-describedby="basic-addon1">
         <input type="number" class="form-control" placeholder="CV" aria-label="cv" aria-describedby="basic-addon1">
       </div>
       <div class="input-group mb-3">
