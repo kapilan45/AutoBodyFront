@@ -13,7 +13,6 @@ import { AnnoncesComponent } from './annonces/annonces.component';
 import { HttpClientModule } from '@angular/common/http';
 import {LogFormComponent} from './log-form/log-form.component';
 import { GestionAnnoncesComponent } from './gestion-annonces/gestion-annonces.component';
-import { ModalConfirmComponent } from './modal-confirm/modal-confirm.component';
 import { DepotAnnoncesComponent } from './depot-annonces/depot-annonces.component';
 import { ModificationAnnoncesComponent } from './modification-annonces/modification-annonces.component';
 import {NgbDatepickerModule} from "@ng-bootstrap/ng-bootstrap";
@@ -28,7 +27,6 @@ import {NgbDatepickerModule} from "@ng-bootstrap/ng-bootstrap";
     AnnoncesComponent,
     LogFormComponent,
     GestionAnnoncesComponent,
-    ModalConfirmComponent,
     DepotAnnoncesComponent,
     ModificationAnnoncesComponent,
   ],

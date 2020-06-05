@@ -1,10 +1,9 @@
 import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AnnonceService} from '../Annonce/annonce.service';
-import {of} from "rxjs";
 import {Annonce} from "../Annonce/annonce";
-import {Image} from "../Annonce/image";
 import {ActivatedRoute} from "@angular/router";
+import {of} from "rxjs";
 
 @Component({
   selector: 'app-depot-annonces',
@@ -17,111 +16,77 @@ export class DepotAnnoncesComponent implements OnInit {
   isMake = true;
   isModele = true;
   isCategory = true;
-  energies = [];
-  images = [];
-  pjs = [];
 
-  makeslist = [];
-  categorieslist = [];
-  modeleslist = [];
+  energies: any = [];
+  makeslist: any = [];
+  categorieslist: Object = [];
+  modelslist: Object = [];
+  images = [];
+  attachements = [];
+
+
   // Reader read uploaded file
   reader = new FileReader();
 
   // images: string | ArrayBuffer;
-  constructor(private formBuilder: FormBuilder, private annonceService: AnnonceService, private cd: ChangeDetectorRef, private  route: ActivatedRoute) { }
+  constructor(private formBuilder: FormBuilder, private annonceService: AnnonceService, private cd: ChangeDetectorRef, private route: ActivatedRoute) { }
 
   ngOnInit() {
     let annonce: Annonce = new Annonce();
-    let annonceId = this.route.snapshot.params['id'];
-    console.log("annonce Id : " + annonceId);
 
+    let annonceId = this.route.snapshot.params['id'];
     if(annonceId != null){
-      annonce = this.annonceService.annonces;
-      this.isMake = false;
-      this.isModele = false;
-      this.isCategory = false;
+      if(annonceId == this.annonceService.annonce.id){
+        annonce = this.annonceService.annonce;
+        this.isMake = this.isModele = this.isCategory = false;
+      }
     }
 
-    console.dir(annonce);
     this.annonceForm = this.formBuilder.group({
       id: [annonce.id],
       make: [annonce.make],
       numberOfSeats: [annonce.numberOfSeats],
-      maxSpeed: [],
-      gearbox: [],
-      numberOfDoor: [],
-      numberOfPlaces: [],
-      reinforcedCluth: [],
-      horsePower: [],
-      horsePowerSinceTheLatestModification: [],
-      fiscalHorsePower: [],
+      maxSpeed: [annonce.maxSpeed],
+      gearbox: [annonce.gearbox],
+      numberOfDoor: [annonce.numberOfDoor],
+      reinforcedCluth: [annonce.reinforcedCluth],
+      horsePower: [annonce.horsePower],
+      horsePowerSinceTheLatestModification: [annonce.horsePowerSinceTheLatestModification],
+      fiscalHorsePower: [annonce.fiscalHorsePower],
       price: [annonce.price],
       stage: [annonce.stage],
       model: [annonce.model],
       year: [annonce.year],
-      mileage: [annonce.year],
-      mileageSince1stModification: [],
+      mileage: [annonce.mileage],
+      mileageSince1stModification: [annonce.mileageSince1stModification],
       category: [annonce.category],
       energy: [annonce.energy],
-      fuelEconomy: [],
-      fuelEconomySinceTheLatestModification: [],
-      localisation: [],
-      outSideColor: [],
-      firstHand: [],
-      euroNorme: [],
-      co2: [],
-      inSideColor : [],
-      intercooler: [],
-      highPerformanceTuningCompany: [],
-      publishedDate: [],
-      airfilter: [],
-      trim: [],
-      driveType: [],
-      torque: [],
-      torqueSinceTheLatestModification: [],
-      exaust: [],
-      turbo: [],
-      airAdmission: [],
-      dumpValve: [],
-      airFilter: [],
-      options: [],
-      description: [],
+      fuelEconomy: [annonce.fuelEconomy],
+      fuelEconomySinceTheLatestModification: [annonce.fuelEconomySinceTheLatestModification],
+      localisation: [annonce.localisation],
+      outSideColor: [annonce.outSideColor],
+      firstHand: [annonce.firstHand],
+      euroNorme: [annonce.euroNorme],
+      co2: [annonce.co2],
+      inSideColor : [annonce.inSideColor],
+      intercooler: [annonce.intercooler],
+      highPerformanceTuningCompany: [annonce.highPerformanceTuningCompany],
+      publishedDate: [annonce.publishedDate],
+      trim: [annonce.trim],
+      driveType: [annonce.driveType],
+      torque: [annonce.torque],
+      torqueSinceTheLatestModification: [annonce.torqueSinceTheLatestModification],
+      exaust: [annonce.exaust],
+      turbo: [annonce.turbo],
+      airAdmission: [annonce.airAdmission],
+      dumpValve: [annonce.dumpValve],
+      airFilter: [annonce.airFilter],
+      options: [annonce.options],
       image: []
     });
 
-    of(this.getEnergies()).subscribe(energies => {
-      this.energies = energies;
-    });
-
-    of(this.getMakes()).subscribe(makes => {
-      this.makeslist = makes;
-    });
-
-   /* this.annonceForm = this.formBuilder.group({
-      placeNumber: [],
-      maxSpeed: [],
-      reinforcedCluth: [],
-      horsePower: [],
-      fiscalHorsePower: [],
-      prix: [],
-      stage: [],
-      make: [],
-      modele: [],
-      annee: [],
-      kilometrage: [],
-      category: [],
-      energies: [''],
-      localisation: [],
-      numberOfOwner: [],
-      numberOfDoor: [],
-      numberOfPlace: [],
-      inSideColor: [],
-      outSideColor: [],
-      euroNorme: [],
-      co2: [],
-      firstHand: [],
-      description: [],
-  }); */
+    this.energies = this.annonceService.getEnergies();
+    this.makeslist = this.annonceService.getMakes();
 
   }
 
@@ -133,10 +98,10 @@ export class DepotAnnoncesComponent implements OnInit {
       let uploadStat: any = this.annonceService.upload(file);
 
       if(!uploadStat) {
-        let index = this.pjs.length;
+        let index = this.attachements.length;
 
         // TODO
-        this.pjs[index] = {name : file.name};
+        this.attachements[index] = {name : file.name};
       }
     }
   }
@@ -147,8 +112,14 @@ export class DepotAnnoncesComponent implements OnInit {
       const [file] = event.target.files;
       reader.readAsDataURL(file);
 
+      reader.onload = () => {
+        this.images[0] = reader.result;
+      }
+
       // TODO erreur to upload
-      let uploadStat:boolean = this.annonceService.upload(file);
+      // subscribe
+      let uploadStat = this.annonceService.upload(file);
+      console.dir(uploadStat);
 
       if(uploadStat){
         reader.onload = () => {
@@ -177,20 +148,6 @@ export class DepotAnnoncesComponent implements OnInit {
     }
   }
 
-  getEnergies() {
-    return [
-      { value: 'Diesel' },
-      { value: 'Essence' },
-    ];
-  }
-
-  getMakes() {
-    return [
-      {marque: 'bmw'},
-      {marque: 'audi'}
-    ];
-  }
-
   getModeles(annonceForm: FormGroup) {
     return [
       {modele: 'x4'},
@@ -206,21 +163,15 @@ export class DepotAnnoncesComponent implements OnInit {
   }
 
   deposerAnnonce() {
-    console.dir(this.annonceForm)
     this.annonceService.saveAnnonce(this.annonceForm.value);
   }
 
   activateChamp(e: string) {
-
     if (e == 'make'){
-      of(this.getModeles(this.annonceForm)).subscribe(modeles => {
-        this.modeleslist = modeles;
-      });
+      this.modelslist = this.annonceService.getModels(this.annonceForm.value.make);
       this.isMake = false;
-    } else  if (e == 'modele'){
-      of(this.getCategories(this.annonceForm)).subscribe(categories => {
-        this.categorieslist = categories;
-      });
+    } else  if (e == 'model'){
+      this.categorieslist = this.annonceService.getCategories(this.annonceForm.value.make, this.annonceForm.value.model);
       this.isModele = false;
     } else if (e == 'category'){
       this.isCategory = false;

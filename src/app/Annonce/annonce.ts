@@ -7,7 +7,6 @@ export class Annonce {
     maxSpeed: number;
     gearbox: string;
     numberOfDoor: number;
-    numberOfPlaces: number;
     reinforcedCluth: boolean;
     horsePower: number;
     horsePowerSinceTheLatestModification: number;
@@ -31,8 +30,6 @@ export class Annonce {
     intercooler: string;
     highPerformanceTuningCompany: string;
     publishedDate: Date;
-
-    airfilter: string;
     trim: string;
     driveType: string;
     torque: number;
@@ -44,23 +41,5 @@ export class Annonce {
     airFilter: string;
     options: string;
 
-    image: Image;
+    image: [];
 }
-
-/*
-
-make = [{
-  make: 'make'
-}];
-modele = [{
-  modele: 'modele'
-}];
-annee: number;
-kilometrage: number;
-category: [{
-  category: 'category'
-}]
-energie: string;
-localisation = [{
-  city: 'city'
-}]; */

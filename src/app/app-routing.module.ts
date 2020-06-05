@@ -8,7 +8,6 @@ import {GestionAnnoncesComponent} from './gestion-annonces/gestion-annonces.comp
 import {LogFormComponent} from './log-form/log-form.component';
 import {DepotAnnoncesComponent} from './depot-annonces/depot-annonces.component';
 import {ModificationAnnoncesComponent} from './modification-annonces/modification-annonces.component';
-import {ModalConfirmComponent} from "./modal-confirm/modal-confirm.component";
 
 
 // const routes: Routes = [];
@@ -16,13 +15,12 @@ const routes: Routes = [
   {path: '', component: HomeComponent},
   {path: 'register', component: RegisterComponent},
   {path: 'login', component: LogFormComponent},
-  {path: 'cars/:annonceId', component: CarsComponent},
-  {path: 'annonces', component: AnnoncesComponent },
-  {path: 'form', component: DepotAnnoncesComponent },
-  {path: 'form/:id', component: DepotAnnoncesComponent },
-  {path: 'ga', component: GestionAnnoncesComponent },
-  {path: 'modify', component: ModificationAnnoncesComponent },
-  {path: 'modal', component: ModalConfirmComponent },
+  {path: 'annonce/:annonceId', component: CarsComponent},
+  {path: 'offres', component: AnnoncesComponent },
+  {path: 'depot', component: DepotAnnoncesComponent },
+  {path: 'depot/:id', component: DepotAnnoncesComponent },
+  {path: 'gestion_annonce', component: GestionAnnoncesComponent },
+  {path: 'modification', component: ModificationAnnoncesComponent },
   ];
 
 @NgModule({

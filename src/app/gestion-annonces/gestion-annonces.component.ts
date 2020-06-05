@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import {Annonce} from '../Annonce/annonce';
 import {HttpClient} from '@angular/common/http';
 import {GlobalConfig} from '../global-config';
-import {ModalConfirmComponent} from '../modal-confirm/modal-confirm.component';
 import {Router} from '@angular/router';
 import {AnnonceService} from '../Annonce/annonce.service';
 import {ModalService} from "../modal.service";
@@ -70,7 +69,7 @@ export class GestionAnnoncesComponent implements OnInit {
 
   modifier(annonce: Annonce) {
   // TODO
-    this.annonceService.annonces = annonce;
+    this.annonceService.annonce = annonce;
     console.dir(annonce);
     console.log(annonce.id);
     this.router.navigate(['/form/3'],);

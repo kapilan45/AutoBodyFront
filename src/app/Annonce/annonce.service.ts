@@ -1,40 +1,33 @@
-import { Injectable } from '@angular/core';
+import {Injectable, OnInit} from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
-import {Observable} from 'rxjs';
+import {Observable, of} from 'rxjs';
 import {Annonce} from './annonce';
 import {FormGroup} from '@angular/forms';
 import {GlobalConfig} from '../global-config';
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AnnonceService {
-  public annonces: Annonce;
 
-  /* public annonces = {
-        prix: 40,
-        stage: 2,
-        marque: 'Toyata',
-        modele: 'X2',
-        annee: 2105,
-        kilometrage: 10,
-        categorie: 'citadin',
-        energie: 'essence',
-        localisation: 'paris',
-        image: 'https://images.caradisiac.com/images/1/5/9/4/181594/S0-retrouvez-nous-jeudi-27-fevrier-pour-decouvrir-en-live-l-audi-a5-restylee-2020-621692.jpg'
-      }; */
-  makeList = [];
+  public annonce: Annonce;
+  energies: Object = [];
+  makes: Object = [];
+  models: Object = [];
+  categories: Object = [];
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient, private route: Router) { }
 
   public saveAnnonce(annonce: FormGroup) {
-
-    console.dir(annonce);
     this.httpClient
       .post(GlobalConfig.saveAnnonceApiUrl, annonce)
       .subscribe(
-        () => {
+        (res: Response) => {
           console.log('Enregistrement terminé !');
+          // TODO
+          if (res.ok)
+            this.route.navigate(['/offres'])
         },
         (error) => {
           console.dir(error);
@@ -44,10 +37,11 @@ export class AnnonceService {
   }
 
   public getUserAnnonces() {
-    this.httpClient.get<Annonce>(GlobalConfig.getAnnoncesApiUrl).subscribe(value => {
+    let param = new HttpParams().set("user", "test");
+    this.httpClient.get<Annonce[]>(GlobalConfig.getAnnoncesApiUrl, {params: param}).subscribe(value => {
       // this.annonces = value;
       console.dir(value);
-      console.dir(this.annonces);
+      console.dir(this.annonce);
     }, error => {
       console.log('Erreur' + error);
     });
@@ -75,6 +69,7 @@ export class AnnonceService {
     this.httpClient.post('http://localhost:8080/api/image', uploadImage)
     .subscribe((value) => {
       if (value != null) {
+        console.dir(value);
         console.log('Image uploaded successfully');
         return value;
       } else {
@@ -100,17 +95,6 @@ export class AnnonceService {
       );
   }
   */
-  getMakeList() {
-
-    return this.httpClient.get(GlobalConfig.getMakeListApi).subscribe(value => {
-
-    });
-
-    return [
-      {make: 'bmw'},
-      {make: 'audi'}
-    ];
-  }
 
   filter(id: any, value: any) {
 
@@ -121,6 +105,48 @@ export class AnnonceService {
       console.dir(response);
     });
   }
+
+
+  getEnergies(): object {
+    this.httpClient.get(GlobalConfig.getEnergiesList).subscribe(value => {
+      this.energies = value;
+    });
+    return this.energies;
+  }
+
+  getMakes() {
+    this.httpClient.get(GlobalConfig.getMakeListApi).subscribe(value => {
+      this.makes = value;
+    });
+    return [{
+      make: 'audi'
+    },{
+      make: 'bmw'
+    }]
+    // return this.makes;
+  }
+
+  getModels(make: string) {
+    let params = new HttpParams().set("make", make);
+    this.httpClient.get(GlobalConfig.getMakeListApi, {params: params}).subscribe(response => {
+      this.models = response;
+    });
+    return this.models;
+  }
+
+  getCategories(make: string, model: string) {
+    let params = new HttpParams().set('make', make).set('model', model);
+    this.httpClient.get(GlobalConfig.getMakeListApi, {params: params}).subscribe(value => {
+      this.categories = value;
+    });
+    return this.categories;
+
+    return [
+      {category: 'break'},
+      {category: 'citadin'}
+    ];
+  }
+
 }
 
 

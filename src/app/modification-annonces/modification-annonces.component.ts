@@ -14,9 +14,9 @@ export class ModificationAnnoncesComponent implements OnInit {
   constructor(private formBuilder: FormBuilder, private annonceService: AnnonceService) { }
 
   ngOnInit() {
-  console.dir(this.annonceService.annonces);
+  console.dir(this.annonceService.annonce);
 
-  const annonce = this.annonceService.annonces;
+  const annonce = this.annonceService.annonce;
 
   this.annonceForm = this.formBuilder.group({
       prix: [annonce.price],

@@ -14,7 +14,7 @@
             <label>Marque</label>
             <input type="text" class="form-control" formControlName="make" list="makes_list" (change)="activateChamp('make')">
               <datalist id="makes_list">
-                <option *ngFor="let makelist of makeslist; let i = index" [value]="makeslist[i].marque">
+                <option *ngFor="let makelist of makeslist; let i = index" [value]="makeslist[i].make">
               </datalist>
           </div>
         </div>
@@ -22,9 +22,9 @@
           <div class="col-md-6 col-12">
             <label>Modèle</label>
             <fieldset [disabled]="isMake">
-            <input type="text" class="form-control" formControlName="model" list="modeles_list" (change)="activateChamp('modele')">
+            <input type="text" class="form-control" formControlName="model" list="modeles_list" (change)="activateChamp('model')">
               <datalist id="modeles_list">
-                <option *ngFor="let modelelist of modeleslist; let m = index" [value]="modeleslist[m].modele" >
+                <option *ngFor="let modelelist of modelslist; let m = index" [value]="modelslist[m].modele" >
               </datalist>
             </fieldset>
           </div>
@@ -153,7 +153,7 @@
         <div class="form-group row ">
           <div class="col-12">
             <label>Description (Information complémentaire) </label>
-            <textarea class="form-control" formControlName="description"></textarea>
+            <textarea class="form-control" formControlName="options"></textarea>
           </div>
         </div>
 
