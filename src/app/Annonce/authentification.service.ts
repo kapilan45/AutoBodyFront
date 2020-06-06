@@ -2,14 +2,15 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {FormGroup} from '@angular/forms';
 import {GlobalConfig} from '../global-config';
-import {AuthStorageService} from "../auth-storage.service";
+import { Router} from "@angular/router";
+import {NavbarComponent} from "../navbar/navbar.component";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthentificationService {
 
-  constructor(private httpClient: HttpClient, private auth: AuthStorageService) { }
+  constructor(private httpClient: HttpClient, private route: Router) { }
 
   // Create user in database
   register(registerForm: FormGroup) {
@@ -24,14 +25,13 @@ export class AuthentificationService {
 
   // log user after check id in database
   login(loginForm: FormGroup) {
-    console.dir(loginForm.value);
     let header = new HttpHeaders().set('Content-Type', 'application/json');
-    this.httpClient.post(GlobalConfig.loginApiUrl, loginForm.value, {headers: header, observe: 'response'}).subscribe(response => {
-      let [token] = response.headers.get("cache-control").split(" ");
+    this.httpClient.post(GlobalConfig.loginApiUrl, loginForm.value, {observe: 'response'}).subscribe(response => {
+      var token = response.headers.get("cache-control").split(" ");
 
       if(token[1] != null){
-        this.auth.setUserCredntial(token[1]);
-        this.auth.setuserName(loginForm.value.username);
+        GlobalConfig.setCurrentUser(token[1], loginForm.value.username);
+        this.route.navigate(['/offres']);
       }else {
         // TODO log error
         console.log("erreur de receprion de token");

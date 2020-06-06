@@ -1,52 +1,230 @@
-import {Injectable, OnInit} from '@angular/core';
-import {HttpClient, HttpParams} from '@angular/common/http';
-import {Observable, of} from 'rxjs';
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {Annonce} from './annonce';
 import {FormGroup} from '@angular/forms';
 import {GlobalConfig} from '../global-config';
-import {ActivatedRoute, Router} from "@angular/router";
+import {Router} from "@angular/router";
+import {Image} from "./image";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AnnonceService {
 
-  public annonce: Annonce;
+  annonces: Annonce[] = [
+    {
+      id: 1,
+      price: 1100,
+      stage: 2,
+      make : 'BMW',
+      model : 'X5',
+      year: '2005',
+      mileage: 14000,
+      category: 'break',
+      energy: 'essence',
+      localisation: 'paris',
+      numberOfSeats: 4,
+      options: '',
+      dumpValve: '',
+      airAdmission: '',
+      turbo: '',
+      exaust: '',
+      torqueSinceTheLatestModification: 45,
+      torque: 34,
+      driveType: '',
+      trim: '',
+      airFilter: '',
+      publishedDate: '',
+      highPerformanceTuningCompany: '',
+      intercooler: '',
+      inSideColor: 'gray',
+      co2: 120,
+      euroNorme: 'Eruro 5',
+      firstHand: true,
+      outSideColor: 'red',
+      fuelEconomySinceTheLatestModification: '',
+      fuelEconomy: '',
+      mileageSince1stModification: null,
+      fiscalHorsePower: 43,
+      horsePowerSinceTheLatestModification: 45,
+      horsePower: 567,
+      reinforcedCluth: false,
+      numberOfDoor: 3,
+      gearbox: 'manuelle',
+      maxSpeed: 450,
+      image: 'https://www.automobile-propre.com/wp-content/uploads/2020/01/sony-vision-s-01.jpg',
+    },{
+      id: 2,
+      price: 400,
+      stage: 2,
+      make : 'BMW',
+      model : 'X5',
+      year: '2005',
+      mileage: 14000,
+      category: 'break',
+      energy: 'essence',
+      localisation: 'paris',
+      numberOfSeats: 4,
+      options: '',
+      dumpValve: '',
+      airAdmission: '',
+      turbo: '',
+      exaust: '',
+      torqueSinceTheLatestModification: 45,
+      torque: 34,
+      driveType: '',
+      trim: '',
+      airFilter: '',
+      publishedDate: '',
+      highPerformanceTuningCompany: '',
+      intercooler: '',
+      inSideColor: 'gray',
+      co2: 120,
+      euroNorme: 'Eruro 5',
+      firstHand: true,
+      outSideColor: 'red',
+      fuelEconomySinceTheLatestModification: '',
+      fuelEconomy: '',
+      mileageSince1stModification: null,
+      fiscalHorsePower: 43,
+      horsePowerSinceTheLatestModification: 45,
+      horsePower: 567,
+      reinforcedCluth: false,
+      numberOfDoor: 3,
+      gearbox: 'manuelle',
+      maxSpeed: 450,
+      image: 'https://www.automobile-propre.com/wp-content/uploads/2020/01/sony-vision-s-01.jpg'
+    },{
+      id: 3,
+      price: 900,
+      stage: 2,
+      make : 'BMW',
+      model : 'X5',
+      year: '2005',
+      mileage: 14000,
+      category: 'break',
+      energy: 'essence',
+      localisation: 'paris',
+      numberOfSeats: 4,
+      options: '',
+      dumpValve: '',
+      airAdmission: '',
+      turbo: '',
+      exaust: '',
+      torqueSinceTheLatestModification: 45,
+      torque: 34,
+      driveType: '',
+      trim: '',
+      airFilter: '',
+      publishedDate: '',
+      highPerformanceTuningCompany: '',
+      intercooler: '',
+      inSideColor: 'gray',
+      co2: 120,
+      euroNorme: 'Eruro 5',
+      firstHand: true,
+      outSideColor: 'red',
+      fuelEconomySinceTheLatestModification: '',
+      fuelEconomy: '',
+      mileageSince1stModification: null,
+      fiscalHorsePower: 43,
+      horsePowerSinceTheLatestModification: 45,
+      horsePower: 567,
+      reinforcedCluth: false,
+      numberOfDoor: 3,
+      gearbox: 'manuelle',
+      maxSpeed: 450,
+      image: 'https://www.automobile-propre.com/wp-content/uploads/2020/01/sony-vision-s-01.jpg'
+    },{
+      id: 4,
+      price: 600,
+      stage: 2,
+       make : 'BMW',
+      model : 'X5',
+      year: '2005',
+      mileage: 14000,
+      category: 'break',
+      energy: 'essence',
+      localisation: 'paris',
+      numberOfSeats: 4,
+      options: '',
+      dumpValve: '',
+      airAdmission: '',
+      turbo: '',
+      exaust: '',
+      torqueSinceTheLatestModification: 45,
+      torque: 34,
+      driveType: '',
+      trim: '',
+      airFilter: '',
+      publishedDate: '',
+      highPerformanceTuningCompany: '',
+      intercooler: '',
+      inSideColor: 'gray',
+      co2: 120,
+      euroNorme: 'Eruro 5',
+      firstHand: true,
+      outSideColor: 'red',
+      fuelEconomySinceTheLatestModification: '',
+      fuelEconomy: '',
+      mileageSince1stModification: null,
+      fiscalHorsePower: 43,
+      horsePowerSinceTheLatestModification: 45,
+      horsePower: 567,
+      reinforcedCluth: false,
+      numberOfDoor: 3,
+      gearbox: 'manuelle',
+      maxSpeed: 450,
+      image: 'https://www.automobile-propre.com/wp-content/uploads/2020/01/sony-vision-s-01.jpg'
+    }
+  ];
   energies: Object = [];
   makes: Object = [];
   models: Object = [];
   categories: Object = [];
+  images = [];
+  imagesId = [];
 
-  constructor(private httpClient: HttpClient, private route: Router) { }
+  constructor(private httpClient: HttpClient, private route: Router) {
+    this.getMakes();
+  }
+
+  public getAnnonces(){
+    this.httpClient.get<Annonce[]>(GlobalConfig.getAnnoncesApiUrl).subscribe(value => {
+      console.dir(value);
+      this.annonces = value;
+    }, error => {
+      console.log('Erreur : ' + error);
+    });
+  }
 
   public saveAnnonce(annonce: FormGroup) {
+    let header = new HttpHeaders().set("userToken", GlobalConfig.getCurrentUser().userToken);
     this.httpClient
-      .post(GlobalConfig.saveAnnonceApiUrl, annonce)
+      .post(GlobalConfig.saveAnnonceApiUrl, annonce, {headers: header})
       .subscribe(
         (res: Response) => {
           console.log('Enregistrement terminé !');
           // TODO
-          if (res.ok)
+         // if (res.ok)
             this.route.navigate(['/offres'])
         },
         (error) => {
-          console.dir(error);
-          console.log('Erreur ! : ' + error);
+          console.dir("Error : " + error);
         }
       );
   }
 
   public getUserAnnonces() {
-    let param = new HttpParams().set("user", "test");
-    this.httpClient.get<Annonce[]>(GlobalConfig.getAnnoncesApiUrl, {params: param}).subscribe(value => {
-      // this.annonces = value;
-      console.dir(value);
-      console.dir(this.annonce);
+    let header = new HttpHeaders().set("userToken", GlobalConfig.getCurrentUser().userToken);
+    this.httpClient.get<Annonce[]>(GlobalConfig.getAnnoncesApiUrl, {headers: header}).subscribe(value => {
+      this.annonces = value;
     }, error => {
       console.log('Erreur' + error);
     });
   }
 
+  // TODO
   modifyAnnonce(annonce: FormGroup) {
     this.httpClient
       .post(GlobalConfig.modifyAnnonceApiUrl, annonce)
@@ -61,17 +239,27 @@ export class AnnonceService {
       );
   }
 
-  upload(image) : any {
+  upload(image) {
     const uploadImage = new FormData();
     uploadImage.append('image', image, image.name);
 
-
-    this.httpClient.post('http://localhost:8080/api/image', uploadImage)
+    this.httpClient.post<Image>(GlobalConfig.saveImageApiUrl, uploadImage)
     .subscribe((value) => {
       if (value != null) {
-        console.dir(value);
         console.log('Image uploaded successfully');
-        return value;
+        //this.images[0] = "data:image/png;base64," + value.path;
+
+        let index = this.images.length;
+        if(index == 6){
+          for (let i = 0; i < 5; i++){
+            this.images[i] = this.images[i + 1];
+            this.imagesId[i] = this.imagesId[i+1];
+          }
+          index = 5;
+        }
+        this.images[index] = "data:image/png;base64," + value.path;
+        this.imagesId[index] = value.id;
+
       } else {
         console.log('Image not uploaded successfully');
         return null;
@@ -96,6 +284,7 @@ export class AnnonceService {
   }
   */
 
+  // TODO
   filter(id: any, value: any) {
 
     let params = new HttpParams().set("id",id).set("value", value);
@@ -107,44 +296,37 @@ export class AnnonceService {
   }
 
 
-  getEnergies(): object {
-    this.httpClient.get(GlobalConfig.getEnergiesList).subscribe(value => {
+  // TODO
+  getEnergies() {
+    this.energies = [
+      {energy: 'diesel'},
+      {energy: 'SP95'},
+      {energy: 'SP98'}
+    ]
+    /*this.httpClient.get(GlobalConfig.getEnergiesList).subscribe(value => {
       this.energies = value;
-    });
-    return this.energies;
+    }); */
   }
 
   getMakes() {
     this.httpClient.get(GlobalConfig.getMakeListApi).subscribe(value => {
       this.makes = value;
     });
-    return [{
-      make: 'audi'
-    },{
-      make: 'bmw'
-    }]
-    // return this.makes;
   }
 
   getModels(make: string) {
     let params = new HttpParams().set("make", make);
-    this.httpClient.get(GlobalConfig.getMakeListApi, {params: params}).subscribe(response => {
+    this.httpClient.get(GlobalConfig.getModelByMakeApi, {params: params}).subscribe(response => {
       this.models = response;
     });
-    return this.models;
   }
 
-  getCategories(make: string, model: string) {
-    let params = new HttpParams().set('make', make).set('model', model);
-    this.httpClient.get(GlobalConfig.getMakeListApi, {params: params}).subscribe(value => {
+  getCategories(model: string) {
+    let params = new HttpParams().set('model', model);
+    this.httpClient.get(GlobalConfig.getCategoryByModelApi, {params: params}).subscribe(value => {
       this.categories = value;
     });
     return this.categories;
-
-    return [
-      {category: 'break'},
-      {category: 'citadin'}
-    ];
   }
 
 }

@@ -1,7 +1,7 @@
 import {Image} from './image';
 
 export class Annonce {
-    id: number;
+    id: number = 0;
     make: string;
     numberOfSeats: number;
     maxSpeed: number;
@@ -14,7 +14,7 @@ export class Annonce {
     price: number;
     stage: number;
     model: string;
-    year: Date;
+    year: string;
     mileage: number;
     mileageSince1stModification: number;
     category: string;
@@ -29,7 +29,7 @@ export class Annonce {
     inSideColor: string;
     intercooler: string;
     highPerformanceTuningCompany: string;
-    publishedDate: Date;
+    publishedDate: string;
     trim: string;
     driveType: string;
     torque: number;
@@ -41,5 +41,6 @@ export class Annonce {
     airFilter: string;
     options: string;
 
-    image: [];
+    // TODO changer en tableau
+    image: string;
 }

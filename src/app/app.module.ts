@@ -14,7 +14,6 @@ import { HttpClientModule } from '@angular/common/http';
 import {LogFormComponent} from './log-form/log-form.component';
 import { GestionAnnoncesComponent } from './gestion-annonces/gestion-annonces.component';
 import { DepotAnnoncesComponent } from './depot-annonces/depot-annonces.component';
-import { ModificationAnnoncesComponent } from './modification-annonces/modification-annonces.component';
 import {NgbDatepickerModule} from "@ng-bootstrap/ng-bootstrap";
 
 @NgModule({
@@ -28,7 +27,6 @@ import {NgbDatepickerModule} from "@ng-bootstrap/ng-bootstrap";
     LogFormComponent,
     GestionAnnoncesComponent,
     DepotAnnoncesComponent,
-    ModificationAnnoncesComponent,
   ],
   imports: [
     BrowserModule,

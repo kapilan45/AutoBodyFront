@@ -14,7 +14,7 @@
             <label>Marque</label>
             <input type="text" class="form-control" formControlName="make" list="makes_list" (change)="activateChamp('make')">
               <datalist id="makes_list">
-                <option *ngFor="let makelist of makeslist; let i = index" [value]="makeslist[i].make">
+                <option *ngFor="let makelist of annonceService.makes; let i = index" [value]="annonceService.makes[i].make">
               </datalist>
           </div>
         </div>
@@ -24,7 +24,7 @@
             <fieldset [disabled]="isMake">
             <input type="text" class="form-control" formControlName="model" list="modeles_list" (change)="activateChamp('model')">
               <datalist id="modeles_list">
-                <option *ngFor="let modelelist of modelslist; let m = index" [value]="modelslist[m].modele" >
+                <option *ngFor="let modelelist of annonceService.models; let m = index" [value]="annonceService.models[m].model" >
               </datalist>
             </fieldset>
           </div>
@@ -33,7 +33,7 @@
             <fieldset [disabled]="isModele">
               <input type="text" class="form-control" formControlName="category" list="categories_list" (change)="activateChamp('category')">
               <datalist id="categories_list">
-                <option *ngFor="let categorylist of categorieslist; let c = index" [value]="categorieslist[c].category" >
+                <option *ngFor="let categorylist of annonceService.categories; let c = index" [value]="annonceService.categories[c].category" >
               </datalist>
             </fieldset>
 
@@ -158,7 +158,8 @@
         </div>
 
         <div class="form-group">
-          <button class="btn btn-primary form-control" type="submit">Déposer</button>
+          <button *ngIf="annonce != 0" class="btn btn-primary form-control" type="submit">Modifier</button>
+          <button *ngIf="annonce == 0" class="btn btn-primary form-control" type="submit">Déposer</button>
         </div>
 
         </fieldset>
@@ -169,11 +170,11 @@
 
         <div class="row mb-2">
           <div class="col-4 image-upload border pt-2 pb-2" *ngFor="let i of [0,1,2]">
-              <div class="image-preview mb-3" *ngIf="images[i]">
-                <img [src]="images[i]" class="upload-image" />
+              <div class="image-preview mb-3" *ngIf="annonceService.images[i]">
+                <img [src]="annonceService.images[i]" class="upload-image" />
               </div>
 
-              <i *ngIf="!images[i]">
+              <i *ngIf="!annonceService.images[i]">
                 <i class="material-icons">add_a_photo</i>
               </i>
               <input type="file" (change)="uploadImage($event)" multiple />
@@ -184,11 +185,11 @@
         <div class="row mb-4">
 
           <div class="col-4 image-upload border pt-2 pb-2" *ngFor="let i of [3,4,5]">
-            <div class="image-preview mb-3" *ngIf="images[i]">
-              <img [src]="images[i]" class="upload-image" />
+            <div class="image-preview mb-3" *ngIf="annonceService.images[i]">
+              <img [src]="annonceService.images[i]" class="upload-image" />
             </div>
 
-            <i *ngIf="!images[i]">
+            <i *ngIf="!annonceService.images[i]">
               <i class="material-icons">add_a_photo</i>
             </i>
             <input type="file" (change)="uploadImage($event)" multiple />
@@ -214,7 +215,7 @@
 
 
           <div class="col-12">
-            <label class="col-12" *ngFor="let pj of pjs">{{pj.name}}</label>
+            <label class="col-12" *ngFor="let pj of attachements">{{pj.name}}</label>
           </div>
 
 

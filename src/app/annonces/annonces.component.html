@@ -5,21 +5,21 @@
   <div class="row">
     <!-- Corps de l'annonce -->
     <div class="col-9">
-      <div *ngFor="let annonce of annonces" (click)="onSelectOffre(annonce.id)">
+      <div *ngFor="let annonce of annonceService.annonces;let index = index">
 
-        <div class='row border' style="margin-bottom: 20px" (click)="showCompletDetail(annonce.id)">
+        <div class='row border' style="margin-bottom: 20px" (click)="showCompletDetail(index)">
 
           <div class="col-md-3 p-0 imageCadrage">
             <img src="{{annonce.image}}" alt="" width="100%" height="100%">
           </div>
 <!--          Description de l'annonce-->
           <div class="col-md-4">
-            <p>Marque : {{annonce.make.make}}</p>
-            <p>Modèle : {{annonce.model.model}}</p>
-            <p>Catégorie : {{annonce.categories.category}}</p>
-            <p>Energie : {{annonce.energie}}</p>
-            <p>KM :{{annonce.kilometrage}}</p>
-            <p>Immatriculé : {{annonce.annee}}</p>
+            <p>Marque : {{annonce.make}}</p>
+            <p>Modèle : {{annonce.model}}</p>
+            <p>Catégorie : {{annonce.category}}</p>
+            <p>Energie : {{annonce.energy}}</p>
+            <p>KM :{{annonce.mileage}}</p>
+            <p>Immatriculé : {{annonce.year}}</p>
 
           </div>
 
@@ -28,7 +28,7 @@
 
             <p>Stage : {{annonce.stage}}</p>
             <p>Localisé à {{annonce.localisation}}</p>
-            <p class="text-justify-right"><strong> {{annonce.prix}} € </strong> </p>
+            <p class="text-justify-right"><strong> {{annonce.price}} € </strong> </p>
           </div>
         </div>
 
@@ -50,40 +50,29 @@
       <div class="input-group mb-3">
         <input type="text" class="form-control" list="makes_list" placeholder="Marque">
         <datalist id="makes_list">
-          <option *ngFor="let make_list of makesList; let m = index" [value]="makesList[m].make" >
+          <option *ngFor="let make_list of annonceService.makes; let m = index" [value]="annonceService.makes[m].make" >
         </datalist>
       </div>
       <div class="input-group mb-3">
         <input type="text" class="form-control" list="models_list" placeholder="Modèle">
         <datalist id="models_list">
-          <option *ngFor="let model of modelList; let mod = index" [value]="modelList[mod].model" >
+          <option *ngFor="let model of annonceService.models; let mod = index" [value]="annonceService.models[mod].model" >
         </datalist>
       </div>
       <div class="input-group mb-3">
         <input type="text" class="form-control" list="categories_list" placeholder="Catégorie">
         <datalist id="categories_list">
-          <option *ngFor="let category of categoryList; let c = index" [value]="categoryList[c].category" >
+          <option *ngFor="let category of annonceService.categories; let c = index" [value]="annonceService.categories[c].category" >
         </datalist>
 
-        <!-- <select class="custom-select" id="category">
-          <option selected>Category...</option>
-          <option value="1">One</option>
-          <option value="2">Two</option>
-          <option value="3">Three</option>
-        </select> -->
       </div>
 
 
       <div class="input-group mb-3">
         <input type="text" class="form-control" list="energies_list" placeholder="Carburant">
         <datalist id="energies_list">
-          <option *ngFor="let energy of energies; let e = index" [value]="energies[e].value" >
+          <option *ngFor="let energy of annonceService.energies; let e = index" [value]="annonceService.energies[e].value" >
         </datalist>
-
-        <!-- <select class="custom-select" id="energie">
-          <option selected>Carburant</option>
-          <option *ngFor="let energie of energies; let i = index" [value]="energies[i].value">{{energies[i].value}}</option>
-        </select> -->
       </div>
 
       <div class="input-group mb-3">
