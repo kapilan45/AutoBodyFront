@@ -1,7 +1,7 @@
 <div class="container">
   <h1>Gestion des annonces</h1>
 
-  <div *ngFor="let annonce of annonces">
+  <div *ngFor="let annonce of annonceService.annonces; let index = index">
     <div class='row border' style="margin-bottom: 20px">
       <div class="col-md-2">
         <img src="{{annonce.image}}" alt="" width="100%" height="100%">
@@ -18,10 +18,10 @@
       </div>
 
       <div class="col-md-2">
-        <button class="form-control btn btn-link" [value]="annonce.id">Voir Détail</button>
+        <button class="form-control btn btn-link" [value]="index">Voir Détail</button>
       </div>
       <div class="col-md-2">
-        <button class="form-control btn-danger" (click)="supprimer(content, annonce)" [value]="annonce.id">Supprimer</button>
+        <button class="form-control btn-danger" (click)="supprimer(content, annonce)" [value]="index">Supprimer</button>
         <button class="form-control btn-primary" (click)="modifier(annonce)">Modifier</button>
       </div>
     </div>

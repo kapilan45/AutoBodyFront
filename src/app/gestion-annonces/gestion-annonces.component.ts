@@ -19,7 +19,7 @@ export class GestionAnnoncesComponent implements OnInit {
   deleteStat = "en debut";
 
  // annonces: Annonce;
-   annonces = [
+  /* annonces = [
     {
       id: 0,
       price: 400,
@@ -59,9 +59,9 @@ export class GestionAnnoncesComponent implements OnInit {
       localisation: 'paris',
       image: 'https://www.automobile-propre.com/wp-content/uploads/2020/01/sony-vision-s-01.jpg'
     }
-  ];
+  ]; */
 
-  constructor(private httpClient: HttpClient, private annonceService: AnnonceService, private router: Router, private modalService: ModalService) { }
+  constructor(private annonceService: AnnonceService, private router: Router, private modalService: ModalService) { }
 
   ngOnInit() {
     this.annonceService.getUserAnnonces();
@@ -69,10 +69,10 @@ export class GestionAnnoncesComponent implements OnInit {
 
   modifier(annonce: Annonce) {
   // TODO
-    this.annonceService.annonce = annonce;
+    this.selected_annonce = annonce;
     console.dir(annonce);
     console.log(annonce.id);
-    this.router.navigate(['/form/3'],);
+    this.router.navigate(['/depot', annonce.id],);
   }
 
   supprimer(content, annonce) {
@@ -84,13 +84,13 @@ export class GestionAnnoncesComponent implements OnInit {
 
   }
 
-  confirmSuppression(selected_annonce: any) {
+  confirmSuppression(selected_annonce: Annonce) {
 
-    for(var i=selected_annonce.id; i<this.annonces.length -1; i++){
+    this.annonceService.annonces[0] = null;
+    /*for(var i=selected_annonce.id; i<this.annonces.length -1; i++){
       this.annonces[selected_annonce.id] = this.annonces[selected_annonce.id + 1];
-    }
+    } */
 
-    console.dir(this.annonces);
     console.log(this.deleteStat);
     console.log(selected_annonce.id);
     console.log(selected_annonce.make);
