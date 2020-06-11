@@ -79,7 +79,7 @@ export class DepotAnnoncesComponent implements OnInit {
       dumpValve: [this.annonce.dumpValve],
       airFilter: [this.annonce.airFilter],
       options: [this.annonce.options],
-      image: []
+      images: [this.annonce.images]
     });
 
   }
@@ -109,6 +109,7 @@ export class DepotAnnoncesComponent implements OnInit {
   }
 
   deposerAnnonce() {
+    this.annonceForm.patchValue({images: this.annonceService.images});
     this.annonceService.saveAnnonce(this.annonceForm.value);
   }
 

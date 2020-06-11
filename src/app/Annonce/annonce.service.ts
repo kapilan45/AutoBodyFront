@@ -52,7 +52,10 @@ export class AnnonceService {
       numberOfDoor: 3,
       gearbox: 'manuelle',
       maxSpeed: 450,
-      image: 'https://www.automobile-propre.com/wp-content/uploads/2020/01/sony-vision-s-01.jpg',
+      images: [{
+        id: 4,
+        path: 'https://www.automobile-propre.com/wp-content/uploads/2020/01/sony-vision-s-01.jpg'
+      }]
     },{
       id: 2,
       price: 400,
@@ -93,7 +96,10 @@ export class AnnonceService {
       numberOfDoor: 3,
       gearbox: 'manuelle',
       maxSpeed: 450,
-      image: 'https://www.automobile-propre.com/wp-content/uploads/2020/01/sony-vision-s-01.jpg'
+      images: [{
+        id: 1,
+        path: 'https://www.automobile-propre.com/wp-content/uploads/2020/01/sony-vision-s-01.jpg'
+      }]
     },{
       id: 3,
       price: 900,
@@ -134,7 +140,10 @@ export class AnnonceService {
       numberOfDoor: 3,
       gearbox: 'manuelle',
       maxSpeed: 450,
-      image: 'https://www.automobile-propre.com/wp-content/uploads/2020/01/sony-vision-s-01.jpg'
+      images: [{
+        id: 2,
+        path: 'https://www.automobile-propre.com/wp-content/uploads/2020/01/sony-vision-s-01.jpg'
+      }]
     },{
       id: 4,
       price: 600,
@@ -175,15 +184,17 @@ export class AnnonceService {
       numberOfDoor: 3,
       gearbox: 'manuelle',
       maxSpeed: 450,
-      image: 'https://www.automobile-propre.com/wp-content/uploads/2020/01/sony-vision-s-01.jpg'
+      images: [{
+        id: 3,
+        path: 'https://www.automobile-propre.com/wp-content/uploads/2020/01/sony-vision-s-01.jpg'
+      }]
     }
   ];
   energies: Object = [];
   makes: Object = [];
   models: Object = [];
   categories: Object = [];
-  images = [];
-  imagesId = [];
+  images: Image[] = [];
 
   constructor(private httpClient: HttpClient, private route: Router) {
     this.getMakes();
@@ -199,6 +210,7 @@ export class AnnonceService {
   }
 
   public saveAnnonce(annonce: FormGroup) {
+    console.dir(annonce);
     let header = new HttpHeaders().set("userToken", GlobalConfig.getCurrentUser().userToken);
     this.httpClient
       .post(GlobalConfig.saveAnnonceApiUrl, annonce, {headers: header})
@@ -248,17 +260,17 @@ export class AnnonceService {
       if (value != null) {
         console.log('Image uploaded successfully');
         //this.images[0] = "data:image/png;base64," + value.path;
+        console.log(value.id);
 
         let index = this.images.length;
         if(index == 6){
           for (let i = 0; i < 5; i++){
             this.images[i] = this.images[i + 1];
-            this.imagesId[i] = this.imagesId[i+1];
           }
           index = 5;
         }
-        this.images[index] = "data:image/png;base64," + value.path;
-        this.imagesId[index] = value.id;
+        value.path =  "data:image/png;base64," + value.path;
+        this.images[index] = value;
 
       } else {
         console.log('Image not uploaded successfully');

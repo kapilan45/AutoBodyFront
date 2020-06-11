@@ -42,5 +42,5 @@ export class Annonce {
     options: string;
 
     // TODO changer en tableau
-    image: string;
+    images: Image[] = [];
 }
