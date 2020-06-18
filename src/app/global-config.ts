@@ -5,7 +5,7 @@ export class GlobalConfig {
 
   public static apiUrl = 'http://localhost:8080/api';
   public static getAnnoncesApiUrl = 'http://localhost:8080/api/annonce';
-  public static getUserAnnoncesApiUrl = 'http://localhost:8080/api/test/annonce/user';
+  public static getUserAnnoncesApiUrl = 'http://localhost:8080/api/annonce/user';
   public static registerApiUrl = 'http://localhost:8080/api/security/register';
   public static loginApiUrl = 'http://localhost:8080/login';
   public static saveAnnonceApiUrl = 'http://localhost:8080/api/annonce/save';
@@ -13,7 +13,7 @@ export class GlobalConfig {
   public static supprimerAnnonceApiUrl = 'http://localhost:8080/api';
   public static modifyAnnonceApiUrl = 'http://localhost:8080/api';
   public static getMakeListApi = 'http://localhost:8080/api/filter/makes';
-  public static getAnnonceFiltred = 'http://localhost:8080/api/getAnnonceFiltre';
+  public static getAnnonceFiltred = 'http://localhost:8080/api/annonce/filtre';
   public static getEnergiesList = 'http://localhost:8080/api/filter/energies';
   public static getModelByMakeApi = 'http://localhost:8080/api/filter/models';
   public static getCategoryByModelApi = 'http://localhost:8080/api/filter/category';

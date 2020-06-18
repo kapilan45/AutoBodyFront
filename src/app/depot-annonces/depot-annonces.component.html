@@ -172,7 +172,7 @@
         <div class="row mb-2">
           <div class="col-4 image-upload border pt-2 pb-2" *ngFor="let i of [0,1,2]">
               <div class="image-preview mb-3" *ngIf="annonceService.images[i]">
-                <img [src]="annonceService.images[i].path" class="upload-image" />
+                <img [src]="'data:image/png;base64,'+annonceService.images[i].path" class="upload-image" />
               </div>
 
               <i *ngIf="!annonceService.images[i]">
@@ -187,7 +187,7 @@
 
           <div class="col-4 image-upload border pt-2 pb-2" *ngFor="let i of [3,4,5]">
             <div class="image-preview mb-3" *ngIf="annonceService.images[i]">
-              <img [src]="annonceService.images[i].path" class="upload-image" />
+              <img [src]="'data:image/png;base64,'+annonceService.images[i].path" class="upload-image" />
             </div>
 
             <i *ngIf="!annonceService.images[i]">

@@ -6,11 +6,14 @@
   </button>
   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
     <div class="navbar-nav col-12">
-      <a class="nav-item nav-link active col-3" routerLink="#">Accueil <span class="sr-only">(current)</span></a>
+      <!--<a *ngIf="auth.user"class="nav-item nav-link col-3" >{{auth.user}}</a> -->
+      <a *ngIf="!auth.user" class="nav-item nav-link active col-3" >Accueil <span class="sr-only">(current)</span></a>
+      <a *ngIf="auth.user" class="nav-item nav-link active col-3" routerLink="/gestion_annonce" >Accueil <span class="sr-only">(current)</span></a>
       <a class="nav-item nav-link col-3" routerLink="/depot">Déposer une annonce</a>
       <a class="nav-item nav-link col-3" routerLink="/offres">Offres</a>
       <a *ngIf="auth.user == null"class="nav-item nav-link col-3" routerLink="/login">Se connecter</a>
-      <a *ngIf="auth.user"class="nav-item nav-link col-3" routerLink="/gestion_annonce">{{auth.user}}</a>
+      <!--<a *ngIf="auth.user"class="nav-item nav-link col-3" routerLink="/gestion_annonce">{{auth.user}}</a> -->
+      <a *ngIf="auth.user"class="nav-item nav-link col-3" (click)="logout()">{{auth.user}}</a>
     </div>
   </div>
 </nav>

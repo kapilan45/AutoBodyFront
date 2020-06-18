@@ -21,6 +21,7 @@ export class AnnoncesComponent implements OnInit {
     //let val = event.target.id;
     let val = event.target.value;
     console.dir(event.target.value);
+    console.log(val);
 
     this.annonceService.filter(event.target.id, event.target.value);
   }

@@ -201,7 +201,6 @@ export class AnnonceService {
   constructor(private httpClient: HttpClient, private route: Router, private authStorageService: AuthStorageService) {
     this.getMakes();
     this.getEnergies();
-    console.dir(this.energies);
   }
 
   public getAnnonces(){
@@ -223,6 +222,7 @@ export class AnnonceService {
           console.log(res);
           // TODO
          // if (res.ok)
+          this.images = null;
             this.route.navigate(['/offres'])
         },
         (error) => {
@@ -233,8 +233,8 @@ export class AnnonceService {
   }
 
   public getUserAnnonces() {
-    let header = new HttpHeaders().set("userToken", GlobalConfig.getCurrentUser().userToken);
-    this.httpClient.get<Annonce[]>(GlobalConfig.getAnnoncesApiUrl, {headers: header}).subscribe(value => {
+   // let header = new HttpHeaders().set("userToken", GlobalConfig.getCurrentUser().userToken);
+    this.httpClient.get<Annonce[]>(GlobalConfig.getUserAnnoncesApiUrl).subscribe(value => {
       this.annonces = value;
     }, error => {
       console.log('Erreur' + error);
@@ -274,7 +274,6 @@ export class AnnonceService {
           }
           index = 5;
         }
-        value.path = value.path;
         //value.path =  "data:image/png;base64," + value.path;
         this.images[index] = value;
 
