@@ -4,13 +4,14 @@ import {FormGroup} from '@angular/forms';
 import {GlobalConfig} from '../global-config';
 import { Router} from "@angular/router";
 import {NavbarComponent} from "../navbar/navbar.component";
+import {AuthStorageService} from "./auth-storage.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthentificationService {
 
-  constructor(private httpClient: HttpClient, private route: Router) { }
+  constructor(private httpClient: HttpClient, private authStorageService: AuthStorageService) { }
 
   // Create user in database
   register(registerForm: FormGroup) {
@@ -25,22 +26,22 @@ export class AuthentificationService {
 
   // log user after check id in database
   login(loginForm: FormGroup) {
+
     let header = new HttpHeaders().set('Content-Type', 'application/json');
-    this.httpClient.post(GlobalConfig.loginApiUrl, loginForm.value, {observe: 'response'}).subscribe(response => {
-      var token = response.headers.get("cache-control").split(" ");
-
-      if(token[1] != null){
-        GlobalConfig.setCurrentUser(token[1], loginForm.value.username);
-        this.route.navigate(['/offres']);
+    this.httpClient.post(GlobalConfig.loginApiUrl, loginForm.value, {headers: header, observe: "response", responseType: "json"}).subscribe(response => {
+      if(response != null){
+        let token = response.headers.get("cache-control");
+        this.authStorageService.setLoginResult(response.body, token);
       }else {
-        // TODO log error
-        console.log("erreur de receprion de token");
+        console.log("erreur de reception de token");
       }
-
-
       }, error => {
       console.dir(error);
       console.log("erreur to log");
     });
+  }
+
+  logout() {
+    this.authStorageService.logout();
   }
 }

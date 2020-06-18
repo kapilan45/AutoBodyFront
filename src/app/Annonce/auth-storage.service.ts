@@ -1,39 +1,43 @@
 import { Injectable } from '@angular/core';
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthStorageService {
 
-  constructor() { }
+  constructor(private route: Router) { }
 
   token: string;
-  user: string;
-  password: string;
-  basicHeader: string; // computed from user+password
+  user: string = null;
 
-  setLoginResult(user: string, password: string) {
-    console.log('setLoginResult ' + user)
-    this.user = user;
-    this.password = password;
-    this.basicHeader = 'Basic ' + btoa(user + ':' + password);
+
+  setLoginResult(user: Object, token: string) {
+    this.user = user['username'];
+    this.token = token;
+    localStorage.setItem(this.user, token);
+
+    this.route.navigate(['/offres']);
   }
 
   logout() {
-    console.log('logout')
+    console.log('logout');
     this.user = null;
-    this.password = null;
-    this.basicHeader = null;
+    this.token = null;
+
+    localStorage.setItem(this.user, null);
+
+    this.route.navigate(['/offres']);
   }
 
   getAuthHeader(): {} {
     if (this.token) {
       return {
-        Authorization: 'Bearer ' + this.token
+        Authorization: this.token
       };
-    } else if (this.user && this.password) {
+    } else if (this.user) {
       return {
-        Authorization: this.basicHeader
+        Authorization: this.user
       };
     } else {
       return undefined;

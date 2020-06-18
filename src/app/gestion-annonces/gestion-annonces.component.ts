@@ -67,12 +67,10 @@ export class GestionAnnoncesComponent implements OnInit {
     this.annonceService.getUserAnnonces();
   }
 
-  modifier(annonce: Annonce) {
+  modifier(annonce: number) {
   // TODO
-    this.selected_annonce = annonce;
     console.dir(annonce);
-    console.log(annonce.id);
-    this.router.navigate(['/depot', annonce.id],);
+    this.router.navigate(['/depot', annonce],);
   }
 
   supprimer(content, annonce) {

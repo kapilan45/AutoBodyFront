@@ -12,11 +12,16 @@ export class AuthInterceptor implements HttpInterceptor {
 
 
 	intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-		if (!request || !request.url) {
+    console.log("a http request deteceted")
+	  if (!request || !request.url) {
+      console.log("request dont have url");
 			return next.handle(request);
 		}
 
+		console.dir(request);
+
 		let authHeaders = this.authStorage.getAuthHeader();
+		console.dir(authHeaders);
 		if (authHeaders) {
 			console.log('AuthInterceptor .. adding authHeader for user:', this.authStorage.user);
 			request = request.clone({

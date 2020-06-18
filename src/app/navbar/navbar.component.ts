@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {AuthStorageService} from "../Annonce/auth-storage.service";
+import {AuthentificationService} from "../Annonce/authentification.service";
 
 @Component({
   selector: 'app-navbar',
@@ -7,12 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavbarComponent implements OnInit {
 
-  public static userconnected: boolean;
-  constructor() {
-
-  }
+  constructor(private auth: AuthStorageService, private authentificationService: AuthentificationService) { }
 
   ngOnInit() {
   }
 
+
+  logout() {
+    this.authentificationService.logout();
+  }
 }

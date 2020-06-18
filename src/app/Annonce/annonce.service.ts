@@ -5,13 +5,15 @@ import {FormGroup} from '@angular/forms';
 import {GlobalConfig} from '../global-config';
 import {Router} from "@angular/router";
 import {Image} from "./image";
+import {AuthStorageService} from "./auth-storage.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AnnonceService {
 
-  annonces: Annonce[] = [
+  annonces: Annonce[];
+  /*annonces: Annonce[] = [
     {
       id: 1,
       price: 1100,
@@ -189,15 +191,17 @@ export class AnnonceService {
         path: 'https://www.automobile-propre.com/wp-content/uploads/2020/01/sony-vision-s-01.jpg'
       }]
     }
-  ];
+  ]; */
   energies: Object = [];
   makes: Object = [];
   models: Object = [];
   categories: Object = [];
   images: Image[] = [];
 
-  constructor(private httpClient: HttpClient, private route: Router) {
+  constructor(private httpClient: HttpClient, private route: Router, private authStorageService: AuthStorageService) {
     this.getMakes();
+    this.getEnergies();
+    console.dir(this.energies);
   }
 
   public getAnnonces(){
@@ -211,18 +215,19 @@ export class AnnonceService {
 
   public saveAnnonce(annonce: FormGroup) {
     console.dir(annonce);
-    let header = new HttpHeaders().set("userToken", GlobalConfig.getCurrentUser().userToken);
     this.httpClient
-      .post(GlobalConfig.saveAnnonceApiUrl, annonce, {headers: header})
+      .post(GlobalConfig.saveAnnonceApiUrl, annonce)
       .subscribe(
         (res: Response) => {
           console.log('Enregistrement terminé !');
+          console.log(res);
           // TODO
          // if (res.ok)
             this.route.navigate(['/offres'])
         },
         (error) => {
-          console.dir("Error : " + error);
+          console.log("erreur to save a annonce")
+          console.dir(error);
         }
       );
   }
@@ -269,7 +274,8 @@ export class AnnonceService {
           }
           index = 5;
         }
-        value.path =  "data:image/png;base64," + value.path;
+        value.path = value.path;
+        //value.path =  "data:image/png;base64," + value.path;
         this.images[index] = value;
 
       } else {
@@ -308,21 +314,18 @@ export class AnnonceService {
   }
 
 
-  // TODO
   getEnergies() {
     this.energies = [
       {energy: 'diesel'},
       {energy: 'SP95'},
       {energy: 'SP98'}
     ]
-    /*this.httpClient.get(GlobalConfig.getEnergiesList).subscribe(value => {
-      this.energies = value;
-    }); */
   }
 
   getMakes() {
     this.httpClient.get(GlobalConfig.getMakeListApi).subscribe(value => {
       this.makes = value;
+      console.dir(this.makes);
     });
   }
 
@@ -330,6 +333,7 @@ export class AnnonceService {
     let params = new HttpParams().set("make", make);
     this.httpClient.get(GlobalConfig.getModelByMakeApi, {params: params}).subscribe(response => {
       this.models = response;
+      console.dir(this.models);
     });
   }
 

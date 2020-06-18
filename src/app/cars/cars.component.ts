@@ -4,6 +4,7 @@ import {Annonce} from "../Annonce/annonce";
 import {ActivatedRoute} from "@angular/router";
 import {HttpClient} from "@angular/common/http";
 import {AnnonceService} from "../Annonce/annonce.service";
+import {Image} from "../Annonce/image";
 
 @Component({
   selector: 'app-cars',
@@ -12,7 +13,7 @@ import {AnnonceService} from "../Annonce/annonce.service";
 })
 export class CarsComponent implements OnInit {
 
-  images: GalleryItem[];
+  images: GalleryItem[] = [];
 
   annonce: Annonce;
  // annonce = {};
@@ -42,24 +43,17 @@ export class CarsComponent implements OnInit {
     let annonceId = this.route.snapshot.params['annonceId'];
     this.annonce = this.annonceService.annonces[annonceId];
 
-    let annonces =
+    for (let image in this.annonce.images){
 
-    this.images = [
-      new ImageItem({
-        src: "https://www.mercedes-benz.fr/passengercars/mercedes-benz-cars/models/e-class/saloon-w213/_jcr_content/image.MQ6.2.2x.20200128125812.png",
-        thumb: "https://www.mercedes-benz.fr/passengercars/mercedes-benz-cars/models/e-class/saloon-w213/_jcr_content/image.MQ6.2.2x.20200128125812.png"
-      }),
-      new ImageItem({
-        src: "https://www.mercedes-benz.fr/passengercars/mercedes-benz-cars/models/e-class/saloon-w213/_jcr_content/image.MQ6.2.2x.20200128125812.png",
-        thumb: "https://www.mercedes-benz.fr/passengercars/mercedes-benz-cars/models/e-class/saloon-w213/_jcr_content/image.MQ6.2.2x.20200128125812.png"
-      }), new ImageItem({
-        src: "https://www.mercedes-benz.fr/passengercars/mercedes-benz-cars/models/e-class/saloon-w213/_jcr_content/image.MQ6.2.2x.20200128125812.png",
-        thumb: "https://www.mercedes-benz.fr/passengercars/mercedes-benz-cars/models/e-class/saloon-w213/_jcr_content/image.MQ6.2.2x.20200128125812.png"
-      }), new ImageItem({
-        src: "https://www.mercedes-benz.fr/passengercars/mercedes-benz-cars/models/e-class/saloon-w213/_jcr_content/image.MQ6.2.2x.20200128125812.png",
-        thumb: "https://www.mercedes-benz.fr/passengercars/mercedes-benz-cars/models/e-class/saloon-w213/_jcr_content/image.MQ6.2.2x.20200128125812.png"
-      }),
-    ];
+      this.images[image] = new ImageItem({
+        src: "data:image/png;base64," + this.annonce.images[image]['path'],
+        thumb: "data:image/png;base64," + this.annonce.images[image]['path']
+      });
+    }
+
+
   }
+
+
 
 }

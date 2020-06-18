@@ -12,12 +12,11 @@ import {ActivatedRoute} from "@angular/router";
 export class DepotAnnoncesComponent implements OnInit {
 
   annonce: Annonce = null;
+  annonceId = null;
   annonceForm: FormGroup;
   isMake = true;
   isModele = true;
   isCategory = true;
-
-  energies: any = [];
   attachements = [];
 
   // Reader read uploaded file
@@ -31,14 +30,15 @@ export class DepotAnnoncesComponent implements OnInit {
     this.annonce = new Annonce();
     console.dir(this.annonce);
 
-    let annonceId = this.route.snapshot.params['id'];
-    if(annonceId != null){
-      if(annonceId == this.annonceService.annonces[annonceId].id){
-        this.annonce = this.annonceService.annonces[annonceId];
+    this.annonceId = this.route.snapshot.params['id'];
+    console.log(this.annonceId);
+    if(this.annonceId != null){
+        this.annonce = this.annonceService.annonces[this.annonceId];
+        this.annonceService.images = this.annonce.images;
         this.isMake = this.isModele = this.isCategory = false;
-      }
     }
 
+    console.dir(this.annonce);
     this.annonceForm = this.formBuilder.group({
       id: [this.annonce.id],
       make: [this.annonce.make],

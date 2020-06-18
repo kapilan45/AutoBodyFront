@@ -41,6 +41,5 @@ export class Annonce {
     airFilter: string;
     options: string;
 
-    // TODO changer en tableau
     images: Image[] = [];
 }

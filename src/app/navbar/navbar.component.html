@@ -9,9 +9,8 @@
       <a class="nav-item nav-link active col-3" routerLink="#">Accueil <span class="sr-only">(current)</span></a>
       <a class="nav-item nav-link col-3" routerLink="/depot">Déposer une annonce</a>
       <a class="nav-item nav-link col-3" routerLink="/offres">Offres</a>
-      <a *ngIf="!userconnected"class="nav-item nav-link col-3" routerLink="/login">Se connecter</a>
-      <a *ngIf="userconnected"class="nav-item nav-link col-3" routerLink="/login">Déconnecter</a>
-<!--      <a class="nav-item nav-link col-3" href="/login">Se connecter</a>-->
+      <a *ngIf="auth.user == null"class="nav-item nav-link col-3" routerLink="/login">Se connecter</a>
+      <a *ngIf="auth.user"class="nav-item nav-link col-3" routerLink="/gestion_annonce">{{auth.user}}</a>
     </div>
   </div>
 </nav>
