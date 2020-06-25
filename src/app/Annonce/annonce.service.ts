@@ -349,7 +349,8 @@ export class AnnonceService {
     console.dir(value);
     let url: string = 'make:' + value['make'] + ',model:' + value['model'] + ',category:' + value['category'] + ',price> ' + value['minPrice'] + ',price<' + value['maxPrice'];
     console.log(url);
-    url = url.replace('null', '');
+    const regex = /null/gi;
+    url = url.replace(regex, '');
     console.log(url);
 
     this.httpClient.get<Annonce[]>(GlobalConfig.getAnnonceFiltred+url).subscribe(response => {
