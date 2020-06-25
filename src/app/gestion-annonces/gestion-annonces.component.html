@@ -20,7 +20,7 @@
       </div>
 
       <div class="col-md-2">
-        <button class="form-control btn btn-link" [value]="index">Voir Détail</button>
+        <button class="form-control btn btn-link" (click)="offreDetail(index)" >Voir Détail</button>
       </div>
       <div class="col-md-2">
         <button class="form-control btn-danger" (click)="supprimer(content, annonce)" [value]="index">Supprimer</button>
@@ -46,7 +46,7 @@
     </form>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-danger" (click)="confirmSuppression(selected_annonce)" >Supprimer</button>
+    <button type="button" class="btn btn-danger" (click)="confirmSuppression()" >Supprimer</button>
     <button type="button" class="btn btn-outline-dark" (click)="modal.close()">Annuler</button>
   </div>
 </ng-template>

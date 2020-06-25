@@ -28,17 +28,13 @@ export class DepotAnnoncesComponent implements OnInit {
 
   ngOnInit() {
     this.annonce = new Annonce();
-    console.dir(this.annonce);
-
     this.annonceId = this.route.snapshot.params['id'];
-    console.log(this.annonceId);
     if(this.annonceId != null){
         this.annonce = this.annonceService.annonces[this.annonceId];
         this.annonceService.images = this.annonce.images;
         this.isMake = this.isModele = this.isCategory = false;
     }
 
-    console.dir(this.annonce);
     this.annonceForm = this.formBuilder.group({
       id: [this.annonce.id],
       make: [this.annonce.make],
@@ -79,12 +75,11 @@ export class DepotAnnoncesComponent implements OnInit {
       dumpValve: [this.annonce.dumpValve],
       airFilter: [this.annonce.airFilter],
       options: [this.annonce.options],
+      technicalControl: [this.annonce.technicalControl],
       images: [this.annonce.images]
     });
-
   }
 
-  // TODO
   uploadFichier(event) {
     if(event.target.files) {
       const [file] = event.target.files;
@@ -95,7 +90,6 @@ export class DepotAnnoncesComponent implements OnInit {
       if(!uploadStat) {
         let index = this.attachements.length;
 
-        // TODO
         this.attachements[index] = {name : file.name};
       }
     }
@@ -113,17 +107,9 @@ export class DepotAnnoncesComponent implements OnInit {
     this.annonceService.saveAnnonce(this.annonceForm.value);
   }
 
-  activateChamp(e: string) {
-    if (e == 'make'){
+  activateChamp() {
       this.annonceService.getModels(this.annonceForm.value.make);
       this.isMake = false;
-    } else  if (e == 'model'){
-      this.annonceService.getCategories(this.annonceForm.value.model);
-      this.isModele = false;
-    } else if (e == 'category'){
-      this.isCategory = false;
-    }
-
   }
 
 

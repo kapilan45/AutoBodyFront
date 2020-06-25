@@ -200,30 +200,27 @@ export class AnnonceService {
 
   constructor(private httpClient: HttpClient, private route: Router, private authStorageService: AuthStorageService) {
     this.getMakes();
+    this.getCategories();
     this.getEnergies();
   }
 
   public getAnnonces(){
     this.httpClient.get<Annonce[]>(GlobalConfig.getAnnoncesApiUrl).subscribe(value => {
-      console.dir(value);
       this.annonces = value;
     }, error => {
-      console.log('Erreur : ' + error);
+      console.dir(error);
     });
   }
 
   public saveAnnonce(annonce: FormGroup) {
-    console.dir(annonce);
     this.httpClient
-      .post(GlobalConfig.saveAnnonceApiUrl, annonce)
-      .subscribe(
+      .post(GlobalConfig.saveAnnonceApiUrl, annonce).subscribe(
         (res: Response) => {
           console.log('Enregistrement terminé !');
-          console.log(res);
           // TODO
          // if (res.ok)
-          this.images = null;
-            this.route.navigate(['/offres'])
+          this.images = [];
+          this.route.navigate(['/offres'])
         },
         (error) => {
           console.log("erreur to save a annonce")
@@ -233,21 +230,28 @@ export class AnnonceService {
   }
 
   public getUserAnnonces() {
-   // let header = new HttpHeaders().set("userToken", GlobalConfig.getCurrentUser().userToken);
     this.httpClient.get<Annonce[]>(GlobalConfig.getUserAnnoncesApiUrl).subscribe(value => {
       this.annonces = value;
     }, error => {
-      console.log('Erreur' + error);
+      console.dir(error);
+    });
+  }
+
+  public deleteAnnonce(selected_annonce: Annonce){
+    this.httpClient.put<Annonce[]>(GlobalConfig.deleteAnnonceApiUrl, selected_annonce).subscribe(value => {
+      this.annonces = value;
+    }, error => {
+      console.dir(error);
     });
   }
 
   // TODO
   modifyAnnonce(annonce: FormGroup) {
-    this.httpClient
-      .post(GlobalConfig.modifyAnnonceApiUrl, annonce)
-      .subscribe(
-        () => {
+    this.httpClient.post(GlobalConfig.modifyAnnonceApiUrl, annonce).subscribe(
+        (res: Response) => {
           console.log('Modification terminé !');
+          this.images = null;
+          this.route.navigate(['/gestion_annonce'])
         },
         (error) => {
           console.dir(error);
@@ -265,7 +269,6 @@ export class AnnonceService {
       if (value != null) {
         console.log('Image uploaded successfully');
         //this.images[0] = "data:image/png;base64," + value.path;
-        console.log(value.id);
 
         let index = this.images.length;
         if(index == 6){
@@ -279,11 +282,8 @@ export class AnnonceService {
 
       } else {
         console.log('Image not uploaded successfully');
-        return null;
       }
     });
-
-    return null;
   }
 
 
@@ -304,11 +304,12 @@ export class AnnonceService {
   // TODO
   filter(id: any, value: any) {
 
-    let params = new HttpParams().set("id",id).set("value", value);
+    let params = new HttpParams().set("basicFilter", value);
 
-    this.httpClient.get(GlobalConfig.getAnnonceFiltred, {params: params}).subscribe(response => {
+    this.httpClient.get<Annonce[]>(GlobalConfig.getAnnonceBasicFilter, {params: params}).subscribe(response => {
       console.log("reception ok");
       console.dir(response);
+      this.annonces = response;
     });
   }
 
@@ -324,7 +325,6 @@ export class AnnonceService {
   getMakes() {
     this.httpClient.get(GlobalConfig.getMakeListApi).subscribe(value => {
       this.makes = value;
-      console.dir(this.makes);
     });
   }
 
@@ -332,18 +332,32 @@ export class AnnonceService {
     let params = new HttpParams().set("make", make);
     this.httpClient.get(GlobalConfig.getModelByMakeApi, {params: params}).subscribe(response => {
       this.models = response;
-      console.dir(this.models);
     });
   }
 
-  getCategories(model: string) {
-    let params = new HttpParams().set('model', model);
-    this.httpClient.get(GlobalConfig.getCategoryByModelApi, {params: params}).subscribe(value => {
+  getCategories() {
+    this.httpClient.get(GlobalConfig.getCategoryByModelApi).subscribe(value => {
       this.categories = value;
     });
-    return this.categories;
   }
 
+  showCompletDetail(id: number) {
+    this.route.navigate(["/offres/", id]);
+  }
+
+  filterAnnonce(value: FormGroup) {
+    console.dir(value);
+    let url: string = 'make:' + value['make'] + ',model:' + value['model'] + ',category:' + value['category'] + ',price> ' + value['minPrice'] + ',price<' + value['maxPrice'];
+    console.log(url);
+    url = url.replace('null', '');
+    console.log(url);
+
+    this.httpClient.get<Annonce[]>(GlobalConfig.getAnnonceFiltred+url).subscribe(response => {
+      console.log("reception filtred annonce OK ok");
+      console.dir(response);
+      this.annonces = response;
+    });
+  }
 }
 
 

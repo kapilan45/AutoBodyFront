@@ -16,9 +16,10 @@ export class AuthentificationService {
   // Create user in database
   register(registerForm: FormGroup) {
     console.dir(registerForm.value);
-    this.httpClient.post(GlobalConfig.registerApiUrl, registerForm.value).subscribe((response) => {
+    this.httpClient.post(GlobalConfig.registerApiUrl, registerForm.value, {observe: 'response'}).subscribe(response => {
       console.log('registered');
-      console.dir(response);
+      let token = response.headers.get("cache-control");
+      this.authStorageService.setLoginResult(response.body, token);
     }, error => {
       console.log('error to register');
     });

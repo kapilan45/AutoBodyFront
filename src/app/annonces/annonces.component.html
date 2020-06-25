@@ -39,57 +39,64 @@
     <!-- Corps de filtrage -->
     <div class="col-3">
       <div class="input-group mb-3 mt-2">
-      <select class="custom-select" id="tri" (change)="onSelectFilter($event)">
-        <option value="recentes" selected>Plus récentes</option>
-        <option value="anciennes">Plus anciennes</option>
-        <option value="croissant">Prix croissant</option>
-        <option value="decroissant">Prix décroissant</option>
+      <select class="custom-select form-control" id="tri" (change)="onSelectFilter($event)">
+        <!-- <option *ngFor="let filter in basicFilter; let f = index" [value]="basicFilter[f].value" ></option>
+        - --><option value="recentes" selected>Plus récentes</option>
+         <option value="anciennes">Plus anciennes</option>
+         <option value="croissant">Prix croissant</option>
+         <option value="decroissant">Prix décroissant</option>
 
       </select>
     </div>
       <hr>
-      <div class="input-group mb-3">
-        <input type="text" class="form-control" list="makes_list" placeholder="Marque">
-        <datalist id="makes_list">
-          <option *ngFor="let make_list of annonceService.makes; let m = index" [value]="annonceService.makes[m].make" >
-        </datalist>
-      </div>
-      <div class="input-group mb-3">
-        <input type="text" class="form-control" list="models_list" placeholder="Modèle">
-        <datalist id="models_list">
-          <option *ngFor="let model of annonceService.models; let mod = index" [value]="annonceService.models[mod].model" >
-        </datalist>
-      </div>
-      <div class="input-group mb-3">
-        <input type="text" class="form-control" list="categories_list" placeholder="Catégorie">
-        <datalist id="categories_list">
-          <option *ngFor="let category of annonceService.categories; let c = index" [value]="annonceService.categories[c].category" >
-        </datalist>
+      <form [formGroup]="filtreForm" (submit)="filterAnnonce()">
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" list="makes_list" placeholder="Marque" formControlName="make">
+          <datalist id="makes_list">
+            <option *ngFor="let make_list of annonceService.makes; let m = index" [value]="annonceService.makes[m].make" >
+          </datalist>
+        </div>
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" list="models_list" placeholder="Modèle" formControlName="model">
+          <datalist id="models_list">
+            <option *ngFor="let model_List of annonceService.models; let i = index" [value]="annonceService.models[i].model" >
+          </datalist>
+        </div>
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" list="categories_list" placeholder="Catégorie" formControlName="category">
+          <datalist id="categories_list">
+            <option *ngFor="let category_List of annonceService.categories; let c = index" [value]="annonceService.categories[c].category" >
+          </datalist>
 
-      </div>
+        </div>
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" list="energies_list" placeholder="Carburant" formControlName="energy">
+          <datalist id="energies_list">
+            <option *ngFor="let energy_List of annonceService.energies; let e = index" [value]="annonceService.energies[e].energy" >
+          </datalist>
+        </div>
 
+        <div class="input-group mb-3">
+          <input type="number" class="form-control" placeholder="Prix min" formControlName="minPrice" aria-label="minPrix" aria-describedby="basic-addon1">
+          <input type="number" class="form-control" placeholder="Prix max"formControlName="maxPrice" aria-label="maxPrix" aria-describedby="basic-addon1">
+        </div>
+        <div class="input-group mb-3">
+          <input type="number" class="form-control" placeholder="Année Min" formControlName="minYear" aria-label="minAnnee" aria-describedby="basic-addon1">
+          <input type="number" class="form-control" placeholder="Année Max" formControlName="maxYear" aria-label="maxAnnee" aria-describedby="basic-addon1">
+        </div>
+        <div class="input-group mb-3">
+          <input type="number" class="form-control" formControlName="minHorsePower" placeholder="CH min" aria-label="ch" aria-describedby="basic-addon1">
+          <input type="number" class="form-control" formControlName="maxHorsePower" placeholder="CH max" aria-label="ch" aria-describedby="basic-addon1">
+        </div>
+        <div class="input-group mb-3">
+          <input type="number" class="form-control" placeholder="CV min" aria-label="cv" aria-describedby="basic-addon1">
+          <input type="number" class="form-control" placeholder="CV max" aria-label="cv" aria-describedby="basic-addon1">
+        </div>
+        <div class="input-group mb-3">
+          <button class="form-control btn btn-primary" type="submit">Filtrer</button>
+        </div>
+      </form>
 
-      <div class="input-group mb-3">
-        <input type="text" class="form-control" list="energies_list" placeholder="Carburant">
-        <datalist id="energies_list">
-          <option *ngFor="let energy of annonceService.energies; let e = index" [value]="annonceService.energies[e].value" >
-        </datalist>
-      </div>
-
-      <div class="input-group mb-3">
-        <input type="number" class="form-control" placeholder="Prix min" aria-label="minPrix" aria-describedby="basic-addon1">
-        <input type="number" class="form-control" placeholder="Prix max" aria-label="maxPrix" aria-describedby="basic-addon1">
-      </div>
-      <div class="input-group mb-3">
-        <input type="number" class="form-control" placeholder="Année" aria-label="annee" aria-describedby="basic-addon1">
-      </div>
-      <div class="input-group mb-3">
-        <input type="number" class="form-control" placeholder="CH" aria-label="pv" aria-describedby="basic-addon1">
-        <input type="number" class="form-control" placeholder="CV" aria-label="cv" aria-describedby="basic-addon1">
-      </div>
-      <div class="input-group mb-3">
-        <button class="form-control btn btn-primary">Filtrer</button>
-      </div>
     </div>
   </div>
 

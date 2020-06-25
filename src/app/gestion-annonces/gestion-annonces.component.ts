@@ -68,12 +68,10 @@ export class GestionAnnoncesComponent implements OnInit {
   }
 
   modifier(annonce: number) {
-  // TODO
-    console.dir(annonce);
     this.router.navigate(['/depot', annonce],);
   }
 
-  supprimer(content, annonce) {
+  supprimer(content, annonce: Annonce) {
     // TODO affichage de modal de confirmation
     this.selected_annonce = annonce;
     this.deleteStat = "en cours";
@@ -82,30 +80,13 @@ export class GestionAnnoncesComponent implements OnInit {
 
   }
 
-  confirmSuppression(selected_annonce: Annonce) {
-
-    this.annonceService.annonces[0] = null;
-    /*for(var i=selected_annonce.id; i<this.annonces.length -1; i++){
-      this.annonces[selected_annonce.id] = this.annonces[selected_annonce.id + 1];
-    } */
-
-    console.log(this.deleteStat);
-    console.log(selected_annonce.id);
-    console.log(selected_annonce.make);
-    console.log(selected_annonce.price);
-
-    // TODO delete annonce in server
-    /*    console.dir(annonce);
-        this.httpClient.post(GlobalConfig.supprimerAnnonceApiUrl, annonce).subscribe(() => {
-          console.log('suppression réussi');
-        }, error => {
-          console.log('erreur de suppression');
-        });
-        // this.modal.open(ModalConfirmComponent);
-        console.dir(annonce);
-        console.log(annonce.id); */
-
+  confirmSuppression() {
+    this.annonceService.deleteAnnonce(this.selected_annonce);
     // close modal
     this.modalService.close();
+  }
+
+  offreDetail(index: number) {
+    this.annonceService.showCompletDetail(index);
   }
 }

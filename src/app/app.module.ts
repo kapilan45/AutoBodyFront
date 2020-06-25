@@ -14,7 +14,7 @@ import { HttpClientModule } from '@angular/common/http';
 import {LogFormComponent} from './log-form/log-form.component';
 import { GestionAnnoncesComponent } from './gestion-annonces/gestion-annonces.component';
 import { DepotAnnoncesComponent } from './depot-annonces/depot-annonces.component';
-import {NgbDatepickerModule} from "@ng-bootstrap/ng-bootstrap";
+import {NgbDatepickerModule, NgbDropdownModule} from "@ng-bootstrap/ng-bootstrap";
 
 @NgModule({
   declarations: [
@@ -28,16 +28,21 @@ import {NgbDatepickerModule} from "@ng-bootstrap/ng-bootstrap";
     GestionAnnoncesComponent,
     DepotAnnoncesComponent,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    FormsModule,
-    HttpClientModule,
-    GalleryModule,
-    ReactiveFormsModule,
-    NgbDatepickerModule,
-  ],
-  providers: [],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        FormsModule,
+        HttpClientModule,
+        GalleryModule,
+        ReactiveFormsModule,
+        NgbDatepickerModule,
+        NgbDropdownModule,
+    ],
+  providers: [
+	AuthStorageService,
+	AuthentificationService,
+	{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+],
   bootstrap: [AppComponent],
 })
 export class AppModule { }
