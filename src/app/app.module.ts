@@ -16,6 +16,12 @@ import { GestionAnnoncesComponent } from './gestion-annonces/gestion-annonces.co
 import { DepotAnnoncesComponent } from './depot-annonces/depot-annonces.component';
 import {NgbDatepickerModule, NgbDropdownModule} from "@ng-bootstrap/ng-bootstrap";
 
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+
+import { AuthStorageService } from './Annonce/auth-storage.service';
+import { AuthentificationService } from './Annonce/authentification.service';
+import { AuthInterceptor } from './Annonce/auth.interceptor'
+
 @NgModule({
   declarations: [
     AppComponent,
