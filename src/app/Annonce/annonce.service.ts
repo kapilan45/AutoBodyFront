@@ -347,7 +347,7 @@ export class AnnonceService {
 
   filterAnnonce(value: FormGroup) {
     console.dir(value);
-    let url: string = 'make:' + value['make'] + ',model:' + value['model'] + ',category:' + value['category'] + ',price> ' + value['minPrice'] + ',price<' + value['maxPrice'];
+    let url: string = 'make:' + value['make'] + ',model:' + value['model'] + ',category:' + value['category'] + ',price>' + value['minPrice'] + ',price<' + value['maxPrice'] + ',energy:' + value['energy'] + ',horsePower>' + value['minHorsePower'] + ',horsePower<' + value['maxHorsePower'] + ',fiscalHorsePower>' + value['minFiscalHorsePower'] + ',fiscalHorsePower<' + value['maxFiscalHorsePower'];
     console.log(url);
     const regex = /null/gi;
     url = url.replace(regex, '');
