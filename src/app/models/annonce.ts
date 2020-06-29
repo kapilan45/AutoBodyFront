@@ -1,5 +1,5 @@
 import {Image} from './image';
-import {User} from "../user";
+import {User} from "./user";
 
 export class Annonce {
     id: number = 0;
@@ -41,7 +41,6 @@ export class Annonce {
     dumpValve: string;
     airFilter: string;
     options: string;
-    technicalControl: string;
 
     user: User;
     images: Image[] = [];

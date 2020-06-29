@@ -36,6 +36,10 @@
       </div>
     </div>
 
+
+
+
+
     <!-- Corps de filtrage -->
     <div class="col-3">
       <div class="input-group mb-3 mt-2">
@@ -48,6 +52,10 @@
 
       </select>
     </div>
+
+
+
+
       <hr>
       <form [formGroup]="filtreForm" (submit)="filterAnnonce()">
         <div class="input-group mb-3">
@@ -72,7 +80,7 @@
         <div class="input-group mb-3">
           <input type="text" class="form-control" list="energies_list" placeholder="Carburant" formControlName="energy">
           <datalist id="energies_list">
-            <option *ngFor="let energy_List of annonceService.energies; let e = index" [value]="annonceService.energies[e].energy" >
+            <option *ngFor="let energy of annonceService.energies" [value]="energy" >
           </datalist>
         </div>
 

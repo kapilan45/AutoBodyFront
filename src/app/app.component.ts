@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {AnnonceService} from "./Annonce/annonce.service";
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,10 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'homepage';
+  constructor(private annonceService: AnnonceService) {
+    annonceService.getEnergies();
+    annonceService.getMakes();
+    annonceService.getAnnonces();
+    annonceService.getCategories();
+  }
 }

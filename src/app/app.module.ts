@@ -18,8 +18,8 @@ import {NgbDatepickerModule, NgbDropdownModule} from "@ng-bootstrap/ng-bootstrap
 
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
-import { AuthStorageService } from './Annonce/auth-storage.service';
-import { AuthentificationService } from './Annonce/authentification.service';
+import { AuthStorageService } from './Services/auth-storage.service';
+import { AuthentificationService } from './Services/authentification.service';
 import { AuthInterceptor } from './Annonce/auth.interceptor'
 
 @NgModule({

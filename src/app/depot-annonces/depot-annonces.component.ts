@@ -1,7 +1,7 @@
 import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AnnonceService} from '../Annonce/annonce.service';
-import {Annonce} from "../Annonce/annonce";
+import {Annonce} from "../models/annonce";
 import {ActivatedRoute} from "@angular/router";
 
 @Component({
@@ -22,7 +22,6 @@ export class DepotAnnoncesComponent implements OnInit {
   // Reader read uploaded file
   reader = new FileReader();
 
-  // images: string | ArrayBuffer;
   constructor(private formBuilder: FormBuilder, private annonceService: AnnonceService, private cd: ChangeDetectorRef, private route: ActivatedRoute) {
   }
 
@@ -37,47 +36,45 @@ export class DepotAnnoncesComponent implements OnInit {
 
     this.annonceForm = this.formBuilder.group({
       id: [this.annonce.id],
-      make: [this.annonce.make],
-      numberOfSeats: [this.annonce.numberOfSeats],
+      make: [this.annonce.make, Validators.required],
+      numberOfSeats: [this.annonce.numberOfSeats, Validators.required],
       maxSpeed: [this.annonce.maxSpeed],
-      gearbox: [this.annonce.gearbox],
-      numberOfDoor: [this.annonce.numberOfDoor],
+      gearbox: [this.annonce.gearbox, Validators.required],
+      numberOfDoor: [this.annonce.numberOfDoor, Validators.required],
       reinforcedCluth: [this.annonce.reinforcedCluth],
-      horsePower: [this.annonce.horsePower],
-      horsePowerSinceTheLatestModification: [this.annonce.horsePowerSinceTheLatestModification],
-      fiscalHorsePower: [this.annonce.fiscalHorsePower],
-      price: [this.annonce.price],
-      stage: [this.annonce.stage],
-      model: [this.annonce.model],
-      year: [this.annonce.year],
-      mileage: [this.annonce.mileage],
-      mileageSince1stModification: [this.annonce.mileageSince1stModification],
-      category: [this.annonce.category],
-      energy: [this.annonce.energy],
-      fuelEconomy: [this.annonce.fuelEconomy],
-      fuelEconomySinceTheLatestModification: [this.annonce.fuelEconomySinceTheLatestModification],
-      localisation: [this.annonce.localisation],
-      outSideColor: [this.annonce.outSideColor],
+      horsePower: [this.annonce.horsePower, Validators.required],
+      horsePowerSinceTheLatestModification: [this.annonce.horsePowerSinceTheLatestModification, Validators.required],
+      fiscalHorsePower: [this.annonce.fiscalHorsePower, Validators.required],
+      price: [this.annonce.price, Validators.required],
+      stage: [this.annonce.stage, Validators.required],
+      model: [this.annonce.model, Validators.required],
+      year: [this.annonce.year, Validators.required],
+      mileage: [this.annonce.mileage, Validators.required],
+      mileageSince1stModification: [this.annonce.mileageSince1stModification, Validators.required],
+      category: [this.annonce.category, Validators.required],
+      energy: [this.annonce.energy, Validators.required],
+      fuelEconomy: [this.annonce.fuelEconomy, Validators.required],
+      fuelEconomySinceTheLatestModification: [this.annonce.fuelEconomySinceTheLatestModification, Validators.required],
+      localisation: [this.annonce.localisation, Validators.required],
+      outSideColor: [this.annonce.outSideColor, Validators.required],
       firstHand: [this.annonce.firstHand],
-      euroNorme: [this.annonce.euroNorme],
-      co2: [this.annonce.co2],
-      inSideColor : [this.annonce.inSideColor],
-      intercooler: [this.annonce.intercooler],
-      highPerformanceTuningCompany: [this.annonce.highPerformanceTuningCompany],
+      inSideColor : [this.annonce.inSideColor, Validators.required],
+      highPerformanceTuningCompany: [this.annonce.highPerformanceTuningCompany, Validators.required],
       publishedDate: [this.annonce.publishedDate],
-      trim: [this.annonce.trim],
-      driveType: [this.annonce.driveType],
-      torque: [this.annonce.torque],
-      torqueSinceTheLatestModification: [this.annonce.torqueSinceTheLatestModification],
+      trim: [this.annonce.trim, Validators.required],
+      driveType: [this.annonce.driveType, Validators.required],
+      torque: [this.annonce.torque, Validators.required],
+      torqueSinceTheLatestModification: [this.annonce.torqueSinceTheLatestModification, Validators.required],
       exaust: [this.annonce.exaust],
       turbo: [this.annonce.turbo],
       airAdmission: [this.annonce.airAdmission],
       dumpValve: [this.annonce.dumpValve],
       airFilter: [this.annonce.airFilter],
       options: [this.annonce.options],
-      technicalControl: [this.annonce.technicalControl],
+      intercooler: [this.annonce.intercooler],
       images: [this.annonce.images]
     });
+
   }
 
   uploadFichier(event) {

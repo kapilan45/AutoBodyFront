@@ -13,7 +13,7 @@
       <div class="col-md-6 col-sm-12 col-12">
         <div class="form-group row">
           <div class="col-sm-12 col-12">
-            <label>Marque</label>
+            <label>Marque *</label>
             <input type="text" class="form-control" formControlName="make" list="makes_list" (change)="activateChamp()">
               <datalist id="makes_list">
                 <option *ngFor="let makelist of annonceService.makes; let i = index" [value]="annonceService.makes[i].make">
@@ -22,7 +22,7 @@
         </div>
         <div class="form-group row ">
           <div class="col-md-6 col-sm-12 col-12">
-            <label>Modèle</label>
+            <label>Modèle *</label>
             <fieldset [disabled]="isMake">
             <input type="text" class="form-control" formControlName="model" list="modeles_list" (change)="isModele = false">
               <datalist id="modeles_list">
@@ -31,7 +31,7 @@
             </fieldset>
           </div>
           <div class="col-md-6 col-sm-12 col-12">
-            <label>Catégorie</label>
+            <label>Catégorie *</label>
             <fieldset [disabled]="isModele">
               <input type="text" class="form-control" formControlName="category" list="categories_list" (change)="isCategory = false">
               <datalist id="categories_list">
@@ -48,115 +48,173 @@
 
           <div class="form-group row ">
             <div class="col-12">
-              <label>Version / finition</label>
+              <label>Version / finition *</label>
               <input type="text" class="form-control" formControlName="trim">
             </div>
           </div>
         <div class="form-group row ">
           <div class="col-md-6 col-sm-12 col-12">
-            <label>Année</label>
+            <label>Année *</label>
             <input type="number" class="form-control" formControlName="year" [max]="2020">
           </div>
 
           <div class="col-md-6 col-sm-12 col-12">
-            <label>Energie</label>
+            <label>Energie *</label>
             <input type="text" class="form-control" formControlName="energy" list="energies_list">
             <datalist id="energies_list">
-              <option *ngFor="let energie of annonceService.energies; let i = index" [value]="annonceService.energies[i].energy">
+              <option *ngFor="let energy of annonceService.energies" [value]="energy">
             </datalist>
          </div>
       </div>
 
           <div class="form-group row ">
+            <div class="col-md-6 col-sm-12 col-12">
+              <label>Transmission *</label>
+              <input type="text" class="form-control" formControlName="driveType">
+            </div>
           <div class="col-md-6 col-sm-12 col-12">
-            <label>Consommation</label>
+            <label>Boite de vitessse *</label>
+            <input type="text" class="form-control" formControlName="gearbox" list="gearbox_list">
+            <datalist id="gearbox_list">
+              <option>Manuelle</option>
+              <option>Automatique</option>
+            </datalist>
+          </div>
+
+      </div>
+
+          <div class="form-group row ">
+          <div class="col-md-12 col-sm-12 col-12">
+            <label>Consommation *</label>
             <input type="text" class="form-control" formControlName="fuelEconomy" [max]="2020">
           </div>
 
-          <div class="col-md-6 col-sm-12 col-12">
-            <label>Consommation depuis reprogrammation</label>
+          <div class="col-md-12 col-sm-12 col-12">
+            <label>Consommation depuis reprogrammation *</label>
             <input type="text " class="form-control" formControlName="fuelEconomySinceTheLatestModification">
          </div>
       </div>
 
         <div class="form-group row ">
           <div class="col-md-3 col-6">
-            <label>Nb place</label>
+            <label>Nb place *</label>
             <input type="number" class="form-control" formControlName="numberOfSeats" [max]="7">
           </div>
           <div class="col-md-3 col-6">
-            <label>Nb porte</label>
+            <label>Nb porte *</label>
             <input type="number" class="form-control" formControlName="numberOfDoor" [max]="7">
           </div>
-          <div class="col-md-3 col-6">
-            <label>CH</label>
+
+          <div class="col-6">
+            <label>Puissance din d'origine *</label>
             <input type="number" class="form-control" formControlName="horsePower">
           </div>
-          <div class="col-md-3 col-6">
-            <label>CV</label>
+          <div class="col-12">
+            <label>Puissance din après dernière modification *</label>
+            <input type="number" class="form-control" formControlName="horsePowerSinceTheLatestModification">
+          </div>
+        </div>
+
+          <div class="form-group row ">
+          <div class="col-6">
+            <label>Puissance Fiscale *</label>
             <input type="number" class="form-control" formControlName="fiscalHorsePower">
           </div>
+            <div class="col-md-6 col-sm-12 col-12">
+              <label>Date d'immatriculation *</label>
+              <input type="date" class="form-control" formControlName="year">
+            </div>
         </div>
 
         <div class="form-group row ">
-          <div class="col-md-6 col-sm-12 col-12">
-            <label>Date d'immatriculation</label>
-            <input type="date" class="form-control" formControlName="year">
-          </div>
-          <div class="col-md-3 col-sm-12 col-12">
-            <label>Norme Euro</label>
-            <select class="form-control" formControlName="euroNorme">
-              <option value="euro1">Euro 1</option>
-              <option value="euro2">Euro 2</option>
-              <option value="euro3">Euro 3</option>
-              <option value="euro4">Euro 4</option>
-              <option value="euro5">Euro 5</option>
-              <option value="euro6b">Euro 6b</option>
-              <option value="euro6c">Euro 6c</option>
-            </select>
-          </div>
-
-          <div class="col-md-3 col-sm-12 col-12">
-            <label>CO2</label>
-            <input type="number" class="form-control" formControlName="co2">
-          </div>
-        </div>
-
-
-        <div class="form-group row ">
-          <div class="col-md-6 col-sm-12 col-12">
-            <label>Kilométrage</label>
+          <div class="col-12">
+            <label>Kilométrage *</label>
             <input type="number" class="form-control" formControlName="mileage">
           </div>
-          <div class="col-md-6 col-sm-12 col-12">
-          <label>Prix</label>
-          <input type="number" class="form-control" formControlName="price">
-        </div>
+
+          <div class="col-12">
+            <label>Kilométrage depuis la première modifiaction *</label>
+            <input type="number" class="form-control" formControlName="mileageSince1stModification">
+          </div>
+
         </div>
 
         <div class="form-group row ">
           <div class="col-md-6 col-sm-12 col-12">
-            <label>Couleur intérieure</label>
+            <label>Couleur intérieure *</label>
             <input type="text" class="form-control" formControlName="inSideColor">
           </div>
           <div class="col-md-6 col-sm-12 col-12">
-          <label>Couleur extérieure</label>
+          <label>Couleur extérieure *</label>
           <input type="text" class="form-control" formControlName="outSideColor">
           </div>
         </div>
 
+          <div class="form-group row">
+            <div class="col-sm-12 col-12">
+              <label>Couple moteur origine *</label>
+              <input type="number" class="form-control" formControlName="torque">
+            </div>
+            <div class="col-sm-12 col-12">
+              <label>Couple moteur après dernière modification *</label>
+              <input type="number" class="form-control" formControlName="torqueSinceTheLatestModification">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <div class="col-sm-12 col-12">
+              <label>Echappement</label>
+              <input type="text" class="form-control" formControlName="exaust">
+            </div>
+            <div class="col-sm-12 col-12">
+              <label>Turbo</label>
+              <input type="text" class="form-control" formControlName="turbo">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <div class="col-sm-12 col-12">
+              <label>Intercooler</label>
+              <input type="text" class="form-control" formControlName="intercooler">
+            </div>
+            <div class="col-sm-12 col-12">
+              <label>Admission d'air</label>
+              <input type="text" class="form-control" formControlName="airAdmission">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <div class="col-sm-12 col-12">
+              <label>Dump Valve</label>
+              <input type="text" class="form-control" formControlName="dumpValve">
+            </div>
+            <div class="col-sm-12 col-12">
+              <label>Filtre à air</label>
+              <input type="text" class="form-control" formControlName="airFilter">
+            </div>
+          </div>
+
         <div class="form-group row ">
+
           <div class="col-md-6 col-sm-12 col-12">
-            <label>Localisation</label>
+            <label>Préparateur *</label>
+            <input type="text"  class="form-control" formControlName="highPerformanceTuningCompany">
+          </div>
+          <div class="col-md-6 col-sm-12 col-12">
+            <label>Stage *</label>
+            <input type="number"  class="form-control" formControlName="stage" [min]="0" [max]="3">
+          </div>
+
+        </div>
+
+          <div class="form-group row ">
+            <div class="col-md-6 col-sm-12 col-12">
+            <label>Localisation *</label>
             <input type="text" class="form-control" formControlName="localisation">
           </div>
-          <div class="col-md-3 col-sm-12 col-12">
-            <label>C/moteur</label>
-            <input type="number" class="form-control" formControlName="driveType">
-          </div>
-          <div class="col-md-3 col-sm-12 col-12">
-            <label>Stage</label>
-            <input type="number"  class="form-control" formControlName="stage" [min]="0" [max]="3">
+          <div class="col-md-6 col-sm-12 col-12">
+            <label>Prix *</label>
+            <input type="text" class="form-control" formControlName="price">
           </div>
 
         </div>
@@ -219,7 +277,7 @@
 
         </div>
 
-        <div class="row">
+       <!-- <div class="row">
 
           <div>
             Les factures <br>
@@ -242,15 +300,16 @@
 
 
           <div class="border mt-3">Les fichiers possible : <br>entreien, changement des melement, factures des materiel </div>
-          <!-- les fichiers chargés -->
-        </div>
+
+        </div> --->
 
       </div>
 
       <div class="col-12">
+        <p class="col-12">*  Obligatoire</p>
         <div class="form-group">
-          <button *ngIf="annonceId != null" class="btn btn-primary form-control col-md-6 col-12" type="submit">Modifier</button>
-          <button *ngIf="annonceId == null" class="btn btn-primary form-control col-md-6 col-12" type="submit">Déposer</button>
+          <button *ngIf="annonceId != null" class="btn btn-primary form-control col-md-6 col-12" type="submit" [disabled]="annonceForm.invalid">Modifier</button>
+          <button *ngIf="annonceId == null" class="btn btn-primary form-control col-md-6 col-12" type="submit" [disabled]="annonceForm.invalid">Déposer</button>
         </div>
       </div>
 

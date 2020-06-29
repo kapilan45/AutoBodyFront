@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AnnonceService} from "../Annonce/annonce.service";
-import {Router} from "@angular/router";
 import {FormBuilder, FormGroup} from "@angular/forms";
 
 @Component({
@@ -17,10 +16,11 @@ export class AnnoncesComponent implements OnInit {
   }
 
   ngOnInit() {
+
     this.annonceService.getAnnonces();
     this.annonceService.getEnergies();
 
-    console.dir(this.annonceService.energies)
+    console.dir(this.annonceService.energies);
 
     this.filtreForm = this.formBuilder.group({
       make: [],
@@ -81,4 +81,6 @@ export class AnnoncesComponent implements OnInit {
   filterAnnonce() {
     this.annonceService.filterAnnonce(this.filtreForm.value);
   }
+
+
 }

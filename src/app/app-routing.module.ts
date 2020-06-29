@@ -7,6 +7,7 @@ import { AnnoncesComponent } from './annonces/annonces.component';
 import {GestionAnnoncesComponent} from './gestion-annonces/gestion-annonces.component';
 import {LogFormComponent} from './log-form/log-form.component';
 import {DepotAnnoncesComponent} from './depot-annonces/depot-annonces.component';
+import {AuthGuardService} from "./Services/auth-guard.service";
 
 
 // const routes: Routes = [];
@@ -17,8 +18,8 @@ const routes: Routes = [
   {path: 'offres/:annonceId', component: CarsComponent},
   {path: 'offres', component: AnnoncesComponent },
   {path: 'depot', component: DepotAnnoncesComponent },
-  {path: 'depot/:id', component: DepotAnnoncesComponent },
-  {path: 'gestion_annonce', component: GestionAnnoncesComponent },
+  {path: 'depot/:id', canActivate: [AuthGuardService], component: DepotAnnoncesComponent },
+  {path: 'gestion_annonce', canActivate: [AuthGuardService], component: GestionAnnoncesComponent },
   ];
 
 @NgModule({

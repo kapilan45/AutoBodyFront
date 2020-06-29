@@ -1,12 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {AuthentificationService} from '../Annonce/authentification.service';
-import {ValidationService} from "../Annonce/validation-service";
+import {AuthentificationService} from '../Services/authentification.service';
 
 @Component({
   selector: 'app-register',
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss']
+  templateUrl: './register.component.html'
 })
 export class RegisterComponent implements OnInit {
 
@@ -15,9 +13,9 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit() {
     this.registerForm = this.formBuilder.group({
-      username: [],
-      password: [],
-      mail: [],
+      username: ['', Validators.required],
+      password: ['', Validators.required],
+      mail: ['', Validators.required, Validators.email],
     });
   }
 

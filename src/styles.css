@@ -4,3 +4,21 @@ a {
     color: black;
     text-decoration: none;
 }
+
+#form_login {
+  left: 50%;
+  margin-left: -25%;
+}
+
+.btn-login {
+  left: 50%;
+  margin-left: -25%;
+}
+
+body {
+  font-family: Allerta;
+}
+
+.custom-bg-primary{
+  background-color: #468BFA;
+}
