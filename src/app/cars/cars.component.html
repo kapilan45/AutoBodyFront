@@ -19,18 +19,27 @@
   </div>
     <p class="col-6">Année :  <strong>{{annonce.year | date:'yyyy'}}</strong> </p>
   <p class="col-6">Mise en circulation :  <strong>{{annonce.year | date: 'dd/MM/yyyy' }}</strong></p>
-    <p class="col-6">Puissance din origine : <strong>{{annonce.horsePower}} CV</strong></p>
-  <p class="col-6">Puissance din après la dernière modification : <strong>{{annonce.horsePowerSinceTheLatestModification}} CH</strong></p>
+    <p class="col-6">Puissance din origine : <strong>{{annonce.horsePower}} </strong></p>
+  <p class="col-6">Puissance din après la dernière modification : <strong>{{annonce.horsePowerSinceTheLatestModification}} </strong></p>
     <p class="col-6">Energie : <strong>{{annonce.energy}}</strong></p>
-  <p class="col-6">Puissance fiscale : <strong>{{annonce.fiscalHorsePower}} CV</strong></p>
+  <p class="col-6">Puissance fiscale : <strong>{{annonce.fiscalHorsePower}} </strong></p>
     <p class="col-6">Couple moteur origine : <strong>{{annonce.torque}}</strong></p>
-  <p class="col-6">Couple moteur après la dernière modification : <strong>{{annonce.torqueSinceTheLatestModification}} CV</strong></p>
+  <p class="col-6">Couple moteur après la dernière modification : <strong>{{annonce.torqueSinceTheLatestModification}} </strong></p>
     <p class="col-6">Kilométrage :  <strong>{{annonce.mileage}}</strong> </p>
   <p class="col-6">Kilométrage depuis la 1ère modification :  <strong>{{annonce.mileageSince1stModification}}</strong> </p>
     <p class="col-6">Transmission : <strong>{{annonce.driveType}}</strong> </p>
   <p class="col-6">Boîte de vitesse : <strong>{{annonce.gearbox}}</strong></p>
     <p class="col-6">Consommation (Urbaine) : <strong>{{annonce.fuelEconomy}}</strong> </p>
   <p class="col-6">Consommation depuis la dernière reprogrammation (Urbaine) : <strong>{{annonce.fuelEconomySinceTheLatestModification}}</strong></p>
+    <p class="col-6">Catégorie : <strong>{{annonce.category}}</strong> </p>
+  <p class="col-6">Préparateur : <strong>{{annonce.highPerformanceTuningCompany}}</strong></p>
+  <p class="col-6" *ngIf="annonce.exaust">Echappement : <strong>{{annonce.exaust}}</strong></p>
+  <p class="col-6" *ngIf="annonce.turbo">Turbo : <strong>{{annonce.turbo}}</strong></p>
+  <p class="col-6" *ngIf="annonce.intercooler">Intercooler : <strong>{{annonce.intercooler}}</strong></p>
+  <p class="col-6" *ngIf="annonce.airAdmission">Admission d'air : <strong>{{annonce.airAdmission}}</strong></p>
+  <p class="col-6" *ngIf="annonce.dumpValve">Dump Valve : <strong>{{annonce.dumpValve}}</strong></p>
+  <p class="col-6" *ngIf="annonce.airFilter">Filtre à air : <strong>{{annonce.airFilter}}</strong></p>
+
     <p class="col-6">Nombre de portes : <strong>{{annonce.numberOfDoor}}</strong> </p>
   <p class="col-6">Nombre de places : <strong>{{annonce.numberOfSeats}}</strong></p>
     <p class="col-6">Couleur extérieure :  <strong>{{annonce.outSideColor}}</strong></p>
