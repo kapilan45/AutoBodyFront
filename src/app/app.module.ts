@@ -8,14 +8,11 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { RegisterComponent } from './register/register.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { CarsComponent } from './cars/cars.component';
-import { GalleryModule } from '@ngx-gallery/core';
 import { AnnoncesComponent } from './annonces/annonces.component';
 import { HttpClientModule } from '@angular/common/http';
 import {LogFormComponent} from './log-form/log-form.component';
 import { GestionAnnoncesComponent } from './gestion-annonces/gestion-annonces.component';
 import { DepotAnnoncesComponent } from './depot-annonces/depot-annonces.component';
-import {NgbDatepickerModule, NgbDropdownModule} from "@ng-bootstrap/ng-bootstrap";
-
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AuthStorageService } from './Services/auth-storage.service';
@@ -39,10 +36,7 @@ import { AuthInterceptor } from './Annonce/auth.interceptor'
         AppRoutingModule,
         FormsModule,
         HttpClientModule,
-        GalleryModule,
         ReactiveFormsModule,
-        NgbDatepickerModule,
-        NgbDropdownModule,
     ],
   providers: [
 	AuthStorageService,

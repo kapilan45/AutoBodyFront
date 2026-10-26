@@ -4,9 +4,12 @@ import {AuthentificationService} from "../Services/authentification.service";
 
 @Component({
   selector: 'app-navbar',
+  standalone: false,
   templateUrl: './navbar.component.html'
 })
 export class NavbarComponent implements OnInit {
+  menuOpen = false;
+  navOpen = false;
 
   constructor(private auth: AuthStorageService, private authentificationService: AuthentificationService) { }
 
@@ -15,6 +18,7 @@ export class NavbarComponent implements OnInit {
 
 
   logout() {
+    this.menuOpen = false;
     this.authentificationService.logout();
   }
 }

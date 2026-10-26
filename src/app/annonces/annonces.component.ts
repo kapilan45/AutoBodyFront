@@ -4,13 +4,14 @@ import {FormBuilder, FormGroup} from "@angular/forms";
 
 @Component({
   selector: 'app-annonces',
+  standalone: false,
   templateUrl: './annonces.component.html',
   styleUrls: ['./annonces.component.scss']
 })
 export class AnnoncesComponent implements OnInit {
 
-  filtreForm: FormGroup;
-  basicFilter: Object = [];
+  filtreForm!: FormGroup;
+  basicFilter: {value: string}[] = [];
   constructor(private annonceService: AnnonceService, private formBuilder: FormBuilder) {
     this.getBasicFilter();
   }
@@ -19,8 +20,8 @@ export class AnnoncesComponent implements OnInit {
 
     this.annonceService.getAnnonces();
     this.annonceService.getEnergies();
-
-    console.dir(this.annonceService.energies);
+    this.annonceService.getMakes();
+    this.annonceService.getCategories();
 
     this.filtreForm = this.formBuilder.group({
       make: [],
@@ -65,21 +66,27 @@ export class AnnoncesComponent implements OnInit {
   }
 
   showCompletDetail(id: number) {
-    // redirect to new routes
     this.annonceService.showCompletDetail(id);
   }
 
   getBasicFilter() {
     this.basicFilter = [
-      {value: 'Plus Récentes'},
-      {value: 'Plus anciennes'},
-      {value: 'Prix Décroissant'},
-      {value: 'Prix croissant'}
-    ]
+      {value: 'recentes'},
+      {value: 'anciennes'},
+      {value: 'decroissant'},
+      {value: 'croissant'}
+    ];
   }
 
   filterAnnonce() {
     this.annonceService.filterAnnonce(this.filtreForm.value);
+  }
+
+  onMakeChange(): void {
+    const make = this.filtreForm.get('make')?.value;
+    if (make) {
+      this.annonceService.getModels(make);
+    }
   }
 
 

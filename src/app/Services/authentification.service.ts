@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {FormGroup} from '@angular/forms';
+import {HttpClient} from '@angular/common/http';
+import {Observable, switchMap, map} from 'rxjs';
 import {GlobalConfig} from '../global-config';
-import {AuthStorageService} from "./auth-storage.service";
+import {AuthStorageService} from './auth-storage.service';
+import {User} from '../models/user';
 
 @Injectable({
   providedIn: 'root'
@@ -11,35 +12,30 @@ export class AuthentificationService {
 
   constructor(private httpClient: HttpClient, private authStorageService: AuthStorageService) { }
 
-  // Create user in database
-  register(registerForm: FormGroup) {
-    console.dir(registerForm.value);
-    this.httpClient.post(GlobalConfig.registerApiUrl, registerForm.value, {observe: 'response'}).subscribe(response => {
-      let token = response.headers.get("cache-control");
-      this.authStorageService.setLoginResult(response.body, token);
-    }, error => {
-      console.log('error to register');
-    });
+  register(credentials: Pick<User, 'username' | 'password' | 'mail'>): Observable<User> {
+    return this.httpClient.post<User>(GlobalConfig.registerApiUrl, credentials).pipe(
+      switchMap(() => this.login({
+        username: credentials.username,
+        password: credentials.password
+      }, false))
+    );
   }
 
-  // log user after check id in database
-  login(loginForm: FormGroup) {
-
-    let header = new HttpHeaders().set('Content-Type', 'application/json');
-    this.httpClient.post(GlobalConfig.loginApiUrl, loginForm.value, {headers: header, observe: "response", responseType: "json"}).subscribe(response => {
-      if(response != null){
-        let token = response.headers.get("cache-control");
-        this.authStorageService.setLoginResult(response.body, token);
-      }else {
-        console.log("erreur de reception de token");
-      }
-      }, error => {
-      console.dir(error);
-      console.log("erreur to log");
-    });
+  login(credentials: Pick<User, 'username' | 'password'>, remember: boolean, returnUrl?: string | null): Observable<User> {
+    return this.httpClient.post<User>(GlobalConfig.loginApiUrl, credentials, {observe: 'response'}).pipe(
+      map(response => {
+        const user = response.body;
+        const token = response.headers.get('cache-control');
+        if (!user || !token) {
+          throw new Error('The login response did not contain a user and token.');
+        }
+        this.authStorageService.setLoginResult(user, token, remember, returnUrl);
+        return user;
+      })
+    );
   }
 
-  logout() {
+  logout(): void {
     this.authStorageService.logout();
   }
 }

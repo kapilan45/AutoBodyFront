@@ -1,34 +1,16 @@
 import { Injectable } from '@angular/core';
-import {ModalDismissReasons, NgbModal} from "@ng-bootstrap/ng-bootstrap";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ModalService {
+  isOpen = false;
 
-  closeResult = '';
-  constructor(private modal: NgbModal) { }
-
-  open(content){
-    this.modal.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });
+  open(): void {
+    this.isOpen = true;
   }
 
-  close(){
-    this.modal.dismissAll();
+  close(): void {
+    this.isOpen = false;
   }
-
-  private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
-    } else {
-      return `with: ${reason}`;
-    }
-  }
-
 }

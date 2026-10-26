@@ -1,50 +1,53 @@
 
 <div class="row">
   <div class='col-md-8'>
-    <gallery [items]="images"></gallery>
+    <div class="row">
+      <div class="col-12 mb-2" *ngFor="let image of images">
+        <img [src]="image" [alt]="annonce?.make + ' ' + annonce?.model" class="img-fluid">
+      </div>
+    </div>
   </div>
 
   <div class="col-md-4">
     <h4>Vendeur</h4>
-    <p>Name : {{annonce.user.username}}</p>
-    <p>Mail : {{annonce.user.mail}}</p>
-    <p>Stage : <strong>{{annonce.stage}}</strong></p>
-    <p>Prix : {{annonce.price}}</p>
+    <p>Name : {{annonce?.user?.username}}</p>
+    <p>Mail : {{annonce?.user?.mail}}</p>
+    <p>Stage : <strong>{{annonce?.stage}}</strong></p>
+    <p>Prix : {{annonce?.price}}</p>
   </div>
 
 
 
   <div class="col-12 mb-1 mt-4">
-    <h4>  {{annonce.make}} {{annonce.model}} {{annonce.category}} {{annonce.trim}} <!-- Marque modele finition (nom complet) ex : AUDI A3 III SPORTBACK 1.4 TFSI E-TRON 204 AMBITION LUXE S TRONIC --> </h4>
+    <h4>{{annonce?.make}} {{annonce?.model}} {{annonce?.category}} {{annonce?.trim}}</h4>
   </div>
-    <p class="col-6">Année :  <strong>{{annonce.year | date:'yyyy'}}</strong> </p>
-  <p class="col-6">Mise en circulation :  <strong>{{annonce.year | date: 'dd/MM/yyyy' }}</strong></p>
-    <p class="col-6">Puissance din origine : <strong>{{annonce.horsePower}} </strong></p>
-  <p class="col-6">Puissance din après la dernière modification : <strong>{{annonce.horsePowerSinceTheLatestModification}} </strong></p>
-    <p class="col-6">Energie : <strong>{{annonce.energy}}</strong></p>
-  <p class="col-6">Puissance fiscale : <strong>{{annonce.fiscalHorsePower}} </strong></p>
-    <p class="col-6">Couple moteur origine : <strong>{{annonce.torque}}</strong></p>
-  <p class="col-6">Couple moteur après la dernière modification : <strong>{{annonce.torqueSinceTheLatestModification}} </strong></p>
-    <p class="col-6">Kilométrage :  <strong>{{annonce.mileage}}</strong> </p>
-  <p class="col-6">Kilométrage depuis la 1ère modification :  <strong>{{annonce.mileageSince1stModification}}</strong> </p>
-    <p class="col-6">Transmission : <strong>{{annonce.driveType}}</strong> </p>
-  <p class="col-6">Boîte de vitesse : <strong>{{annonce.gearbox}}</strong></p>
-    <p class="col-6">Consommation (Urbaine) : <strong>{{annonce.fuelEconomy}}</strong> </p>
-  <p class="col-6">Consommation depuis la dernière reprogrammation (Urbaine) : <strong>{{annonce.fuelEconomySinceTheLatestModification}}</strong></p>
-    <p class="col-6">Catégorie : <strong>{{annonce.category}}</strong> </p>
-  <p class="col-6">Préparateur : <strong>{{annonce.highPerformanceTuningCompany}}</strong></p>
-  <p class="col-6" *ngIf="annonce.exaust">Echappement : <strong>{{annonce.exaust}}</strong></p>
-  <p class="col-6" *ngIf="annonce.turbo">Turbo : <strong>{{annonce.turbo}}</strong></p>
-  <p class="col-6" *ngIf="annonce.intercooler">Intercooler : <strong>{{annonce.intercooler}}</strong></p>
-  <p class="col-6" *ngIf="annonce.airAdmission">Admission d'air : <strong>{{annonce.airAdmission}}</strong></p>
-  <p class="col-6" *ngIf="annonce.dumpValve">Dump Valve : <strong>{{annonce.dumpValve}}</strong></p>
-  <p class="col-6" *ngIf="annonce.airFilter">Filtre à air : <strong>{{annonce.airFilter}}</strong></p>
+    <p class="col-6">Année : <strong>{{annonce?.year}}</strong></p>
+    <p class="col-6">Puissance din origine : <strong>{{annonce?.horsePower}}</strong></p>
+    <p class="col-6">Puissance din après la dernière modification : <strong>{{annonce?.horsePowerSinceTheLatestModification}}</strong></p>
+    <p class="col-6">Energie : <strong>{{annonce?.energy}}</strong></p>
+    <p class="col-6">Puissance fiscale : <strong>{{annonce?.fiscalHorsePower}}</strong></p>
+    <p class="col-6">Couple moteur origine : <strong>{{annonce?.torque}}</strong></p>
+    <p class="col-6">Couple moteur après la dernière modification : <strong>{{annonce?.torqueSinceTheLatestModification}}</strong></p>
+    <p class="col-6">Kilométrage : <strong>{{annonce?.mileage}}</strong></p>
+    <p class="col-6">Kilométrage depuis la 1ère modification : <strong>{{annonce?.mileageSince1stModification}}</strong></p>
+    <p class="col-6">Transmission : <strong>{{annonce?.driveType}}</strong></p>
+    <p class="col-6">Boîte de vitesse : <strong>{{annonce?.gearbox}}</strong></p>
+    <p class="col-6">Consommation (Urbaine) : <strong>{{annonce?.fuelEconomy}}</strong></p>
+    <p class="col-6">Consommation depuis la dernière reprogrammation (Urbaine) : <strong>{{annonce?.fuelEconomySinceTheLatestModification}}</strong></p>
+    <p class="col-6">Catégorie : <strong>{{annonce?.category}}</strong></p>
+    <p class="col-6">Préparateur : <strong>{{annonce?.highPerformanceTuningCompany}}</strong></p>
+    <p class="col-6" *ngIf="annonce?.exaust">Echappement : <strong>{{annonce?.exaust}}</strong></p>
+    <p class="col-6" *ngIf="annonce?.turbo">Turbo : <strong>{{annonce?.turbo}}</strong></p>
+    <p class="col-6" *ngIf="annonce?.intercooler">Intercooler : <strong>{{annonce?.intercooler}}</strong></p>
+    <p class="col-6" *ngIf="annonce?.airAdmission">Admission d'air : <strong>{{annonce?.airAdmission}}</strong></p>
+    <p class="col-6" *ngIf="annonce?.dumpValve">Dump Valve : <strong>{{annonce?.dumpValve}}</strong></p>
+    <p class="col-6" *ngIf="annonce?.airFilter">Filtre à air : <strong>{{annonce?.airFilter}}</strong></p>
 
-    <p class="col-6">Nombre de portes : <strong>{{annonce.numberOfDoor}}</strong> </p>
-  <p class="col-6">Nombre de places : <strong>{{annonce.numberOfSeats}}</strong></p>
-    <p class="col-6">Couleur extérieure :  <strong>{{annonce.outSideColor}}</strong></p>
-  <p class="col-6">Couleur intérieure : <strong>{{annonce.inSideColor}}</strong></p>
-    <p class="col-6">Première main (déclaratif) : <strong>{{annonce.firstHand}}</strong></p>
+    <p class="col-6">Nombre de portes : <strong>{{annonce?.numberOfDoor}}</strong></p>
+    <p class="col-6">Nombre de places : <strong>{{annonce?.numberOfSeats}}</strong></p>
+    <p class="col-6">Couleur extérieure : <strong>{{annonce?.outSideColor}}</strong></p>
+    <p class="col-6">Couleur intérieure : <strong>{{annonce?.inSideColor}}</strong></p>
+    <p class="col-6">Première main (déclaratif) : <strong>{{annonce?.firstHand}}</strong></p>
 
 
 </div>

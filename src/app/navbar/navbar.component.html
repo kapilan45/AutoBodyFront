@@ -1,14 +1,15 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark custom-bg-primary">
   <a class="navbar-brand" routerLink="/"> <img src="assets/autobody1.png" width="50%" height="25%" alt="logo">  </a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+  <button class="navbar-toggler" type="button" aria-controls="navbarSupportedContent"
+          [attr.aria-expanded]="navOpen" aria-label="Toggle navigation" (click)="navOpen = !navOpen">
     <span class="navbar-toggler-icon"></span>
   </button>
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto col-12">
+  <div class="collapse navbar-collapse" id="navbarSupportedContent" [class.show]="navOpen">
+    <ul class="navbar-nav me-auto col-12">
       <li class="nav-item active col-3">
-        <a class="nav-link" routerLink="/accueil">Accueil <span class="sr-only">(current)</span></a>
+        <a class="nav-link" routerLink="/accueil">Accueil <span class="visually-hidden">(current)</span></a>
       </li>
       <li class="nav-item col-3">
         <a class="nav-link" routerLink="/depot">Déposer une annonce</a>
@@ -19,16 +20,17 @@
       <li *ngIf="auth.user == null" class="nav-item col-3">
         <a class="nav-link" routerLink="/login" >Se connecter</a>
       </li>
-      <li *ngIf="auth.user" ngbDropdown class="nav-item dropdown col-3">
-        <a class="nav-link dropdown-toggle" ngbDropdownToggle id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <li *ngIf="auth.user" class="nav-item dropdown col-3">
+        <button class="nav-link dropdown-toggle" id="navbarDropdown" type="button"
+                (click)="menuOpen = !menuOpen" [attr.aria-expanded]="menuOpen">
           {{auth.user}}
-        </a>
-        <div class="dropdown-menu" ngbDropdownMenu aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" routerLink="/gestion_annonce">Mes annonces</a>
+        </button>
+        <div *ngIf="menuOpen" class="dropdown-menu dropdown-menu-right show" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" routerLink="/gestion_annonce" (click)="menuOpen = false">Mes annonces</a>
           <a class="dropdown-item">Profil</a>
           <a class="dropdown-item">Message</a>
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" (click)="logout()">Déconnecter</a>
+          <button type="button" class="dropdown-item" (click)="logout()">Déconnecter</button>
         </div>
       </li>
 

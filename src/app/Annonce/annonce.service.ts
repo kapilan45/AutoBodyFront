@@ -1,22 +1,21 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
+import {Observable, map, of, tap} from 'rxjs';
 import {Annonce} from '../models/annonce';
-import {FormGroup} from '@angular/forms';
 import {GlobalConfig} from '../global-config';
 import {Router} from "@angular/router";
 import {Image} from "../models/image";
-import {AuthStorageService} from "../Services/auth-storage.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AnnonceService {
 
-  annonces: Annonce[];
-  energies: Object = [];
-  makes: Object = [];
-  models: Object = [];
-  categories: Object = [];
+  annonces: Annonce[] = [];
+  energies: string[] = [];
+  makes: {make: string}[] = [];
+  models: {model: string}[] = [];
+  categories: {category: string}[] = [];
   images: Image[] = [];
 
   constructor(private httpClient: HttpClient, private route: Router) {
@@ -30,29 +29,35 @@ export class AnnonceService {
     });
   }
 
-  public saveAnnonce(annonce: FormGroup) {
+  public saveAnnonce(annonce: object): void {
     this.httpClient
       .post(GlobalConfig.saveAnnonceApiUrl, annonce).subscribe(
-        (res: Response) => {
-          console.log('Enregistrement terminé !');
-          // TODO
-         // if (res.ok)
+        () => {
           this.images = [];
-          this.route.navigate(['/offres'])
+          void this.route.navigate(['/offres']);
         },
-        (error) => {
-          console.log("erreur to save a annonce");
-          console.dir(error);
-        }
+        error => console.error('Failed to save announcement', error)
       );
   }
 
-  public getUserAnnonces() {
-    this.httpClient.get<Annonce[]>(GlobalConfig.getUserAnnoncesApiUrl).subscribe(value => {
-      this.annonces = value;
-    }, error => {
-      console.dir(error);
-    });
+  public getUserAnnonces(): Observable<Annonce[]> {
+    return this.httpClient.get<Annonce[]>(GlobalConfig.getUserAnnoncesApiUrl).pipe(
+      tap(value => this.annonces = value)
+    );
+  }
+
+  public findAnnonceById(id: number): Observable<Annonce | null> {
+    const currentAnnonce = this.annonces.find(annonce => annonce.id === id);
+    if (currentAnnonce) {
+      return of(currentAnnonce);
+    }
+
+    return this.httpClient.get<Annonce[]>(GlobalConfig.getAnnoncesApiUrl).pipe(
+      map(annonces => {
+        this.annonces = annonces;
+        return annonces.find(annonce => annonce.id === id) ?? null;
+      })
+    );
   }
 
   public deleteAnnonce(selected_annonce: Annonce){
@@ -63,7 +68,7 @@ export class AnnonceService {
     });
   }
 
-  upload(image) {
+  upload(image: File): void {
     const uploadImage = new FormData();
     uploadImage.append('image', image, image.name);
 
@@ -106,20 +111,20 @@ export class AnnonceService {
   }
 
   getMakes() {
-    this.httpClient.get(GlobalConfig.getMakeListApi).subscribe(value => {
+    this.httpClient.get<{make: string}[]>(GlobalConfig.getMakeListApi).subscribe(value => {
       this.makes = value;
     });
   }
 
   getModels(make: string) {
     let params = new HttpParams().set("make", make);
-    this.httpClient.get(GlobalConfig.getModelByMakeApi, {params: params}).subscribe(response => {
+    this.httpClient.get<{model: string}[]>(GlobalConfig.getModelByMakeApi, {params: params}).subscribe(response => {
       this.models = response;
     });
   }
 
   getCategories() {
-    this.httpClient.get(GlobalConfig.getCategoryByModelApi).subscribe(value => {
+    this.httpClient.get<{category: string}[]>(GlobalConfig.getCategoryByModelApi).subscribe(value => {
       this.categories = value;
     });
   }
@@ -128,21 +133,45 @@ export class AnnonceService {
     this.route.navigate(["/offres/", id]);
   }
 
-  filterAnnonce(value: FormGroup) {
-    console.dir(value);
-    let url: string = 'make:' + value['make'] + ',model:' + value['model'] + ',category:' + value['category'] + ',price>' + value['minPrice'] + ',price<' + value['maxPrice'] + ',energy:' + value['energy'] + ',horsePower>' + value['minHorsePower'] + ',horsePower<' + value['maxHorsePower'] + ',fiscalHorsePower>' + value['minFiscalHorsePower'] + ',fiscalHorsePower<' + value['maxFiscalHorsePower'];
-    console.log(url);
-    const regex = /null/gi;
-    url = url.replace(regex, '');
-    console.log(url);
+  filterAnnonce(value: {[key: string]: unknown}): void {
+    const criteria: string[] = [];
+    const exactFilters: Array<[string, string]> = [
+      ['make', 'make'],
+      ['model', 'model'],
+      ['category', 'category'],
+      ['energy', 'energy']
+    ];
+    const rangeFilters: Array<[string, string]> = [
+      ['minPrice', 'price>'],
+      ['maxPrice', 'price<'],
+      ['minHorsePower', 'horsePower>'],
+      ['maxHorsePower', 'horsePower<'],
+      ['minFiscalHorsePower', 'fiscalHorsePower>'],
+      ['maxFiscalHorsePower', 'fiscalHorsePower<']
+    ];
 
-    this.httpClient.get<Annonce[]>(GlobalConfig.getAnnonceFiltred+url).subscribe(response => {
-      console.log("reception filtred annonce OK ok");
-      console.dir(response);
+    for (const [field, key] of exactFilters) {
+      const filterValue = value[field];
+      if (filterValue !== null && filterValue !== undefined && String(filterValue).trim()) {
+        criteria.push(`${key}:${String(filterValue).trim()}`);
+      }
+    }
+    for (const [field, expression] of rangeFilters) {
+      const filterValue = value[field];
+      if (filterValue !== null && filterValue !== undefined && String(filterValue).trim()) {
+        criteria.push(`${expression}${String(filterValue).trim()}`);
+      }
+    }
+
+    let params = new HttpParams();
+    if (criteria.length) {
+      params = params.set('search', criteria.join(','));
+    }
+    const request = criteria.length
+      ? this.httpClient.get<Annonce[]>(GlobalConfig.getAnnonceFilteredApiUrl, {params})
+      : this.httpClient.get<Annonce[]>(GlobalConfig.getAnnoncesApiUrl);
+    request.subscribe(response => {
       this.annonces = response;
     });
   }
 }
-
-
-

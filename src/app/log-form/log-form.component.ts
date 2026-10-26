@@ -1,26 +1,48 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AuthentificationService} from '../Services/authentification.service';
+import {ActivatedRoute} from '@angular/router';
 
 
 @Component({
   selector: 'app-log-form',
+  standalone: false,
   templateUrl: './log-form.component.html'
 })
 export class LogFormComponent implements OnInit {
-  loginForm: FormGroup;
-  constructor(private formBuilder: FormBuilder, private authentificationService: AuthentificationService) { }
+  loginForm!: FormGroup;
+  errorMessage = '';
+  isSubmitting = false;
+
+  constructor(
+    private formBuilder: FormBuilder,
+    private authentificationService: AuthentificationService,
+    private route: ActivatedRoute
+  ) { }
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
-      username: ['', [Validators.required]],
+      username: ['', Validators.required],
       password: ['', Validators.required],
-      remember: [Validators.required],
+      remember: [false],
     });
   }
 
-  login() {
-    this.authentificationService.login(this.loginForm);
+  login(): void {
+    if (this.loginForm.invalid || this.isSubmitting) {
+      return;
+    }
+
+    const {username, password, remember} = this.loginForm.getRawValue();
+    this.isSubmitting = true;
+    this.errorMessage = '';
+    const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl');
+    this.authentificationService.login({username, password}, remember, returnUrl).subscribe({
+      error: () => {
+        this.isSubmitting = false;
+        this.errorMessage = 'Connexion impossible. Vérifiez votre identifiant et votre mot de passe.';
+      }
+    });
   }
 
 }
