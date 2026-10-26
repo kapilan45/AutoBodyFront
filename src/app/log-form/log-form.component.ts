@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import {AuthentificationService} from '../Services/authentification.service';
-import {ActivatedRoute} from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 
 @Component({
-  selector: 'app-log-form',
-  standalone: false,
-  templateUrl: './log-form.component.html'
+    selector: 'app-log-form',
+    templateUrl: './log-form.component.html',
+    imports: [ReactiveFormsModule, CommonModule, RouterLink]
 })
 export class LogFormComponent implements OnInit {
   loginForm!: FormGroup;

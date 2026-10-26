@@ -1,14 +1,15 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import {AnnonceService} from '../Annonce/annonce.service';
 import {Annonce} from "../models/annonce";
 import {ActivatedRoute, Router} from "@angular/router";
+import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-depot-annonces',
-  standalone: false,
-  templateUrl: './depot-annonces.component.html',
-  styleUrls: ['./depot-annonces.component.scss']
+    selector: 'app-depot-annonces',
+    templateUrl: './depot-annonces.component.html',
+    styleUrls: ['./depot-annonces.component.scss'],
+    imports: [CommonModule, ReactiveFormsModule]
 })
 export class DepotAnnoncesComponent implements OnInit {
 

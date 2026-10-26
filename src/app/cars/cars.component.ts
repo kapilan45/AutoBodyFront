@@ -3,12 +3,13 @@ import {Annonce} from "../models/annonce";
 import {ActivatedRoute} from "@angular/router";
 import {AnnonceService} from "../Annonce/annonce.service";
 import {Router} from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 
 @Component({
-  selector: 'app-cars',
-  standalone: false,
-  templateUrl: './cars.component.html'
+    selector: 'app-cars',
+    templateUrl: './cars.component.html',
+    imports: [CommonModule]
 })
 export class CarsComponent implements OnInit {
 

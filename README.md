@@ -34,6 +34,13 @@ The “Me souvenir” option stores the session in local storage; without it, th
 session is kept only in memory and ends when the page is reloaded or closed.
 Protected announcement requests send the token in `Authorization`.
 
+## Angular architecture
+
+The frontend uses standalone components. `src/main.ts` bootstraps the root
+component and configures the router and HTTP client providers; route definitions
+are in `src/app/app.routes.ts`. Each component declares the Angular directives,
+router features, and form modules used by its own template.
+
 ## Build
 
 ```bash

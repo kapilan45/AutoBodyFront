@@ -3,11 +3,12 @@ import {Annonce} from '../models/annonce';
 import {Router} from '@angular/router';
 import {AnnonceService} from '../Annonce/annonce.service';
 import {ModalService} from "../Services/modal.service";
+import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-gestion-annonces',
-  standalone: false,
-  templateUrl: './gestion-annonces.component.html'
+    selector: 'app-gestion-annonces',
+    templateUrl: './gestion-annonces.component.html',
+    imports: [CommonModule]
 })
 export class GestionAnnoncesComponent implements OnInit {
 
