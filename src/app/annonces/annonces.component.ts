@@ -1,12 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import {AnnonceService} from "../Annonce/annonce.service";
-import {FormBuilder, FormGroup} from "@angular/forms";
+import { FormBuilder, FormGroup, ReactiveFormsModule } from "@angular/forms";
+import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-annonces',
-  standalone: false,
-  templateUrl: './annonces.component.html',
-  styleUrls: ['./annonces.component.scss']
+    selector: 'app-annonces',
+    templateUrl: './annonces.component.html',
+    styleUrls: ['./annonces.component.scss'],
+    imports: [CommonModule, ReactiveFormsModule]
 })
 export class AnnoncesComponent implements OnInit {
 
