@@ -4,8 +4,8 @@
   <div *ngFor="let annonce of annonceService.annonces; let index = index">
     <div class='row border' style="margin-bottom: 20px">
       <div class="col-md-2">
-        <img *ngIf="annonce.images[0]" src="data:image/png;base64,{{annonce.images[0].path}}" alt="" width="100%" height="100%">
-        <img *ngIf="!annonce.images[0]" src="https://www.labaleine.fr/sites/default/files/image-not-found.jpg" width="100%" height="100%">
+        <img *ngIf="annonce.images?.[0]" src="data:image/png;base64,{{annonce.images[0].path}}" alt="" width="100%" height="100%">
+        <img *ngIf="!annonce.images?.[0]" src="https://www.labaleine.fr/sites/default/files/image-not-found.jpg" alt="" width="100%" height="100%">
 
       </div>
       <div class="col-md-3">
@@ -20,34 +20,32 @@
       </div>
 
       <div class="col-md-2">
-        <button class="form-control btn btn-link" (click)="offreDetail(index)" >Voir Détail</button>
+        <button class="form-control btn btn-link" (click)="offreDetail(annonce.id)" >Voir Détail</button>
       </div>
       <div class="col-md-2">
-        <button class="form-control btn-danger" (click)="supprimer(content, annonce)" [value]="index">Supprimer</button>
-        <button class="form-control btn-primary" (click)="modifier(index)">Modifier</button>
+        <button class="form-control btn-danger" (click)="supprimer(annonce)">Supprimer</button>
+        <button class="form-control btn-primary" (click)="modifier(annonce.id)">Modifier</button>
       </div>
     </div>
 
   </div>
 </div>
 
-<ng-template #content let-modal>
-  <div class="modal-header">
-    <h3>Comfirmation</h3>
-    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <form>
-      <div class="form-group">
-        <label>Souhaitez-vous vraiment supprimer votre annonce ?</label>
+<div *ngIf="modalService.isOpen" class="modal d-block" tabindex="-1" role="dialog" aria-modal="true" aria-labelledby="delete-confirmation-title">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="delete-confirmation-title" class="modal-title">Confirmation</h3>
+        <button type="button" class="btn-close" aria-label="Fermer" (click)="modalService.close()"></button>
       </div>
-    </form>
+      <div class="modal-body">
+        <p>Souhaitez-vous vraiment supprimer votre annonce ?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" (click)="confirmSuppression()">Supprimer</button>
+        <button type="button" class="btn btn-outline-dark" (click)="modalService.close()">Annuler</button>
+      </div>
+    </div>
   </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-danger" (click)="confirmSuppression()" >Supprimer</button>
-    <button type="button" class="btn btn-outline-dark" (click)="modal.close()">Annuler</button>
-  </div>
-</ng-template>
-
+</div>
+<div *ngIf="modalService.isOpen" class="modal-backdrop fade show"></div>

@@ -6,35 +6,40 @@ import {ModalService} from "../Services/modal.service";
 
 @Component({
   selector: 'app-gestion-annonces',
+  standalone: false,
   templateUrl: './gestion-annonces.component.html'
 })
 export class GestionAnnoncesComponent implements OnInit {
 
-  selected_annonce;
+  selected_annonce: Annonce | null = null;
 
   constructor(private annonceService: AnnonceService, private router: Router, private modalService: ModalService) { }
 
   ngOnInit() {
-    this.annonceService.getUserAnnonces();
+    this.annonceService.getUserAnnonces().subscribe({
+      error: error => console.error('Failed to load user announcements', error)
+    });
   }
 
-  modifier(annonce: number) {
-    this.router.navigate(['/depot', annonce],);
+  modifier(annonceId: number) {
+    void this.router.navigate(['/depot', annonceId]);
   }
 
-  supprimer(content, annonce: Annonce) {
+  supprimer(annonce: Annonce): void {
     this.selected_annonce = annonce;
-    this.modalService.open(content);
-
-
+    this.modalService.open();
   }
 
-  confirmSuppression() {
+  confirmSuppression(): void {
+    if (!this.selected_annonce) {
+      return;
+    }
     this.annonceService.deleteAnnonce(this.selected_annonce);
     this.modalService.close();
+    this.selected_annonce = null;
   }
 
-  offreDetail(index: number) {
-    this.annonceService.showCompletDetail(index);
+  offreDetail(annonceId: number) {
+    this.annonceService.showCompletDetail(annonceId);
   }
 }

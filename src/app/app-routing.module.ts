@@ -18,7 +18,7 @@ const routes: Routes = [
   {path: 'login', component: LogFormComponent},
   {path: 'offres/:annonceId', component: CarsComponent},
   {path: 'offres', component: AnnoncesComponent },
-  {path: 'depot', component: DepotAnnoncesComponent },
+  {path: 'depot', canActivate: [AuthGuardService], component: DepotAnnoncesComponent },
   {path: 'depot/:id', canActivate: [AuthGuardService], component: DepotAnnoncesComponent },
   {path: 'gestion_annonce', canActivate: [AuthGuardService], component: GestionAnnoncesComponent },
   ];

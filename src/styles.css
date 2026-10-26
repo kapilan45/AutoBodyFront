@@ -22,3 +22,7 @@ body {
 .custom-bg-primary{
   background-color: #468BFA;
 }
+
+.form-group {
+  margin-bottom: 1rem;
+}

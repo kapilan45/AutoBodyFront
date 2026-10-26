@@ -1,4 +1,4 @@
 export class Image {
   id: number;
-   path: ArrayBuffer;
+  path: string;
 }

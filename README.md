@@ -1,30 +1,57 @@
-#TEST KAPILAN 
+# AutoBodyFront
 
-# Homepage
+Angular frontend for browsing, publishing, and managing vehicle announcements.
+The frontend is pinned to Angular 22.2.3 with Angular CLI/build 22.2.4.
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.23.
+## Requirements
 
-## Development server
+- Node.js `^22.22.3`, `^24.15.0`, or `>=26.0.0` (required by Angular CLI 22)
+- npm 11 or newer
+- A running AutoBodyBack API
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## Install and run
 
-## Code scaffolding
+```bash
+npm ci
+npm start
+```
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+The development server is available at `http://localhost:4200/`.
+
+## API configuration
+
+Development builds use `http://localhost:8080/api` for API endpoints and
+`http://localhost:8080/login` for login. Production builds use the same-origin
+paths `/api` and `/login`; configure the production web server or reverse proxy
+to forward those paths to AutoBodyBack. Update the corresponding values in
+`src/environments/environment.ts` or `src/environments/environment.prod.ts`
+when the deployment topology differs.
+
+Login expects a user object in the response body and the JWT in the
+`cache-control` response header. Registration returns a user object without a
+token, so the frontend performs a login after a successful registration.
+The “Me souvenir” option stores the session in local storage; without it, the
+session is kept only in memory and ends when the page is reloaded or closed.
+Protected announcement requests send the token in `Authorization`.
 
 ## Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+```bash
+npm run build
+npm run build -- --configuration production
+```
 
-## Running unit tests
+## Existing unit tests
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+```bash
+npm test
+```
 
-## Running end-to-end tests
+The Karma runner uses ChromeHeadless and requires a compatible Chrome/Chromium
+installation. No test coverage has been added as part of the Angular migration.
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+## Lint and end-to-end status
 
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
-
+The legacy TSLint configuration and Protractor setup were removed because they
+are incompatible with the supported Angular CLI. This repository does not
+currently configure a replacement linter or an end-to-end test runner.

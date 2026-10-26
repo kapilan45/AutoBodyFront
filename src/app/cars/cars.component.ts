@@ -1,39 +1,45 @@
 import { Component, OnInit } from '@angular/core';
-import { GalleryItem, ImageItem } from '@ngx-gallery/core';
 import {Annonce} from "../models/annonce";
 import {ActivatedRoute} from "@angular/router";
 import {AnnonceService} from "../Annonce/annonce.service";
+import {Router} from '@angular/router';
 
 
 @Component({
   selector: 'app-cars',
+  standalone: false,
   templateUrl: './cars.component.html'
 })
 export class CarsComponent implements OnInit {
 
-  images: GalleryItem[] = [];
+  images: string[] = [];
 
-  annonce: Annonce;
+  annonce: Annonce | null = null;
 
-  constructor(private route: ActivatedRoute, private annonceService: AnnonceService) {
+  constructor(private route: ActivatedRoute, private annonceService: AnnonceService, private router: Router) {
   }
 
   ngOnInit() {
 
-    let annonceId = this.route.snapshot.params['annonceId'];
-    this.annonce = this.annonceService.annonces[annonceId];
-
-    for (let image in this.annonce.images){
-
-      this.images[image] = new ImageItem({
-        src: "data:image/png;base64," + this.annonce.images[image]['path'],
-        thumb: "data:image/png;base64," + this.annonce.images[image]['path']
-      });
+    const annonceId = Number(this.route.snapshot.paramMap.get('annonceId'));
+    if (!Number.isInteger(annonceId) || annonceId <= 0) {
+      void this.router.navigate(['/offres']);
+      return;
     }
 
-
+    this.annonceService.findAnnonceById(annonceId).subscribe({
+      next: annonce => {
+        if (!annonce) {
+          void this.router.navigate(['/offres']);
+          return;
+        }
+        this.annonce = annonce;
+        this.images = (annonce.images ?? []).map(image => `data:image/png;base64,${image.path}`);
+      },
+      error: error => {
+        console.error('Failed to load announcement', error);
+        void this.router.navigate(['/offres']);
+      }
+    });
   }
-
-
-
 }
