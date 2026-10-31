@@ -1,7 +1,9 @@
 # AutoBodyFront
 
 Angular frontend for browsing, publishing, and managing vehicle announcements.
-The frontend is pinned to Angular 22.2.3 with Angular CLI/build 22.2.4.
+The frontend is pinned to Angular 22.2.4 with Angular CLI/build 22.2.5.
+Bootstrap 5.3.8 is included as a stylesheet; Bootstrap's JavaScript plugins
+and Popper are not used by the current UI.
 
 ## Requirements
 
@@ -56,6 +58,12 @@ npm test
 
 The Karma runner uses ChromeHeadless and requires a compatible Chrome/Chromium
 installation. No test coverage has been added as part of the Angular migration.
+
+`npm audit` currently reports 8 moderate vulnerabilities in the development
+test toolchain, flowing through Karma to `glob`, `minimatch`, and `rimraf`.
+There is no compatible non-major automatic fix for this legacy Karma chain;
+production dependencies currently report no vulnerabilities with
+`npm audit --omit=dev`.
 
 ## Lint and end-to-end status
 
